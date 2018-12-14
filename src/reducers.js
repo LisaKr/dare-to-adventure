@@ -43,12 +43,26 @@ export default function(state = {}, action) {
     }
 
     if (action.type == "SHOW_CATEGORY_RESULTS") {
-        // if state.offset exists =10 otherwise just 10
+        //if the action got nothing from the next api request, then hide everything
+        if (action.categoryResults == 0) {
+            return {
+                ...state,
+                categoryResults: null,
+                offset: null
+            };
+        }
 
         return {
             ...state,
             categoryResults: action.categoryResults,
             offset: action.offset
+        };
+    }
+
+    if (action.type == "GET_VENUE_DETAILS") {
+        return {
+            ...state,
+            venueDetails: action.venueDetails
         };
     }
 

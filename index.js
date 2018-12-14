@@ -122,7 +122,7 @@ app.get("/check-user-history", async (req,res) => {
 app.get("/current-city", async (req,res) => {
     try {
         let resp = await db.getCurrentCity(req.session.userID);
-        console.log("users current city on the back", resp);
+        // console.log("users current city on the back", resp);
         //now I need to start an api request to get the url of this city back and send this url to the front
         res.json(resp.rows[0].city);
     } catch(err) {
@@ -164,17 +164,17 @@ app.get("/venues/:city/:category/:offset", async (req, res) => {
     }
 });
 
-/////////showing details of a venue
-app.get("/venue-details", (req,res) => {
-    return getVenueDetails().then(function(data) {
-        console.log("DATA", data);
-        res.render("venue-info", {
-            url: data
-        });
-    })
-        .catch(function(err) {
-            console.log("ERROR IN GETTING DETAILS", err);
-        });
+//////////////////////////SHOWING DETAILS OF A VENUE//////////////////////////
+app.get("/venue-details/:id", async (req,res) => {
+    try {
+        let resp = await getVenueDetails(req.params.id);
+        console.log("VENUE DETAILS ON THE BACK", resp);
+        res.json(resp);
+    } catch(err) {
+        console.log("ERROR IN GETTING VENUE DETAILS", err);
+    }
+
+
 });
 
 

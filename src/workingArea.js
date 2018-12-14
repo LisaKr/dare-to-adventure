@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "./axios";
 import { connect } from "react-redux";
+// import { Link } from 'react-router-dom';
+
 
 import {
     changeBackground,
@@ -8,7 +10,8 @@ import {
     putCityInState,
     hideCategoryResults,
     setCategoryToState,
-    getVenueDetails
+    getVenueDetails,
+    hideVenue
 } from "./actions.js";
 
 
@@ -80,7 +83,7 @@ class WorkingArea extends React.Component {
                     {this.props.categoryResults && this.props.categoryResults.map(
                         r => {
                             return (
-                                <div key={r.id} className="result" onClick={getVenueDetails(r.id)}>
+                                <div key={r.id} className="result" onClick={ () => {this.props.dispatch(getVenueDetails(r.id));}}>
                                     {r.name}, {r.location}
                                 </div>
                             );
@@ -94,6 +97,29 @@ class WorkingArea extends React.Component {
                         MORE
                         </div>
                     }
+
+                    {this.props.venueDetails &&
+                    <div className="venue-details-container">
+
+                        {this.props.venueDetails && <div className="closingButton" onClick={ () => {this.props.dispatch(hideVenue());}}> X </div>}
+                        {this.props.venueDetails && this.props.venueDetails.map(
+                            v => {
+                                return (
+                                    <div key={v.id} className="venue">
+                                        {v.name} ({v.category})
+                                        <br/>
+                                        Price range: {v.price}
+                                        <br/>
+                                        {v.description}
+                                        <br/>
+                                        <img src={v.imgurl} className="venue-image"/>
+                                        <br/>
+                                        <a href={v.url} target="_blank" rel="noopener noreferrer">Website</a>
+                                    </div>
+                                );
+                            }
+                        )}
+                    </div>}
 
                 </div>
 
@@ -110,7 +136,8 @@ function mapStateToProps(state) {
         categoryResults: state.categoryResults,
         city: state.city,
         category: state.category,
-        offset: state.offset
+        offset: state.offset,
+        venueDetails: state.venueDetails
     };
 }
 

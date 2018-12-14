@@ -51,7 +51,7 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
     };
     // alternative: v2/search/
 
-    console.log("options", options);
+    // console.log("options", options);
 
     let callback = resp => {
         if (resp.statusCode != 200) {
@@ -97,11 +97,12 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
     req.end();
 });
 
-module.exports.getVenueDetails = promisify(function getVenueDetails(cb) {
+////////////////////////////////////////GET VENUE DETAILS////////////////////////////////////////////////////////////////
+module.exports.getVenueDetails = promisify(function getVenueDetails(id, cb) {
     let options = {
         method: "GET",
         host: "api.foursquare.com",
-        path: `/v2/venues/4afae713f964a520771922e3?client_id=${
+        path: `/v2/venues/${id}?client_id=${
             secrets.id
         }&client_secret=${secrets.secret}&v=20181203`
     };
@@ -119,9 +120,22 @@ module.exports.getVenueDetails = promisify(function getVenueDetails(cb) {
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
             // console.log("IMAGE BODY", parsedBody.response.venue.photos.groups[1].items[0].prefix + parsedBody.response.venue.photos.groups[1].items[0].suffix);
-            console.log("helper", parsedBody.response.venue.bestPhoto.prefix + "100x100" + parsedBody.response.venue.bestPhoto.suffix);
-            let imgurl = parsedBody.response.venue.bestPhoto.prefix + "100x100" + parsedBody.response.venue.bestPhoto.suffix;
-            cb(null, imgurl);
+            // console.log("venue details", parsedBody.response.venue);
+            // let imgurl = parsedBody.response.venue.bestPhoto.prefix + "100x100" + parsedBody.response.venue.bestPhoto.suffix;
+
+            let venueDescriptionObj = [];
+
+            venueDescriptionObj.push({
+                id: parsedBody.response.venue.id,
+                name: parsedBody.response.venue.name,
+                imgurl: parsedBody.response.venue.bestPhoto.prefix + "612x612" + parsedBody.response.venue.bestPhoto.suffix,
+                description: parsedBody.response.venue.description,
+                url: parsedBody.response.venue.response.venue.url,
+                category: parsedBody.categories[0].name,
+                price: parsedBody.response.venue.price.message
+            });
+
+            cb(null, venueDescriptionObj);
         });
     };
 

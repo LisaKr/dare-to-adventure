@@ -79,7 +79,7 @@ input:focus, button:focus {
 
 .category-results-container {
     position: absolute;
-    z-index: 99999;
+    z-index: 999;
     top: 50%;
     left: 50%;
     background: pink;
@@ -89,9 +89,26 @@ input:focus, button:focus {
 
 .result {
     margin: 1em;
+    cursor: pointer;
 }
 
 .moreButton {
     border: 1px solid black;
     cursor: pointer;
+}
+
+.venue-details-container {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    background: aqua;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height:100%;
+}
+
+.venue-image {
+    height: 15em;
+    width: 15em;
 }

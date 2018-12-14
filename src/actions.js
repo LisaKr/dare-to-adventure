@@ -72,10 +72,10 @@ export async function hideError() {
 }
 
 export async function getCategoryResults(city, category, offset){
-    console.log("stuff passed from front to action", city, category, offset);
+    // console.log("stuff passed from front to action", city, category, offset);
 
     let resp = await axios.get("/venues/" + city + "/" + category + "/" + offset);
-    console.log("api results on the front", resp.data);
+    // console.log("api results on the front", resp.data);
 
     if (offset == 0) {
         return {
@@ -130,8 +130,18 @@ export async function setCategoryToState(category) {
 
 export async function getVenueDetails(id) {
 
-    // return {
-    //     type: "GET_VENUE_DETAILS",
-    //     venue_details:
-    // }
+    let resp = await axios.get("/venue-details/" + id);
+    console.log("venue details on the front", resp.data);
+
+    return {
+        type: "GET_VENUE_DETAILS",
+        venueDetails: resp.data
+    };
+}
+
+export async function hideVenue(){
+    return {
+        type: "GET_VENUE_DETAILS",
+        venueDetails: null
+    };
 }
