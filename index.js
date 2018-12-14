@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const csurf = require("csurf");
 const cookieSession = require("cookie-session");
 const db = require("./db.js");
-const { getVenues, getVenueDetails, getCityPicsPexels } = require("./helper.js");
+const { getVenues, getVenueDetails, getCityPicsPexels, getWeather } = require("./api_calls.js");
 const ca = require("chalk-animation");
 
 app.use(compression());
@@ -177,6 +177,17 @@ app.get("/venue-details/:id", async (req,res) => {
 
 });
 
+
+////////////SHOWING WEATHER FOR THE CITY//////////////////////
+app.get("/weather/:city", async (req,res) => {
+    try {
+        console.log("city in req.params weathee", req.params);
+        let resp = await getWeather(req.params.city);
+        res.json(resp);
+    } catch(err) {
+        console.log("ERROR IN WEATHER", err);
+    }
+});
 
 
 app.get('*', function(req, res) {

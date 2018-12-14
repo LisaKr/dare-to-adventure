@@ -73,6 +73,13 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "GET_WEATHER") {
+        return {
+            ...state,
+            weather: action.weather
+        };
+    }
+
 
     return state;
 }

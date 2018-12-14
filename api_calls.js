@@ -6,7 +6,6 @@ const { promisify } = require("util");
 /////////////////////////////////GET CITY BACKGROUND FROM PEXELS///////////////////////////////////////////////
 module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb) {
 
-    console.log("helper city", city);
     let options = {
         method: "GET",
         host: "api.pexels.com",
@@ -39,7 +38,7 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 });
 //////////////////////////////////////////////////////////////////
 
-////////////////////////////////GETTING CATEGORIES////////////////////////////////////
+////////////////////////////////GETTING CATEGORY RESULTS////////////////////////////////////
 
 module.exports.getVenues = promisify(function getVenues(city, category, offset, cb) {
     let options = {
@@ -143,7 +142,52 @@ module.exports.getVenueDetails = promisify(function getVenueDetails(id, cb) {
     req.end();
 });
 
+////////////////////////////GETTING WEATHER FOR THE CURRENT CITY////////////////////////////////
+module.exports.getWeather = promisify(function getWeather(city, cb) {
 
+    console.log("weather city", city);
+    let options = {
+        method: "GET",
+        host: "api.apixu.com",
+        path: `/v1/current.json?key=${secrets.apixu_weather_key}&q=${city}`
+
+    };
+
+
+    let callback = resp => {
+        if (resp.statusCode != 200) {
+            cb(resp.statusCode);
+            return;
+        }
+        let body = "";
+        resp.on("data", chunk => {
+            body += chunk;
+        });
+        resp.on("end", () => {
+            let parsedBody = JSON.parse(body);
+
+            // console.log("weather body in api file", parsedBody);
+            // console.log("temperature", parsedBody.current.temp_c);
+            // console.log("iconurl", parsedBody.current.condition.icon.substring(2));
+
+            let weatherObj = [];
+
+            weatherObj.push({
+                temperature: parsedBody.current.temp_c,
+                iconurl: "http://" + parsedBody.current.condition.icon.substring(2)
+            });
+
+
+
+            cb(null, weatherObj);
+        });
+    };
+
+    const req = https.request(options, callback);
+
+    console.log("request", req);
+    req.end();
+});
 
 
 

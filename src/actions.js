@@ -145,3 +145,13 @@ export async function hideVenue(){
         venueDetails: null
     };
 }
+
+export async function getWeather(city){
+
+    let resp = await axios.get("/weather/" + city);
+
+    return {
+        type: "GET_WEATHER",
+        weather: resp.data
+    };
+}

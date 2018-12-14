@@ -11,7 +11,8 @@ import {
     hideCategoryResults,
     setCategoryToState,
     getVenueDetails,
-    hideVenue
+    hideVenue,
+    getWeather
 } from "./actions.js";
 
 
@@ -26,29 +27,37 @@ class WorkingArea extends React.Component {
         //worked on. we will take and lowercase this name and send it back here
         //one request to get the city
 
-        if (!this.props.backgroundUrl) {
+        //if we're not coming from the setup already we need to get info somewhere else
+        if (!this.props.city) {
             let resp = await axios.get("/current-city");
             let city = resp.data.replace(/\s+/g, '+');
 
-            this.props.dispatch(changeBackground(city));
             this.props.dispatch(putCityInState(city));
-
+            this.props.dispatch(changeBackground(city));
+            this.props.dispatch(getWeather(city));
         }
 
-
-        console.log("wa runs!!!");
+        console.log("wa runs!");
     }
 
-    render(){
 
+
+
+
+
+
+    render(){
         return(
             <div className="working-area-container">
                 <img src={this.props.backgroundUrl} className="background"/>
+
+                {/* //////////////THIS IS SHOWING FOUR CATEGORIES AND HANDLING CLICKS ON THEM TO SHOW RESPECTIVE RESULTS//////////////////*/}
 
                 <div className="category-container">
 
                     <div className="category"
                         onClick={ () => {
+                            {/*WE ARE GETTING FIRST SET OF RESULTS AND SETTING THE CATEGORY IN STATE FOR THE "MORE" BUTTON*/}
                             this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06374d81259", 0));
                             this.props.dispatch(setCategoryToState("4d4b7105d754a06374d81259"));
                         }}>
@@ -77,9 +86,11 @@ class WorkingArea extends React.Component {
                     Nightlife </div>
                 </div>
 
+
+                {/*WHEN THE RESULTS HAVE COME BACK FROM THE API I AM DISPLAYING THEM*/}
                 {this.props.categoryResults &&
                     <div className="category-results-container">
-                    
+
                         <div className="closingButton" onClick={ () => {this.props.dispatch(hideCategoryResults());}}> X </div>
 
                         {this.props.categoryResults && this.props.categoryResults.map(
@@ -91,15 +102,16 @@ class WorkingArea extends React.Component {
                                 );
                             }
                         )}
-                        {this.props.categoryResults &&
+
                         <div className="moreButton"
                             onClick={ () => {
                                 this.props.dispatch(getCategoryResults(this.props.city, this.props.category, this.props.offset));
                             }}>
                         MORE
                         </div>
-                        }
+                        {/*END OF DISPLAYING RESULT LIST*/}
 
+                        {/*WHEN WE CLICK ON A SPECIFIC VENUE WE DISPLAY A MODAL DESCRIBIG IT*/}
                         {this.props.venueDetails &&
                     <div className="venue-details-container">
 
@@ -122,8 +134,27 @@ class WorkingArea extends React.Component {
                             }
                         )}
                     </div>}
+                        {/*END OF DISPLAYING VENUE DETAILS*/}
+
 
                     </div>}
+
+                {/*DISPLAYING WEATHER*/}
+                <div className="weather-container">
+                    {(this.props.weather && this.props.city) && this.props.weather.map(
+                        w => {
+                            return (
+                                <div key={w.temperature} className="weather">
+                                Current weather in {this.props.city} <br/>
+                                    {w.temperature}° Celcius
+                                    <br/>
+                                    <img src={w.iconurl}/>
+                                </div>
+                            );
+                        }
+                    )}
+                </div>
+
 
             </div>
         );
@@ -139,7 +170,8 @@ function mapStateToProps(state) {
         city: state.city,
         category: state.category,
         offset: state.offset,
-        venueDetails: state.venueDetails
+        venueDetails: state.venueDetails,
+        weather: state.weather
     };
 }
 
