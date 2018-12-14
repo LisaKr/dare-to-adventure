@@ -108,7 +108,7 @@ export async function getCategoryResults(city, category, offset){
 
 export async function hideCategoryResults(){
     return {
-        type: "SHOW_CATEGORY_RESULTS",
+        type: "HIDE_CATEGORY_RESULTS",
         categoryResults: null
     };
 }

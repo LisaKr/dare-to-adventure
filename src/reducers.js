@@ -54,8 +54,15 @@ export default function(state = {}, action) {
 
         return {
             ...state,
-            categoryResults: [...(state.categoryResults || []), ...action.categoryResults], 
+            categoryResults: [...(state.categoryResults || []), ...action.categoryResults],
             offset: action.offset
+        };
+    }
+
+    if (action.type=="HIDE_CATEGORY_RESULTS") {
+        return {
+            ...state,
+            categoryResults: action.categoryResults
         };
     }
 

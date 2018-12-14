@@ -79,6 +79,7 @@ class WorkingArea extends React.Component {
 
                 {this.props.categoryResults &&
                     <div className="category-results-container">
+                    
                         <div className="closingButton" onClick={ () => {this.props.dispatch(hideCategoryResults());}}> X </div>
 
                         {this.props.categoryResults && this.props.categoryResults.map(
