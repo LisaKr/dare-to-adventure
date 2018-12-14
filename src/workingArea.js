@@ -77,28 +77,29 @@ class WorkingArea extends React.Component {
                     Nightlife </div>
                 </div>
 
-                <div className="category-results-container">
-                    {this.props.categoryResults && <div className="closingButton" onClick={ () => {this.props.dispatch(hideCategoryResults());}}> X </div>}
+                {this.props.categoryResults &&
+                    <div className="category-results-container">
+                        <div className="closingButton" onClick={ () => {this.props.dispatch(hideCategoryResults());}}> X </div>
 
-                    {this.props.categoryResults && this.props.categoryResults.map(
-                        r => {
-                            return (
-                                <div key={r.id} className="result" onClick={ () => {this.props.dispatch(getVenueDetails(r.id));}}>
-                                    {r.name}, {r.location}
-                                </div>
-                            );
-                        }
-                    )}
-                    {this.props.categoryResults &&
+                        {this.props.categoryResults && this.props.categoryResults.map(
+                            r => {
+                                return (
+                                    <div key={r.id} className="result" onClick={ () => {this.props.dispatch(getVenueDetails(r.id));}}>
+                                        {r.name}, {r.location}
+                                    </div>
+                                );
+                            }
+                        )}
+                        {this.props.categoryResults &&
                         <div className="moreButton"
                             onClick={ () => {
                                 this.props.dispatch(getCategoryResults(this.props.city, this.props.category, this.props.offset));
                             }}>
                         MORE
                         </div>
-                    }
+                        }
 
-                    {this.props.venueDetails &&
+                        {this.props.venueDetails &&
                     <div className="venue-details-container">
 
                         {this.props.venueDetails && <div className="closingButton" onClick={ () => {this.props.dispatch(hideVenue());}}> X </div>}
@@ -121,7 +122,7 @@ class WorkingArea extends React.Component {
                         )}
                     </div>}
 
-                </div>
+                    </div>}
 
             </div>
         );

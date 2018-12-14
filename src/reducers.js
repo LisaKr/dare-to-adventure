@@ -44,17 +44,17 @@ export default function(state = {}, action) {
 
     if (action.type == "SHOW_CATEGORY_RESULTS") {
         //if the action got nothing from the next api request, then hide everything
-        if (action.categoryResults == 0) {
-            return {
-                ...state,
-                categoryResults: null,
-                offset: null
-            };
-        }
+        // if (action.categoryResults == 0) {
+        //     return {
+        //         ...state,
+        //         categoryResults: null,
+        //         offset: null
+        //     };
+        // }
 
         return {
             ...state,
-            categoryResults: action.categoryResults,
+            categoryResults: [...(state.categoryResults || []), ...action.categoryResults], 
             offset: action.offset
         };
     }
