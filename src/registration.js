@@ -40,13 +40,14 @@ export default class Registration extends React.Component {
     render() {
         return(
             <div className="registration-container">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="first" autoComplete="off" onChange={this.handleInput}/>
-                    <input type="text" name="last" autoComplete="off" onChange={this.handleInput}/>
-                    <input type="text" name="email" autoComplete="off" onChange={this.handleInput}/>
-                    <input type="password" name="password" autoComplete="off" onChange={this.handleInput}/>
+                <h2>Sign up</h2>
+                <form onSubmit={this.handleSubmit} className="registration-form-container">
+                    <input type="text" name="first" autoComplete="off" placeholder="First Name" onChange={this.handleInput}/>
+                    <input type="text" name="last" autoComplete="off" placeholder="Last name" onChange={this.handleInput}/>
+                    <input type="text" name="email" autoComplete="off" placeholder="e-mail" onChange={this.handleInput}/>
+                    <input type="password" name="password" autoComplete="off" placeholder="password" onChange={this.handleInput}/>
                     <div className="error-message"> {this.state.error} </div>
-                    <button> Sign Up!</button>
+                    <div className="slider-button"> <button> Sign Up! </button> </div>
                 </form>
             </div>
         );

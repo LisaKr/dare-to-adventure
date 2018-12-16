@@ -23,17 +23,19 @@ export default class Setup extends React.Component {
         return (
             //incremental search and choosing how many days
             <div className="setup-container">
-                <h1>hello setup!!!!!</h1>
-                <Search/>
-                
+                <div className="setup">
+                    <h2> Lets set up your adventure! </h2>
+                    <Search/>
 
 
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <Logout/>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <Logout/>
+                </div>
             </div>
         );
     }

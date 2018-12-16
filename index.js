@@ -107,7 +107,7 @@ app.get("/logout", function(req, res) {
 app.get("/check-user-history", async (req,res) => {
     try {
         let resp = await db.checkUserHistory(req.session.userID);
-        console.log("response after checking for activities!!!", resp);
+        // console.log("response after checking for activities!!!", resp);
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN REGISTRATION: ", err);
@@ -125,6 +125,15 @@ app.get("/current-city", async (req,res) => {
         // console.log("users current city on the back", resp);
         //now I need to start an api request to get the url of this city back and send this url to the front
         res.json(resp.rows[0].city);
+    } catch(err) {
+        console.log(err);
+    }
+});
+
+app.get("/numofdays", async (req,res) => {
+    try {
+        let resp = await db.getNumOfDays(req.session.userID);
+        res.json(resp.rows[0].numofdays);
     } catch(err) {
         console.log(err);
     }
@@ -155,7 +164,7 @@ app.get("/search/:request", async (req,res) => {
 ///////////////////GETTING CATEGORIES RESULTS/////////////////////
 app.get("/venues/:city/:category/:offset", async (req, res) => {
     try {
-        console.log("req params", req.params);
+        // console.log("req params", req.params);
         let resp = await getVenues(req.params.city, req.params.category, req.params.offset);
         // console.log("venues on the server", resp);
         res.json(resp);
@@ -168,7 +177,7 @@ app.get("/venues/:city/:category/:offset", async (req, res) => {
 app.get("/venue-details/:id", async (req,res) => {
     try {
         let resp = await getVenueDetails(req.params.id);
-        console.log("VENUE DETAILS ON THE BACK", resp);
+        // console.log("VENUE DETAILS ON THE BACK", resp);
         res.json(resp);
     } catch(err) {
         console.log("ERROR IN GETTING VENUE DETAILS", err);
@@ -189,6 +198,26 @@ app.get("/weather/:city", async (req,res) => {
     }
 });
 
+///////////////ADDING VENUE TO THE ACTIVITIES TABLE////////////////
+app.get("/add-venue/:city/:activity/:category/:day/:numofdays", async (req,res) => {
+    try {
+        // console.log("trying", req.params);
+        let resp = await db.addVenue(
+            req.session.userID,
+            req.params.city,
+            req.params.activity,
+            req.params.category,
+            req.params.day,
+            req.params.numofdays);
+        console.log("resp after adding venue", resp.rows[0]);
+        res.json(resp.rows[0]);
+    } catch(err) {
+        console.log("ERROR IN ADDING VENUE", err);
+        res.json({
+            error:true
+        });
+    }
+});
 
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/index.html');

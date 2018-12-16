@@ -109,7 +109,8 @@ export async function getCategoryResults(city, category, offset){
 export async function hideCategoryResults(){
     return {
         type: "HIDE_CATEGORY_RESULTS",
-        categoryResults: null
+        categoryResults: null,
+        showMenu: false
     };
 }
 
@@ -142,7 +143,8 @@ export async function getVenueDetails(id) {
 export async function hideVenue(){
     return {
         type: "GET_VENUE_DETAILS",
-        venueDetails: null
+        venueDetails: null,
+        showMenu: false
     };
 }
 
@@ -154,4 +156,61 @@ export async function getWeather(city){
         type: "GET_WEATHER",
         weather: resp.data
     };
+}
+
+
+export async function showAddingMenu(){
+    return {
+        type: "SHOW_ADDING_MENU",
+        showMenu: true
+    };
+}
+
+export async function hideAddingMenu(){
+    return {
+        type: "SHOW_ADDING_MENU",
+        showMenu: false
+    };
+}
+
+export async function setActivityInState(selectedName, selectedLocation) {
+
+    let selectedActivity = selectedName + " || " + selectedLocation;
+
+    console.log("selected activity", selectedActivity);
+
+    return {
+        type: "SET_ACTIVITY",
+        selectedActivity: selectedActivity
+    };
+}
+
+export async function addVenue(city, activity, category, day, numOfDays) {
+
+    if (category == "4d4b7105d754a06374d81259") {
+        category = "Food";
+    } else if (category == "4d4b7104d754a06370d81259") {
+        category = "Culture";
+    } else if (category == "4d4b7105d754a06377d81259") {
+        category = "Nature & Outdoors";
+    } else {
+        category = "Nightlife";
+    }
+
+    console.log("action", city, activity, category, day, numOfDays);
+    let resp = await axios.get("/add-venue/" + city + "/" + activity + "/" + category + "/" + day+ "/" + numOfDays);
+    console.log("resp after adding", resp.data);
+
+    if (resp.data.error) {
+        return {
+            type: "SHOW_ADDING_ERROR",
+            error: "Oops! Seems like you're trying to add something that's already on your list"
+        };
+    }
+    // } else {
+    //     return {
+    //         type: "SHOW_ADDING_ERROR",
+    //         error: "Oops! Seems like you're trying to add something that's already on your list"
+    //     };
+    // }
 }

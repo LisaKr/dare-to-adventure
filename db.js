@@ -37,10 +37,18 @@ exports.checkUserHistory = function checkUserHistory(id) {
         WHERE user_id=$1`, [id]);
 };
 
-/////////////////////CHECKING WHICH CITY THE USER IS WORKING ON//////////////////
+/////////////////////CHECKING WHICH CITY AND HOW MANY DAYS THE USER IS WORKING ON//////////////////
 exports.getCurrentCity = function getCurrentCity(id) {
     return db.query(`
         SELECT CITY
+        FROM activities
+        WHERE user_id=$1
+        LIMIT 1`, [id]);
+};
+
+exports.getNumOfDays = function getNumOfDays(id) {
+    return db.query(`
+        SELECT numofdays
         FROM activities
         WHERE user_id=$1
         LIMIT 1`, [id]);
@@ -52,6 +60,14 @@ exports.search = function search(request) {
         SELECT *
         FROM cities
         WHERE city ILIKE  $1`, [request + "%"]);
+};
+
+/////////////////////////ADDING VENUE TO ACTIVITES/////////////////////////
+exports.addVenue = function addVenue(user_id, city, activity, category, day, numOfDays) {
+    return db.query(`
+        INSERT INTO activities (user_id, city, activity, category, day, numofdays)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *`, [user_id, city, activity, category, day, numOfDays]);
 };
 
 

@@ -5,5 +5,7 @@ CREATE TABLE activities(
     user_id VARCHAR(255) NOT NULL,
     city  VARCHAR(255) NOT NULL,
     activity  VARCHAR(255) NOT NULL UNIQUE,
-    day  VARCHAR(255) NOT NULL
+    category VARCHAR(255) NOT NULL,
+    day  VARCHAR(255) NOT NULL,
+    numOfDays INT
 );

@@ -4,6 +4,8 @@ import Registration from './registration';
 import Login from './login';
 import Frontpage from './frontpage';
 
+
+
 export default function Welcome() {
     return (
         <div className="page">

@@ -39,10 +39,11 @@ export default class Login extends React.Component {
     render() {
         return(
             <div className="login-container">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="email" autoComplete="off" onChange={this.handleInput}/>
-                    <input type="password" name="password" autoComplete="off" onChange={this.handleInput}/>
-                    <button> Log In! </button>
+                <h2>Log In</h2>
+                <form onSubmit={this.handleSubmit} className="login-form-container">
+                    <input type="text" name="email" autoComplete="off" placeholder="e-mail" onChange={this.handleInput}/>
+                    <input type="password" name="password" autoComplete="off" placeholder="password" onChange={this.handleInput}/>
+                    <div className="slider-button"><button> Log In! </button></div>
                 </form>
             </div>
         );

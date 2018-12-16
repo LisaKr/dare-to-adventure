@@ -62,7 +62,8 @@ export default function(state = {}, action) {
     if (action.type=="HIDE_CATEGORY_RESULTS") {
         return {
             ...state,
-            categoryResults: action.categoryResults
+            categoryResults: action.categoryResults,
+            showMenu: action.showMenu
         };
     }
 
@@ -77,6 +78,20 @@ export default function(state = {}, action) {
         return {
             ...state,
             weather: action.weather
+        };
+    }
+
+    if (action.type == "SHOW_ADDING_MENU") {
+        return {
+            ...state,
+            showMenu: action.showMenu
+        };
+    }
+
+    if (action.type == "SET_ACTIVITY") {
+        return {
+            ...state,
+            selectedActivity: action.selectedActivity
         };
     }
 

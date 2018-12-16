@@ -8,27 +8,18 @@ import WorkingArea from "./workingArea";
 import Checker from "./checker";
 
 
-
-
-
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
-
-
-
-
     render() {
-
 
         return (
 
             <BrowserRouter>
 
                 <div className="app-wrapper">
-                    <div className="fake"></div>
 
                     <Route
                         exact path="/"

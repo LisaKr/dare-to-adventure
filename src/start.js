@@ -42,6 +42,7 @@ ReactDOM.render(
     document.querySelector('main')
 );
 
+///hiding the search results in the search component on click on outside
 document.addEventListener("click", function(){
     // console.log("document clicked");
     // let search = document.querySelector(".searchbar");

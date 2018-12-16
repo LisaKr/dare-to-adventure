@@ -118,20 +118,60 @@ module.exports.getVenueDetails = promisify(function getVenueDetails(id, cb) {
         });
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
-            // console.log("IMAGE BODY", parsedBody.response.venue.photos.groups[1].items[0].prefix + parsedBody.response.venue.photos.groups[1].items[0].suffix);
+            console.log("VENUE DETAILS KOMPLETT", parsedBody.response.venue.tips.groups[0].items[0].text);
+            // console.log("VENUE DETAILS", parsedBody.response.venue.price.message);
             // console.log("venue details", parsedBody.response.venue);
             // let imgurl = parsedBody.response.venue.bestPhoto.prefix + "100x100" + parsedBody.response.venue.bestPhoto.suffix;
 
             let venueDescriptionObj = [];
 
+            let description;
+            let price;
+            let likes;
+            let rating;
+            let tip;
+
+            if (!parsedBody.response.venue.description) {
+                description = "No description yet";
+            } else {
+                description = parsedBody.response.venue.description;
+            }
+
+            if (!parsedBody.response.venue.price) {
+                price = "No price range detected";
+            } else {
+                price = parsedBody.response.venue.price.message;
+            }
+
+            if (!parsedBody.response.venue.likes.summary) {
+                price = "No likes yet";
+            } else {
+                likes = parsedBody.response.venue.likes.summary;
+            }
+
+            if (!parsedBody.response.venue.rating) {
+                rating = "";
+            } else {
+                rating = parsedBody.response.venue.rating;
+            }
+
+            if (!parsedBody.response.venue.tips.groups[0].items[0].text) {
+                tip = "";
+            } else {
+                tip = parsedBody.response.venue.tips.groups[0].items[0].text;
+            }
+
             venueDescriptionObj.push({
                 id: parsedBody.response.venue.id,
                 name: parsedBody.response.venue.name,
                 imgurl: parsedBody.response.venue.bestPhoto.prefix + "612x612" + parsedBody.response.venue.bestPhoto.suffix,
-                description: parsedBody.response.venue.description,
-                url: parsedBody.response.venue.response.venue.url,
-                category: parsedBody.categories[0].name,
-                price: parsedBody.response.venue.price.message
+                description: description,
+                url: parsedBody.response.venue.url,
+                category: parsedBody.response.venue.categories[0].name,
+                price: price,
+                likes: likes,
+                rating: rating,
+                tip: tip
             });
 
             cb(null, venueDescriptionObj);
@@ -185,7 +225,6 @@ module.exports.getWeather = promisify(function getWeather(city, cb) {
 
     const req = https.request(options, callback);
 
-    console.log("request", req);
     req.end();
 });
 
