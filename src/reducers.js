@@ -110,11 +110,21 @@ export default function(state = {}, action) {
     }
 
     if (action.type == "REMOVE_DAY") {
-        //here im hoping to remove the day from the array of days if it has more than 5 activities
+        // here im hoping to remove the day from the array of days if it has more than 5 activities
         state = Object.assign({}, state, {
             arrOfDays: state.arrOfDays.filter(
                 day => day != action.day
             )
+
+            //     state = Object.assign({}, state, {
+            //
+            //         arrOfDays: state.arrOfDays.map(day => {
+            //             if (day == action.day) {
+            //                 return Object.assign({}, day, "This day is full!");
+            //             } else {
+            //                 return Object.assign({}, day);
+            //             }
+            //         })
         });
     }
 

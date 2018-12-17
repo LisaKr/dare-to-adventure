@@ -30,16 +30,17 @@ class AddingMenu extends React.Component {
                         return(
                             <div key={day} className="day"
                                 onClick={ () => {
-                                    this.props.dispatch(addVenue(
-                                        this.props.city,
+                                    const promise = addVenue(this.props.city,
                                         this.props.selectedActivity,
                                         this.props.category,
                                         day,
-                                        this.props.numOfDays));
+                                        this.props.numOfDays);
+
+                                    this.props.dispatch(promise);
+                                    promise.then(() => this.props.dispatch(checkingActivitiesInDays(day)));
+
                                     this.props.dispatch(successfullyAdded(this.props.selectedActivity));
-                                    //here I would check how many activities the day we just added to has
-                                    //this happens after I added so it needs to read the correct number
-                                    this.props.dispatch(checkingActivitiesInDays(day));
+
                                     this.props.dispatch(hideAddingMenu());
 
                                 }}>
