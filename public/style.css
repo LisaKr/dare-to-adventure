@@ -206,8 +206,8 @@ button:hover:after {
     left: 50%;
     background: pink;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
     overflow: scroll;
 }
 
@@ -294,6 +294,31 @@ button:hover:after {
 }
 
 
+.addingWarningButton {
+    cursor: auto;
+    position:absolute;
+    top:0;
+    width: 100%;
+    background: red;
+    z-index: 999;
+    padding: 1em;
+    text-align: center;
+}
+
+
+.plan-message {
+    position:absolute;
+    bottom:5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: pink;
+    z-index: 99;
+    padding: 2em;
+}
+
+.plan-container {
+    padding: 2em;
+}
 
 
 /*LOGOUT*/

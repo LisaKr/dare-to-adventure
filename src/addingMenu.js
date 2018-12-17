@@ -14,13 +14,6 @@ class AddingMenu extends React.Component {
 
     render() {
 
-        // let arrOfDays = [];
-        //
-        // for (let i = 0; i<this.props.numOfDays; i++) {
-        //     arrOfDays.push(i+1);
-        // }
-
-
         return (
             <div className="adding-menu">
                 Which day would you like to add this activity to?
@@ -38,11 +31,9 @@ class AddingMenu extends React.Component {
 
 
                                     this.props.dispatch(promise);
+
                                     promise.then(() => {
-                                        const secondPromise = checkingActivitiesInDays(day);
-
-                                        this.props.dispatch(secondPromise);
-
+                                        this.props.dispatch(checkingActivitiesInDays(day));
                                     });
 
                                     this.props.dispatch(successfullyAdded(this.props.selectedActivity));

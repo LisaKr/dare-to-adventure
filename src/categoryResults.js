@@ -26,8 +26,13 @@ class CategoryResults extends React.Component {
 
                 {this.props.categoryResults && this.props.categoryResults.map(
                     r => {
+
+                        //based on this check I will either show add or remove button
+                        // this.props.dispatch(checkIfActivityAlreadyAdded(r.name, r.location, this.props.city));
+
                         return (
                             <div key={r.id} className="result">
+
 
                                 <div className="result-info" onClick={ () => {
                                     this.props.dispatch(getVenueDetails(r.id));
@@ -42,6 +47,11 @@ class CategoryResults extends React.Component {
                                     //create state property with an array of full days
                                 }}>
                                 Add to list
+                                </div>}
+
+                                {this.props.showDeleteButton &&
+                                <div className="deleteButton">
+                                Delete
                                 </div>}
 
                             </div>
@@ -75,7 +85,9 @@ function mapStateToProps(state) {
         numOfDays: state.numOfDays,
         showMenu: state.showMenu,
         selectedActivity: state.selectedActivity,
-        showAddButton: state.showAddButton
+        showAddButton: state.showAddButton,
+        showAddingWarningButton: state.showAddingWarningButton,
+        showDeleteButton: state.showDeleteButton
     };
 }
 

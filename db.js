@@ -80,6 +80,23 @@ exports.checkDay = function checkDay(day, user_id) {
 
 };
 
+///////////////////CHECKING WHETHER AN ACTIVITY IS ALREADY IN THE DB//////////
+exports.checkActivity = function checkActivity(activity, user_id, city) {
+    return db.query(`
+        SELECT *
+        FROM activities
+        WHERE user_id = $2 AND city=$3 AND activity=$1`, [activity, user_id, city]);
+};
+
+/////////////////////GET ALL ACTIVITIES OF USER////////////////////////
+exports.getActivities = function getActivities(user_id, city) {
+    return db.query(`
+        SELECT DISTINCT ON (day, category, activity) day, category, activity
+        FROM activities
+        WHERE user_id = $1 AND city=$2
+        `, [user_id, city]);
+};
+
 
 /////////////////////HASHING PASSWORDS////////////////////////
 /////////////////////////////////////////////////////////////

@@ -117,10 +117,12 @@ export default function(state = {}, action) {
             )
         });
 
+        //after filtering the array I'm also checking whether it is now empty and hide the add button then
         if (state.arrOfDays.length == 0) {
             return {
                 ...state,
-                showAddButton: false
+                showAddButton: false,
+                showAddingWarningButton: true
             };
         }
 
@@ -129,7 +131,30 @@ export default function(state = {}, action) {
     if (action.type=="HIDE_OR_SHOW_ADD_BUTTON") {
         return {
             ...state,
-            showAddButton: !state.showAddButton
+            showAddButton: action.showAddButton,
+            showAddingWarningButton: false
+        };
+    }
+
+    // if (action.type == "ADD_DELETE_BUTTON") {
+    //     return {
+    //         ...state,
+    //         showAddButton: action.showAddButton,
+    //         showDeleteButton: action.showDeleteButton
+    //     };
+    // }
+
+    if (action.type == "USER_DID_SOME_WORK") {
+        return {
+            ...state,
+            userDidSomeWork: action.userDidSomeWork
+        };
+    }
+
+    if (action.type == "SET_USER_ACTIVITIES") {
+        return {
+            ...state,
+            userActivities: action.userActivities
         };
     }
 

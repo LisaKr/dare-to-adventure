@@ -84,7 +84,8 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
                 venueObj.push({
                     id: parsedBody.response.groups[0].items[i].venue.id,
                     name: parsedBody.response.groups[0].items[i].venue.name,
-                    location: parsedBody.response.groups[0].items[i].venue.location.address
+                    location: parsedBody.response.groups[0].items[i].venue.location.address,
+                    addable: true
                 });
             }
             // console.log("VENUE OBJ IN API", venueObj);

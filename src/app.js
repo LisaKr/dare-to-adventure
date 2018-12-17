@@ -6,6 +6,8 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import Setup from "./setup";
 import WorkingArea from "./workingArea";
 import Checker from "./checker";
+import Plan from "./plan";
+
 
 
 export default class App extends React.Component {
@@ -33,6 +35,12 @@ export default class App extends React.Component {
                     <Route
                         path="/working-area"
                         component={WorkingArea}
+                    />
+
+                    <Route
+
+                        path="/plan"
+                        component={Plan}
                     />
                 </div>
             </BrowserRouter>

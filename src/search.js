@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getSearchResults, changeBackground, hideResults, setDays, showError, hideError, putCityInState, getWeather, createArrayOfDaysInState } from "./actions.js";
+import { getSearchResults, changeBackground, hideResults, setDays, showError, hideError, putCityInState, getWeather, createArrayOfDaysInState, showAddButtonAtFirst } from "./actions.js";
 import { Link } from 'react-router-dom';
 
 
@@ -79,11 +79,13 @@ class Search extends React.Component {
                                     <div className="result-info">
                                         <div className="result-name"
                                             onClick={() => {
+                                                console.log("i selected a city!");
                                                 document.querySelector('.searchbar').value = r.city;
                                                 this.props.dispatch(changeBackground(r.city.replace(/\s+/g, '+')));
                                                 this.props.dispatch(putCityInState(r.city.replace(/\s+/g, '+')));
                                                 this.props.dispatch(getWeather(r.city.replace(/\s+/g, '+')));
                                                 this.handleCityChange();
+                                                this.props.dispatch(showAddButtonAtFirst());
                                                 this.props.dispatch(hideResults());
                                             }}>
                                             {r.city}

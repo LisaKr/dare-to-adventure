@@ -233,6 +233,31 @@ app.get("/check-day/:day", async (req,res) => {
     }
 });
 
+
+///////////////////CHECKING IF AN ACTIVITY IS ALREADY ADDED////////////
+app.get("/check-activity/:activity/:city", async (req,res) => {
+    try {
+        console.log("req.params", req.params);
+        let resp = await db.checkActivity(req.params.activity, req.session.userID, req.params.city);
+        // console.log("response for activity", resp.rows);
+        res.json(resp.rows);
+
+    } catch(err) {
+        console.log("ERROR IN CHECKING IF ACTIVITY ALREADY THERE", err);
+    }
+});
+
+////////////////GET ALL ACTIVITIES OF USER////////////////
+app.get("/get-activities/:city", async (req,res) => {
+    try {
+        let resp = await db.getActivities(req.session.userID, req.params.city);
+        console.log("all activities on server", resp.rows);
+        res.json(resp.rows);
+    } catch(err) {
+        console.log("ERROR IN GETTING ALL ACTIVITIES", err);
+    }
+});
+
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });

@@ -280,3 +280,39 @@ export async function showAddButtonAtFirst() {
         showAddButton: true
     };
 }
+
+export async function userDidSomeWork() {
+    return {
+        type: "USER_DID_SOME_WORK",
+        userDidSomeWork: true
+    };
+}
+
+export async function putActivitiesInState(activities) {
+    return {
+        type: "SET_USER_ACTIVITIES",
+        userActivities: activities
+    };
+}
+
+// export async function checkIfActivityAlreadyAdded(name, location, city) {
+//
+//     let activity = name + " || " + location;
+//
+//     let resp = await axios("/check-activity/" + activity + "/" + city);
+//
+//     if (resp.data.length == 0) {
+//         return {
+//             type: "ADD_DELETE_BUTTON",
+//             showAddButton: true,
+//             showDeleteButton: false
+//         };
+//     } else {
+//         return {
+//             type: "ADD_DELETE_BUTTON",
+//             showAddButton: false,
+//             showDeleteButton: true
+//         };
+//     }
+//
+// }
