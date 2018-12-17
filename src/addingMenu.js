@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays } from "./actions.js";
+import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, hideAddButton } from "./actions.js";
 
 
 
@@ -36,8 +36,14 @@ class AddingMenu extends React.Component {
                                         day,
                                         this.props.numOfDays);
 
+
                                     this.props.dispatch(promise);
-                                    promise.then(() => this.props.dispatch(checkingActivitiesInDays(day)));
+                                    promise.then(() => {
+                                        const secondPromise = checkingActivitiesInDays(day);
+
+                                        this.props.dispatch(secondPromise);
+
+                                    });
 
                                     this.props.dispatch(successfullyAdded(this.props.selectedActivity));
 
@@ -77,7 +83,8 @@ function mapStateToProps(state) {
         showMenu: state.showMenu,
         selectedActivity: state.selectedActivity,
         addedActivity: state.addedActivity,
-        arrOfDays: state.arrOfDays
+        arrOfDays: state.arrOfDays,
+
     };
 }
 

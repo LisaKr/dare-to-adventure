@@ -35,13 +35,14 @@ class CategoryResults extends React.Component {
                                     {r.name}, {r.location}
                                 </div>
 
+                                {this.props.showAddButton &&
                                 <div className="addButton" onClick={ () => {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu());
                                     //create state property with an array of full days
                                 }}>
                                 Add to list
-                                </div>
+                                </div>}
 
                             </div>
                         );
@@ -73,7 +74,8 @@ function mapStateToProps(state) {
         categoryResults: state.categoryResults,
         numOfDays: state.numOfDays,
         showMenu: state.showMenu,
-        selectedActivity: state.selectedActivity
+        selectedActivity: state.selectedActivity,
+        showAddButton: state.showAddButton
     };
 }
 

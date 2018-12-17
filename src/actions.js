@@ -266,3 +266,17 @@ export async function hideAddedActivity() {
         addedActivity: null
     };
 }
+
+export async function hideAddButton() {
+    return {
+        type: "HIDE_OR_SHOW_ADD_BUTTON",
+        showAddButton: false
+    };
+}
+
+export async function showAddButtonAtFirst() {
+    return {
+        type: "HIDE_OR_SHOW_ADD_BUTTON",
+        showAddButton: true
+    };
+}

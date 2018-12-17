@@ -115,17 +115,22 @@ export default function(state = {}, action) {
             arrOfDays: state.arrOfDays.filter(
                 day => day != action.day
             )
-
-            //     state = Object.assign({}, state, {
-            //
-            //         arrOfDays: state.arrOfDays.map(day => {
-            //             if (day == action.day) {
-            //                 return Object.assign({}, day, "This day is full!");
-            //             } else {
-            //                 return Object.assign({}, day);
-            //             }
-            //         })
         });
+
+        if (state.arrOfDays.length == 0) {
+            return {
+                ...state,
+                showAddButton: false
+            };
+        }
+
+    }
+
+    if (action.type=="HIDE_OR_SHOW_ADD_BUTTON") {
+        return {
+            ...state,
+            showAddButton: !state.showAddButton
+        };
     }
 
     return state;

@@ -10,7 +10,9 @@ import {
     getWeather,
     setDays,
     createArrayOfDaysInState,
-    checkingActivitiesInDays
+    checkingActivitiesInDays,
+    hideAddButton,
+    showAddButtonAtFirst
 } from "./actions.js";
 
 
@@ -37,6 +39,8 @@ class WorkingArea extends React.Component {
         if (!this.props.city) {
             let arrOfDays = [];
 
+            this.props.dispatch(showAddButtonAtFirst());
+
             axios.get("/current-city").then((resp) => {
                 // console.log("data", resp.data);
                 let city = resp.data.replace(/\s+/g, '+');
@@ -60,8 +64,14 @@ class WorkingArea extends React.Component {
                 //for each day in the array I start the checking query
                 for (let i = 1; i<arrOfDays.length+1; i++) {
                     // console.log("checking the loop", i);
-                    this.props.dispatch(checkingActivitiesInDays(i));
+                    this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
+                        if (this.props.arrOfDays == []) {
+                            this.props.dispatch(hideAddButton());
+                        }
+                    });
                 }
+
+
 
             }).catch(err=>{console.log("error in getting current days on the front", err);});
 
