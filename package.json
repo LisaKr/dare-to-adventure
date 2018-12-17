@@ -39,6 +39,7 @@
     "react-typist": "^2.0.4",
     "redux": "^3.7.1",
     "redux-devtools-extension": "^2.13.2",
+    "redux-persist": "^5.10.0",
     "redux-promise": "^0.5.3",
     "socket.io": "^2.0.3",
     "spiced-pg": "^1.0.0",

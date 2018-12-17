@@ -70,6 +70,16 @@ exports.addVenue = function addVenue(user_id, city, activity, category, day, num
         RETURNING *`, [user_id, city, activity, category, day, numOfDays]);
 };
 
+//////////////////CHECKING HOW MANY ACTIVITIES A DAY HAS///////////////////////////
+exports.checkDay = function checkDay(day, user_id) {
+    return db.query(`
+        SELECT day, activity, count(*)
+        FROM activities
+        WHERE day=$1 AND user_id=$2
+        GROUP BY day, activity`, [day, user_id]);
+
+};
+
 
 /////////////////////HASHING PASSWORDS////////////////////////
 /////////////////////////////////////////////////////////////

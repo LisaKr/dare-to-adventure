@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { hideAddingMenu, addVenue } from "./actions.js";
+import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays } from "./actions.js";
+
+
 
 
 class AddingMenu extends React.Component {
@@ -12,17 +14,18 @@ class AddingMenu extends React.Component {
 
     render() {
 
-        let arrOfDays = [];
+        // let arrOfDays = [];
+        //
+        // for (let i = 0; i<this.props.numOfDays; i++) {
+        //     arrOfDays.push(i+1);
+        // }
 
-        for (let i = 0; i<this.props.numOfDays; i++) {
-            arrOfDays.push(i+1);
-        }
 
         return (
             <div className="adding-menu">
                 Which day would you like to add this activity to?
                 <br/>
-                {this.props.numOfDays && arrOfDays.map(
+                {this.props.numOfDays && this.props.arrOfDays.map(
                     day => {
                         return(
                             <div key={day} className="day"
@@ -33,8 +36,16 @@ class AddingMenu extends React.Component {
                                         this.props.category,
                                         day,
                                         this.props.numOfDays));
+                                    this.props.dispatch(successfullyAdded(this.props.selectedActivity));
+                                    //here I would check how many activities the day we just added to has
+                                    //this happens after I added so it needs to read the correct number
+                                    this.props.dispatch(checkingActivitiesInDays(day));
+                                    this.props.dispatch(hideAddingMenu());
+
                                 }}>
+
                                  day {day}
+
                             </div>
                         );
                     }
@@ -63,7 +74,9 @@ function mapStateToProps(state) {
         categoryResults: state.categoryResults,
         numOfDays: state.numOfDays,
         showMenu: state.showMenu,
-        selectedActivity: state.selectedActivity
+        selectedActivity: state.selectedActivity,
+        addedActivity: state.addedActivity,
+        arrOfDays: state.arrOfDays
     };
 }
 

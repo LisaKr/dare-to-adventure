@@ -35,6 +35,13 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SET_ARRAY_OF_DAYS") {
+        return {
+            ...state,
+            arrOfDays: action.arrOfDays
+        };
+    }
+
     if (action.type == "SHOW_ERROR") {
         return {
             ...state,
@@ -95,6 +102,21 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SUCCESSFULLY_ADDED") {
+        return {
+            ...state,
+            addedActivity: action.addedActivity
+        };
+    }
+
+    if (action.type == "REMOVE_DAY") {
+        //here im hoping to remove the day from the array of days if it has more than 5 activities
+        state = Object.assign({}, state, {
+            arrOfDays: state.arrOfDays.filter(
+                day => day != action.day
+            )
+        });
+    }
 
     return state;
 }

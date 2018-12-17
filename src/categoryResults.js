@@ -38,6 +38,7 @@ class CategoryResults extends React.Component {
                                 <div className="addButton" onClick={ () => {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu());
+                                    //create state property with an array of full days
                                 }}>
                                 Add to list
                                 </div>

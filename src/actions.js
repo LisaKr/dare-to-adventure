@@ -57,6 +57,13 @@ export async function setDays(numOfDays) {
     };
 }
 
+export async function createArrayOfDaysInState(arrOfDays) {
+    return {
+        type: "SET_ARRAY_OF_DAYS",
+        arrOfDays: arrOfDays
+    };
+}
+
 export async function showError() {
     return {
         type: "SHOW_ERROR",
@@ -187,30 +194,75 @@ export async function setActivityInState(selectedName, selectedLocation) {
 
 export async function addVenue(city, activity, category, day, numOfDays) {
 
-    if (category == "4d4b7105d754a06374d81259") {
-        category = "Food";
-    } else if (category == "4d4b7104d754a06370d81259") {
-        category = "Culture";
-    } else if (category == "4d4b7105d754a06377d81259") {
-        category = "Nature & Outdoors";
-    } else {
-        category = "Nightlife";
+    try {
+        if (category == "4d4b7105d754a06374d81259") {
+            category = "Food";
+        } else if (category == "4d4b7104d754a06370d81259") {
+            category = "Culture";
+        } else if (category == "4d4b7105d754a06377d81259") {
+            category = "Nature & Outdoors";
+        } else {
+            category = "Nightlife";
+        }
+
+        // console.log("action", city, activity, category, day, numOfDays);
+        let resp = await axios.get("/add-venue/" + city + "/" + activity + "/" + category + "/" + day+ "/" + numOfDays);
+        console.log("resp after adding", resp.data);
+
+        if (resp.data.error) {
+            return {
+                type: "SHOW_ADDING_ERROR",
+                addingError: "Oops! Seems like you're trying to add something that's already on your list",
+                addedActivity: null
+            };
+        } else {
+            return {
+                type: "SHOW_ADDING_ERROR",
+                addingError: null
+            };
+        }
+    } catch(err) {
+        console.log("error in adding venue", err);
+    }
+}
+
+export async function checkingActivitiesInDays(day) {
+    //after inserting I would check whether this day already has 5 activities and if yes, I need to remove adding ability
+    try {
+        let dayResp = await axios.get("/check-day/" + day);
+
+
+        console.log("activities for each day on the front", day, dayResp.data.length);
+
+        if (dayResp.data.length >= 5) {
+            return {
+                type: "REMOVE_DAY",
+                day: day
+            };
+
+        } else {
+            return {
+                type: "REMOVE_DAY",
+                day: null
+            };
+        }
+    } catch(err) {
+        console.log("error in checking day activities", err);
     }
 
-    console.log("action", city, activity, category, day, numOfDays);
-    let resp = await axios.get("/add-venue/" + city + "/" + activity + "/" + category + "/" + day+ "/" + numOfDays);
-    console.log("resp after adding", resp.data);
+}
 
-    if (resp.data.error) {
-        return {
-            type: "SHOW_ADDING_ERROR",
-            error: "Oops! Seems like you're trying to add something that's already on your list"
-        };
-    }
-    // } else {
-    //     return {
-    //         type: "SHOW_ADDING_ERROR",
-    //         error: "Oops! Seems like you're trying to add something that's already on your list"
-    //     };
-    // }
+
+export async function successfullyAdded(activity) {
+    return {
+        type: "SUCCESSFULLY_ADDED",
+        addedActivity: activity
+    };
+}
+
+export async function hideAddedActivity() {
+    return {
+        type: "SUCCESSFULLY_ADDED",
+        addedActivity: null
+    };
 }

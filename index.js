@@ -209,13 +209,27 @@ app.get("/add-venue/:city/:activity/:category/:day/:numofdays", async (req,res) 
             req.params.category,
             req.params.day,
             req.params.numofdays);
-        console.log("resp after adding venue", resp.rows[0]);
+        // console.log("resp after adding venue", resp.rows[0]);
+        console.log("venue added!");
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN ADDING VENUE", err);
         res.json({
             error:true
         });
+    }
+});
+
+
+/////////////CHECKING HOW MANY ACTIVITIES A DAY HAS///////////
+app.get("/check-day/:day", async (req,res) => {
+    try {
+        let resp = await db.checkDay(req.params.day, req.session.userID);
+        // console.log("day response", resp.rows);
+        console.log("checking days running");
+        res.json(resp.rows);
+    } catch(err) {
+        console.log("ERROR IN CHECKING DAYS FOR ACTIVITIES", err);
     }
 });
 

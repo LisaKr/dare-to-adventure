@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getSearchResults, changeBackground, hideResults, setDays, showError, hideError, putCityInState, getWeather } from "./actions.js";
+import { getSearchResults, changeBackground, hideResults, setDays, showError, hideError, putCityInState, getWeather, createArrayOfDaysInState } from "./actions.js";
 import { Link } from 'react-router-dom';
 
 
@@ -28,6 +28,14 @@ class Search extends React.Component {
                 this.props.dispatch(showError());
             }
             //if the day is selected but the city is not, i don't hide the error
+
+            //to put the whole array into the state
+            let arrOfDays = [];
+
+            for (let i = 0; i<e.target.value; i++) {
+                arrOfDays.push(i+1);
+            }
+            this.props.dispatch(createArrayOfDaysInState(arrOfDays));
         }
         //if i didnt select the valid day
         else {
