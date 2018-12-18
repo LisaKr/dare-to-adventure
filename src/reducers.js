@@ -150,13 +150,6 @@ export default function(state = {}, action) {
         };
     }
 
-    // if (action.type == "ADD_DELETE_BUTTON") {
-    //     return {
-    //         ...state,
-    //         showAddButton: action.showAddButton,
-    //         showDeleteButton: action.showDeleteButton
-    //     };
-    // }
 
     if (action.type == "USER_DID_SOME_WORK") {
         return {
@@ -170,6 +163,41 @@ export default function(state = {}, action) {
             ...state,
             userActivities: action.userActivities
         };
+    }
+
+    //filter the existing array and remove whatever i removed
+    if (action.type=="REMOVE_ACTIVITY") {
+        state = Object.assign({}, state, {
+            userActivities: state.userActivities.filter(
+                activity => activity != action.activityToRemove
+            )
+        });
+    }
+
+    if (action.type=="SET_DELETABLE_PROPERTY_TO_FALSE") {
+        state = Object.assign({}, state, {
+
+            categoryResults: state.categoryResults.map(result => {
+                if (result.name == action.resultName) {
+                    return Object.assign({}, result, {deletable: false});
+                } else {
+                    return Object.assign({}, result);
+                }
+            })
+        });
+    }
+
+    if (action.type=="SET_DELETABLE_PROPERTY_TO_TRUE") {
+        state = Object.assign({}, state, {
+
+            categoryResults: state.categoryResults.map(result => {
+                if (result.name == action.resultName) {
+                    return Object.assign({}, result, {deletable: true});
+                } else {
+                    return Object.assign({}, result);
+                }
+            })
+        });
     }
 
     return state;

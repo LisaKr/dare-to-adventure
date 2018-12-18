@@ -195,7 +195,7 @@ export async function setActivityInState(selectedName, selectedLocation) {
     };
 }
 
-export async function addVenue(city, activity, category, day, numOfDays) {
+export async function addVenue(city, activityName, activityLocation, category, day, numOfDays) {
 
     try {
         if (category == "4d4b7105d754a06374d81259") {
@@ -209,7 +209,7 @@ export async function addVenue(city, activity, category, day, numOfDays) {
         }
 
         // console.log("action", city, activity, category, day, numOfDays);
-        let resp = await axios.get("/add-venue/" + city + "/" + activity + "/" + category + "/" + day+ "/" + numOfDays);
+        let resp = await axios.get("/add-venue/" + city + "/" + activityName + "/" + activityLocation + "/" + category + "/" + day+ "/" + numOfDays);
         console.log("resp after adding", resp.data);
 
         if (resp.data.error) {
@@ -301,9 +301,27 @@ export async function putActivitiesInState(activities) {
 }
 
 
-// export async function deleteActivity(activity) {
-//     console.log("deleting action runs");
-//     await axios.get("/delete/" + activity);
-//     //
-//
-// }
+export async function deleteActivity(activityName) {
+    console.log("deleting action runs");
+    await axios.get("/delete/" + activityName);
+
+    return {
+        type: "REMOVE_ACTIVITY",
+        activityToRemove: activityName
+    };
+
+}
+
+export async function setDeletablePropertyToFalse(resultName) {
+    return {
+        type: "SET_DELETABLE_PROPERTY_TO_FALSE",
+        resultName: resultName
+    };
+}
+
+export async function setDeletablePropertyToTrue(resultName) {
+    return {
+        type: "SET_DELETABLE_PROPERTY_TO_TRUE",
+        resultName: resultName
+    };
+}

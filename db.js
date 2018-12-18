@@ -63,20 +63,20 @@ exports.search = function search(request) {
 };
 
 /////////////////////////ADDING VENUE TO ACTIVITES/////////////////////////
-exports.addVenue = function addVenue(user_id, city, activity, category, day, numOfDays) {
+exports.addVenue = function addVenue(user_id, city, activityName, activityLocation, category, day, numOfDays) {
     return db.query(`
-        INSERT INTO activities (user_id, city, activity, category, day, numofdays)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING *`, [user_id, city, activity, category, day, numOfDays]);
+        INSERT INTO activities (user_id, city, activityname, activitylocation, category, day, numofdays)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING *`, [user_id, city, activityName, activityLocation, category, day, numOfDays]);
 };
 
 //////////////////CHECKING HOW MANY ACTIVITIES A DAY HAS///////////////////////////
 exports.checkDay = function checkDay(day, user_id) {
     return db.query(`
-        SELECT day, activity, count(*)
+        SELECT day, activityname, count(*)
         FROM activities
         WHERE day=$1 AND user_id=$2
-        GROUP BY day, activity`, [day, user_id]);
+        GROUP BY day, activityname`, [day, user_id]);
 
 };
 
@@ -91,7 +91,7 @@ exports.checkActivity = function checkActivity(activity, user_id, city) {
 /////////////////////GET ALL ACTIVITIES OF USER////////////////////////
 exports.getActivities = function getActivities(user_id, city) {
     return db.query(`
-        SELECT DISTINCT ON (day, category, activity) day, category, activity
+        SELECT DISTINCT ON (day, category, activityname) day, category, activityname, activitylocation
         FROM activities
         WHERE user_id = $1 AND city=$2
         `, [user_id, city]);
@@ -102,8 +102,8 @@ exports.deleteActivity = function deleteActivity(activityName, user_id) {
     return db.query(`
             DELETE
             FROM activities
-            WHERE user_id=$2 AND activity ILIKE $1
-            RETURNING *`, [activityName + "%", user_id]);
+            WHERE user_id=$2 AND activityname = $1
+            RETURNING *`, [activityName, user_id]);
 };
 
 

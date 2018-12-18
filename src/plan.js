@@ -23,10 +23,10 @@ class Plan extends React.Component {
         this.deleteActivity = this.deleteActivity.bind(this);
     }
 
-    async deleteActivity(activity) {
+    async deleteActivity(activityName) {
         //on press on delete i delete activity in the db and then get activities again to set into state,
         //this time without this activity
-        await axios.get("/delete/" + activity);
+        await axios.get("/delete/" + activityName);
 
         console.log("this.props.city", this.props.city);
 
@@ -104,10 +104,10 @@ class Plan extends React.Component {
                 {this.props.userActivities && this.props.userActivities.map(
                     a => {
                         return (
-                            <div key={a.activity} className="user-activities">
-                                <span className="plan-day">day {a.day} </span> || <span className="plan-category"> {a.category} </span> || <span className="plan-activity"> {a.activity} </span>
+                            <div key={a.id} className="user-activities">
+                                <span className="plan-day">day {a.day} </span> || <span className="plan-category"> {a.category} </span> || <span className="plan-activity"> {a.activityname} || {a.activitylocation} </span>
                                 <br/>
-                                <div className="deleteButton" onClick={ () => {this.deleteActivity(a.activity);}}> DELETE </div>
+                                <div className="deleteButton" onClick={ () => {this.deleteActivity(a.activityname);}}> DELETE </div>
                                 <br/><br/>
                             </div>
                         );

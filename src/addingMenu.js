@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from "./axios";
 
 
-import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, putActivitiesInState } from "./actions.js";
+import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, putActivitiesInState, setDeletablePropertyToTrue } from "./actions.js";
 
 
 
@@ -26,9 +26,9 @@ class AddingMenu extends React.Component {
                             <div key={day} className="day"
                                 onClick={ () => {
                                     let city = this.props.city.replace(/\+/g,' ');
-                                    let activity = this.props.selectedActivityName + this.props.selectedActivityLocation;
                                     const promise = addVenue(city,
-                                        activity,
+                                        this.props.selectedActivityName,
+                                        this.props.selectedActivityLocation,
                                         this.props.category,
                                         day,
                                         this.props.numOfDays);
@@ -49,7 +49,7 @@ class AddingMenu extends React.Component {
 
                                         for (let i =0; i<this.props.categoryResults.length; i++) {
                                             if (this.props.categoryResults[i].name == this.props.addingMenuName) {
-                                                this.props.categoryResults[i].deletable = true;
+                                                this.props.dispatch(setDeletablePropertyToTrue(this.props.categoryResults[i].name));
                                             }
                                         }
 
