@@ -91,14 +91,18 @@ export default function(state = {}, action) {
     if (action.type == "SHOW_ADDING_MENU") {
         return {
             ...state,
-            showMenu: action.showMenu
+            showMenu: action.showMenu,
+            addingMenuName: action.addingMenuName,
+            addingMenuLocation: action.addingMenuName
         };
     }
 
     if (action.type == "SET_ACTIVITY") {
         return {
             ...state,
-            selectedActivity: action.selectedActivity
+            selectedActivityName: action.selectedActivityName,
+            selectedActivityLocation: action.selectedActivityLocation
+
         };
     }
 

@@ -166,10 +166,12 @@ export async function getWeather(city){
 }
 
 
-export async function showAddingMenu(){
+export async function showAddingMenu(name, location){
     return {
         type: "SHOW_ADDING_MENU",
-        showMenu: true
+        showMenu: true,
+        addingMenuName: name,
+        addingMenuLocation: location
     };
 }
 
@@ -182,13 +184,14 @@ export async function hideAddingMenu(){
 
 export async function setActivityInState(selectedName, selectedLocation) {
 
-    let selectedActivity = selectedName + " || " + selectedLocation;
+    // let selectedActivity = selectedName + " || " + selectedLocation;
 
-    console.log("selected activity", selectedActivity);
+    // console.log("selected activity", selectedActivity);
 
     return {
         type: "SET_ACTIVITY",
-        selectedActivity: selectedActivity
+        selectedActivityName: selectedName,
+        selectedActivityLocation: selectedLocation
     };
 }
 
@@ -298,25 +301,9 @@ export async function putActivitiesInState(activities) {
 }
 
 
-
-// export async function checkIfActivityAlreadyAdded(name, location, city) {
-//
-//     let activity = name + " || " + location;
-//
-//     let resp = await axios("/check-activity/" + activity + "/" + city);
-//
-//     if (resp.data.length == 0) {
-//         return {
-//             type: "ADD_DELETE_BUTTON",
-//             showAddButton: true,
-//             showDeleteButton: false
-//         };
-//     } else {
-//         return {
-//             type: "ADD_DELETE_BUTTON",
-//             showAddButton: false,
-//             showDeleteButton: true
-//         };
-//     }
+// export async function deleteActivity(activity) {
+//     console.log("deleting action runs");
+//     await axios.get("/delete/" + activity);
+//     //
 //
 // }

@@ -88,7 +88,8 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
                     id: parsedBody.response.groups[0].items[i].venue.id,
                     name: parsedBody.response.groups[0].items[i].venue.name,
                     location: parsedBody.response.groups[0].items[i].venue.location.address,
-                    addable: true
+                    deletable: false,
+                    activity: parsedBody.response.groups[0].items[i].venue.name + " || " + parsedBody.response.groups[0].items[i].venue.location.address
                 });
             }
             // console.log("VENUE OBJ IN API", venueObj);

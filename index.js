@@ -259,9 +259,10 @@ app.get("/get-activities/:city", async (req,res) => {
 });
 
 ////////////////DELETE AN ACTIVITY////////////////////
-app.get("/delete/:activity", async (req,res) => {
+app.get("/delete/:activityName", async (req,res) => {
     try {
-        let resp = await db.deleteActivity(req.params.activity, req.session.userID);
+        console.log("ACTIVITY", req.params.activityName);
+        let resp = await db.deleteActivity(req.params.activityName, req.session.userID);
         console.log("response after deleting an activity", resp.rows);
         res.json({
             awesome:true

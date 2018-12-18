@@ -26,8 +26,9 @@ class AddingMenu extends React.Component {
                             <div key={day} className="day"
                                 onClick={ () => {
                                     let city = this.props.city.replace(/\+/g,' ');
+                                    let activity = this.props.selectedActivityName + this.props.selectedActivityLocation;
                                     const promise = addVenue(city,
-                                        this.props.selectedActivity,
+                                        activity,
                                         this.props.category,
                                         day,
                                         this.props.numOfDays);
@@ -37,6 +38,7 @@ class AddingMenu extends React.Component {
 
                                     //after addVenue promise is fullfilled we are starting the then portion
                                     promise.then(() => {
+                                        console.log("promise then running");
                                         //and checking for activities in days
                                         this.props.dispatch(checkingActivitiesInDays(day));
                                         //and also resetting the list of activities in state
@@ -45,9 +47,17 @@ class AddingMenu extends React.Component {
                                             this.props.dispatch(putActivitiesInState(resp.data));
                                         });
 
+                                        for (let i =0; i<this.props.categoryResults.length; i++) {
+                                            if (this.props.categoryResults[i].name == this.props.addingMenuName) {
+                                                this.props.categoryResults[i].deletable = true;
+                                            }
+                                        }
+
+
+
                                     });
 
-                                    this.props.dispatch(successfullyAdded(this.props.selectedActivity));
+                                    this.props.dispatch(successfullyAdded(this.props.selectedActivityName));
 
                                     this.props.dispatch(hideAddingMenu());
 
@@ -83,10 +93,12 @@ function mapStateToProps(state) {
         categoryResults: state.categoryResults,
         numOfDays: state.numOfDays,
         showMenu: state.showMenu,
-        selectedActivity: state.selectedActivity,
+        selectedActivityName: state.selectedActivityName,
+        selectedActivityLocation: state.selectedActivityLocation,
         addedActivity: state.addedActivity,
         arrOfDays: state.arrOfDays,
-
+        addingMenuName: state.addingMenuName,
+        addingMenuLocation: state.addingMenuLocation
     };
 }
 
