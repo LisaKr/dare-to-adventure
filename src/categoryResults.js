@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+// import axios from "./axios";
 
 import {
     hideCategoryResults,
@@ -14,7 +15,32 @@ import AddingMenu from "./AddingMenu";
 class CategoryResults extends React.Component {
     constructor() {
         super();
+
+        // this.checkIfActivityAlreadyAdded = this.checkIfActivityAlreadyAdded.bind(this);
     }
+
+
+    // checkIfActivityAlreadyAdded(activityObject) {
+    //
+    //
+    //     if (this.props.userActivities) {
+    //
+    //         for (let i =0; i<this.props.userActivities.length; i++) {
+    //             console.table([activityObject.name + " || " + activityObject.location,
+    //                 this.props.userActivities[i].activity,
+    //                 this.props.userActivities[i].activity == activityObject.name + " || " + activityObject.location]);
+    //
+    //             if (this.props.userActivities[i].activity == activityObject.name + " || " + activityObject.location) {
+    //                 //this is not addable --> delete button
+    //                 //add a property addable to activity and i will check for it in the render
+    //                 return true;
+    //             }
+    //         }
+    //
+    //         return false;
+    //     }
+    //
+    // }
 
 
     render() {
@@ -27,18 +53,16 @@ class CategoryResults extends React.Component {
                 {this.props.categoryResults && this.props.categoryResults.map(
                     r => {
 
-                        //based on this check I will either show add or remove button
-                        // this.props.dispatch(checkIfActivityAlreadyAdded(r.name, r.location, this.props.city));
 
                         return (
                             <div key={r.id} className="result">
-
 
                                 <div className="result-info" onClick={ () => {
                                     this.props.dispatch(getVenueDetails(r.id));
                                 }}>
                                     {r.name}, {r.location}
                                 </div>
+
 
                                 {this.props.showAddButton &&
                                 <div className="addButton" onClick={ () => {
@@ -49,10 +73,13 @@ class CategoryResults extends React.Component {
                                 Add to list
                                 </div>}
 
-                                {this.props.showDeleteButton &&
-                                <div className="deleteButton">
-                                Delete
-                                </div>}
+                                {/*
+                                    {this.checkIfActivityAlreadyAdded(r) &&
+                                    <div className="deleteButton">
+                                    Delete
+                                    </div>}
+                                    */}
+
 
                             </div>
                         );
@@ -87,7 +114,8 @@ function mapStateToProps(state) {
         selectedActivity: state.selectedActivity,
         showAddButton: state.showAddButton,
         showAddingWarningButton: state.showAddingWarningButton,
-        showDeleteButton: state.showDeleteButton
+        showDeleteButton: state.showDeleteButton,
+        userActivities: state.userActivities
     };
 }
 

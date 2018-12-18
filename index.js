@@ -258,6 +258,19 @@ app.get("/get-activities/:city", async (req,res) => {
     }
 });
 
+////////////////DELETE AN ACTIVITY////////////////////
+app.get("/delete/:activity", async (req,res) => {
+    try {
+        let resp = await db.deleteActivity(req.params.activity, req.session.userID);
+        console.log("response after deleting an activity", resp.rows);
+        res.json({
+            awesome:true
+        });
+    } catch(err) {
+        console.log("ERROR IN DELETING AN ACTIVITY", err);
+    }
+});
+
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });

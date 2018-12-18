@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import axios from "./axios";
 
-import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, hideAddButton } from "./actions.js";
+
+import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, putActivitiesInState } from "./actions.js";
 
 
 
@@ -23,7 +25,8 @@ class AddingMenu extends React.Component {
                         return(
                             <div key={day} className="day"
                                 onClick={ () => {
-                                    const promise = addVenue(this.props.city,
+                                    let city = this.props.city.replace(/\+/g,' ');
+                                    const promise = addVenue(city,
                                         this.props.selectedActivity,
                                         this.props.category,
                                         day,
@@ -32,8 +35,16 @@ class AddingMenu extends React.Component {
 
                                     this.props.dispatch(promise);
 
+                                    //after addVenue promise is fullfilled we are starting the then portion
                                     promise.then(() => {
+                                        //and checking for activities in days
                                         this.props.dispatch(checkingActivitiesInDays(day));
+                                        //and also resetting the list of activities in state
+                                        axios.get("/get-activities/" + this.props.city).then((resp) => {
+                                            console.log("new list of activities", resp.data);
+                                            this.props.dispatch(putActivitiesInState(resp.data));
+                                        });
+
                                     });
 
                                     this.props.dispatch(successfullyAdded(this.props.selectedActivity));

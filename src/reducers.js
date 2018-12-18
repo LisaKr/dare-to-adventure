@@ -128,6 +128,16 @@ export default function(state = {}, action) {
 
     }
 
+    if (action.type=="ADD_DAY_AGAIN") {
+        //if the day has capacity and is not already in the array
+        if (!state.arrOfDays.includes(action.day)) {
+            state = Object.assign({}, state, {
+                arrOfDays: state.arrOfDays.concat(action.day)
+            });
+        }
+
+    }
+
     if (action.type=="HIDE_OR_SHOW_ADD_BUTTON") {
         return {
             ...state,

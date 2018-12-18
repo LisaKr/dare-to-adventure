@@ -240,10 +240,12 @@ export async function checkingActivitiesInDays(day) {
                 day: day
             };
 
+        //if the day contains less than 5 activities I send this action. reducer will see if the day is already
+        //in the array and if it has capacities but is not in the array it will be added
         } else {
             return {
-                type: "REMOVE_DAY",
-                day: null
+                type: "ADD_DAY_AGAIN",
+                day: day
             };
         }
     } catch(err) {
@@ -294,6 +296,8 @@ export async function putActivitiesInState(activities) {
         userActivities: activities
     };
 }
+
+
 
 // export async function checkIfActivityAlreadyAdded(name, location, city) {
 //

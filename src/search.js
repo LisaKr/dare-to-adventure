@@ -82,7 +82,7 @@ class Search extends React.Component {
                                                 console.log("i selected a city!");
                                                 document.querySelector('.searchbar').value = r.city;
                                                 this.props.dispatch(changeBackground(r.city.replace(/\s+/g, '+')));
-                                                this.props.dispatch(putCityInState(r.city.replace(/\s+/g, '+')));
+                                                this.props.dispatch(putCityInState(r.city));
                                                 this.props.dispatch(getWeather(r.city.replace(/\s+/g, '+')));
                                                 this.handleCityChange();
                                                 this.props.dispatch(showAddButtonAtFirst());

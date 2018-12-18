@@ -44,8 +44,9 @@ class WorkingArea extends React.Component {
             this.props.dispatch(showAddButtonAtFirst());
 
             axios.get("/current-city").then((resp) => {
-                // console.log("data", resp.data);
-                let city = resp.data.replace(/\s+/g, '+');
+                console.log("data", resp.data);
+                let city = resp.data.replace(/\+/g, " ");
+                //.replace(/ /g, '+')
                 this.props.dispatch(putCityInState(city));
                 this.props.dispatch(changeBackground(city));
                 this.props.dispatch(getWeather(city));
@@ -73,17 +74,9 @@ class WorkingArea extends React.Component {
                     }
 
                     //to pull all activities the user has for this city
-                    console.log("city im sending for getting activities", resp.data);
                     axios.get("/get-activities/" + city).then( (response) => {
-                        console.log("response for all users activities", response.data);
+                        // console.log("response for all users activities", response.data);
                         this.props.dispatch(putActivitiesInState(response.data));
-
-                        // for (let i = 0; i<resp.data; i++) {
-                        //     console.log("checking", i);
-                        //     if (response.data[i].day == i+1) {
-                        //
-                        //     }
-                        // }
                     });
 
 
@@ -152,7 +145,7 @@ class WorkingArea extends React.Component {
                 {this.props.addedActivity && <AddedActivity/>}
 
                 {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
-                {this.props.userDidSomeWork &&
+                {(this.props.userDidSomeWork || this.props.userActivities) &&
                 <div className="plan-message">
                     <Link to="/plan"> View/edit your travel plan! </Link>
                 </div>}
@@ -182,7 +175,8 @@ function mapStateToProps(state) {
         addedActivity: state.addedActivity,
         arrOfDays: state.arrOfDays,
         showAddingWarningButton: state.showAddingWarningButton,
-        userDidSomeWork: state.userDidSomeWork
+        userDidSomeWork: state.userDidSomeWork,
+        userActivities: state.userActivities
     };
 }
 

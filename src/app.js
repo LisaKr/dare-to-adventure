@@ -38,7 +38,6 @@ export default class App extends React.Component {
                     />
 
                     <Route
-
                         path="/plan"
                         component={Plan}
                     />

@@ -97,6 +97,15 @@ exports.getActivities = function getActivities(user_id, city) {
         `, [user_id, city]);
 };
 
+////////////////////DELETE AN ACTIVITY/////////////
+exports.deleteActivity = function deleteActivity(activity, user_id) {
+    return db.query(`
+            DELETE
+            FROM activities
+            WHERE user_id=$2 AND activity=$1`, [activity, user_id]);
+};
+
+
 
 /////////////////////HASHING PASSWORDS////////////////////////
 /////////////////////////////////////////////////////////////

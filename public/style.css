@@ -308,9 +308,9 @@ button:hover:after {
 
 .plan-message {
     position:absolute;
-    bottom:5%;
+    bottom:0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
     background: pink;
     z-index: 99;
     padding: 2em;
@@ -318,6 +318,14 @@ button:hover:after {
 
 .plan-container {
     padding: 2em;
+}
+
+.deleteButton {
+    cursor: pointer;
+}
+
+.plan-day {
+    font-weight: bold;
 }
 
 

@@ -41,6 +41,9 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 ////////////////////////////////GETTING CATEGORY RESULTS////////////////////////////////////
 
 module.exports.getVenues = promisify(function getVenues(city, category, offset, cb) {
+
+    city = city.replace(/\s/g, '+');
+
     let options = {
         method: "GET",
         host: "api.foursquare.com",
@@ -186,7 +189,10 @@ module.exports.getVenueDetails = promisify(function getVenueDetails(id, cb) {
 ////////////////////////////GETTING WEATHER FOR THE CURRENT CITY////////////////////////////////
 module.exports.getWeather = promisify(function getWeather(city, cb) {
 
+
+    city = city.replace(/\s/g, '+');
     console.log("weather city", city);
+
     let options = {
         method: "GET",
         host: "api.apixu.com",
