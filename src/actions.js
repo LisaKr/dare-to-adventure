@@ -348,3 +348,22 @@ export async function groupActivitiesForPlanPage() {
         type: "GROUP_BY_DAYS"
     };
 }
+
+export async function addCityCount(city) {
+    await axios.get("/add-count/" + city);
+
+    return {
+        type: "NOTHING_SPECIAL"
+    };
+}
+
+export async function getPopularCities() {
+    let resp = await axios.get("/get-popular-cities");
+
+    console.log("popular cities on the front", resp.data);
+
+    return {
+        type: "GET_POPULAR_CITIES",
+        popularCities: resp.data
+    };
+}

@@ -106,6 +106,23 @@ exports.deleteActivity = function deleteActivity(activityName, user_id) {
             RETURNING *`, [activityName, user_id]);
 };
 
+///////////////ADDING A COUNT TO THE CITY///////////
+exports.addCount = function addCount(city) {
+    return db.query(`
+        UPDATE cities
+        SET count = count + 1
+        WHERE city=$1
+        RETURNING *`, [city]);
+};
+
+///////////////////GET POPULAR CITIES//////////////
+exports.getPopularCities = function getPopularCities() {
+    return db.query(`
+            SELECT city
+            FROM cities
+            ORDER BY count DESC
+            LIMIT 3`);
+};
 
 
 /////////////////////HASHING PASSWORDS////////////////////////

@@ -36,6 +36,7 @@ class WorkingArea extends React.Component {
     }
 
     componentDidMount() {
+        console.log("component did mount");
         if (!this.props.city) {
             let arrOfDays = [];
 
@@ -46,13 +47,14 @@ class WorkingArea extends React.Component {
                 let city = resp.data.replace(/\+/g, " ");
                 //.replace(/ /g, '+')
                 let promise1 = this.props.dispatch(putCityInState(city));
-                let promise2 = this.props.dispatch(changeBackground(city));
+                let promise2 = this.props.dispatch(changeBackground(resp.data));
                 let promise3 = this.props.dispatch(getWeather(city));
                 let promise4 = this.props.dispatch(putActivitiesInState(city));
                 console.log("putting activities in state");
                 Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
+                    console.log("all promises resolved!");
                     this.props.dispatch(groupActivitiesForPlanPage());
-                });
+                }).catch(err => {console.log(err);});
 
 
                 axios.get("/numofdays").then((resp) => {

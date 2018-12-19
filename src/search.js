@@ -1,6 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getSearchResults, changeBackground, hideResults, setDays, showError, hideError, putCityInState, getWeather, createArrayOfDaysInState, showAddButtonAtFirst } from "./actions.js";
+import { getSearchResults,
+    changeBackground,
+    hideResults,
+    setDays,
+    showError,
+    hideError,
+    putCityInState,
+    getWeather,
+    createArrayOfDaysInState,
+    showAddButtonAtFirst,
+    addCityCount,
+    getPopularCities } from "./actions.js";
 import { Link } from 'react-router-dom';
 
 
@@ -57,12 +68,24 @@ class Search extends React.Component {
     }
 
 
-
-
     render() {
 
         return(
             <div className="search-container">
+
+                <div className="popular-cities">
+                    Popular cities our users like:
+                    {this.props.popularCities && this.props.popularCities.map(
+                        city => {
+                            return(
+                                <div className="popular-city" key={city.city}>
+                                    {city.city}
+                                </div>
+                            );
+                        }
+                    )} <br/> <br/>
+                </div>
+
                 <input
                     className = "searchbar"
                     type="text"
@@ -70,6 +93,7 @@ class Search extends React.Component {
                     onChange={e =>
                         this.props.dispatch(getSearchResults(e.target.value))
                     }/>
+
 
                 <div className="searchResults">
                     {this.props.searchResults && this.props.searchResults.map(
@@ -81,12 +105,16 @@ class Search extends React.Component {
                                             onClick={() => {
                                                 console.log("i selected a city!");
                                                 document.querySelector('.searchbar').value = r.city;
+                                                this.props.dispatch(hideResults());
                                                 this.props.dispatch(changeBackground(r.city.replace(/\s+/g, '+')));
                                                 this.props.dispatch(putCityInState(r.city));
                                                 this.props.dispatch(getWeather(r.city.replace(/\s+/g, '+')));
+                                                const prom = this.props.dispatch(addCityCount(r.city));
+                                                prom.then(()=>{
+                                                    this.props.dispatch(getPopularCities());
+                                                });
                                                 this.handleCityChange();
                                                 this.props.dispatch(showAddButtonAtFirst());
-                                                this.props.dispatch(hideResults());
                                             }}>
                                             {r.city}
                                         </div>
@@ -145,7 +173,8 @@ function mapStateToProps(state) {
         searchResults: state.searchResults,
         error: state.error,
         numOfDays: state.numOfDays,
-        backgroundUrl: state.backgroundUrl
+        backgroundUrl: state.backgroundUrl,
+        popularCities: state.popularCities
     };
 }
 

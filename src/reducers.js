@@ -249,5 +249,12 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type=="GET_POPULAR_CITIES") {
+        return {
+            ...state,
+            popularCities: action.popularCities
+        };
+    }
+
     return state;
 }

@@ -1,13 +1,15 @@
 import React from "react";
-import axios from "./axios";
+// import axios from "./axios";
+import { connect } from "react-redux";
+
 
 import Logout from "./logout";
 import Search from "./search";
 
 
+import {getPopularCities} from "./actions.js";
 
-
-export default class Setup extends React.Component {
+class Setup extends React.Component {
     constructor() {
         super();
         this.state = {};
@@ -15,6 +17,8 @@ export default class Setup extends React.Component {
 
     async componentDidMount() {
         console.log(" setup runs!!!!!!!!");
+        this.props.dispatch(getPopularCities());
+
     }
 
 
@@ -40,3 +44,13 @@ export default class Setup extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+
+
+    return {
+        popularCities: state.popularCities
+    };
+}
+
+export default connect(mapStateToProps)(Setup);

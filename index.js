@@ -273,6 +273,31 @@ app.get("/delete/:activityName", async (req,res) => {
     }
 });
 
+/////////////////////ADDING COUNT TO A SELECTED CITY//////////////////////////
+app.get("/add-count/:city", async (req,res) => {
+    try {
+        let resp = await db.addCount(req.params.city);
+        console.log("city added", resp.rows);
+        res.json({
+            great: true
+        });
+    } catch(err) {
+        console.log("ERROR IN ADDING COUNT", err);
+    }
+
+});
+
+/////////////////GET POPULAR CITIES//////////////////////////////
+app.get("/get-popular-cities", async (req,res) => {
+    try {
+        let resp = await db.getPopularCities();
+        console.log("get popular cities!!", resp.rows);
+        res.json(resp.rows);
+    } catch(err) {
+        console.log("ERROR IN GETTING POPULAR CITIES", err);
+    }
+});
+
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
