@@ -67,7 +67,7 @@ export async function createArrayOfDaysInState(arrOfDays) {
 export async function showError() {
     return {
         type: "SHOW_ERROR",
-        error: "All fields must be filled out!"
+        error: "Please fill out all fields to proceed!"
     };
 }
 

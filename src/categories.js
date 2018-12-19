@@ -18,7 +18,7 @@ class Categories extends React.Component {
                         this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06374d81259", 0));
                         this.props.dispatch(setCategoryToState("4d4b7105d754a06374d81259"));
                     }}>
-                    Food
+                    <img className="icon" src="/food.png"/>
                 </div>
 
                 <div className="category"
@@ -26,21 +26,22 @@ class Categories extends React.Component {
                         this.props.dispatch(getCategoryResults(this.props.city, "4d4b7104d754a06370d81259", 0));
                         this.props.dispatch(setCategoryToState("4d4b7104d754a06370d81259"));
                     }}>
-                Culture </div>
+                    <img className="icon" src="/culture.png"/>
+                </div>
 
                 <div className="category"
                     onClick={ () => {
                         this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06377d81259", 0));
                         this.props.dispatch(setCategoryToState("4d4b7105d754a06377d81259"));
                     }}
-                > Nature & Outdoors </div>
+                > <img className="icon" src="/nature.png"/> </div>
 
                 <div className="category"
                     onClick={ () => {
                         this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06376d81259", 0));
                         this.props.dispatch(setCategoryToState("4d4b7105d754a06376d81259"));
                     }}>
-                Nightlife </div>
+                    <img className="icon" src="/nightlife.png"/> </div>
             </div>
         );
     }

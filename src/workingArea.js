@@ -149,17 +149,20 @@ class WorkingArea extends React.Component {
                 {/*AFTER WE SUCCESSFULLY ADD AN ACTIVITY WE DISPLAY A SUCCESS POP-UP*/}
                 {this.props.addedActivity && <AddedActivity/>}
 
-                {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
-                {(this.props.userDidSomeWork || this.props.userActivities) &&
-                <div className="plan-message">
-                    <Link to="/plan" className="no-underline"> View your travel plan! </Link>
-                </div>}
+                <div className="footer-wa">
+
+                    {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
+                    {(this.props.userDidSomeWork || this.props.userActivities) &&
+                        <div className="plan-message">
+                            <Link to="/plan" className="no-underline"> View your travel plan! </Link>
+                        </div>}
 
 
-                {/*DISPLAYING WEATHER*/}
-                <Weather/>
+                    {/*DISPLAYING WEATHER*/}
+                    <Weather/>
 
-                <Logout/>
+                    <div className="logout-wa"><Logout/></div>
+                </div>
 
             </div>
         );

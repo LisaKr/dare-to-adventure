@@ -1,4 +1,4 @@
-/*GENERAL LOOK*/
+/*/////////////////////////////////////////GENERAL LOOK//////////////////////////////////*/
 
 body {
     margin: 0;
@@ -13,7 +13,12 @@ input:focus, button:focus {
     outline: none;
 }
 
-/*LOGGED OUT LOOK*/
+h1 {
+    font-family: "Great Vibes";
+    font-size: 60px;
+}
+
+/*////////////////////////////////////////LOGGED OUT LOOK/////////////////////////////////////*/
 .page {
     background-image: url("/back.jpeg");
     background-size: cover;
@@ -130,19 +135,90 @@ button:hover:after {
 }
 
 
-/*////////////////*/
+/*/////////////////////////////////////////////////////////////////////////////////////////////*/
 
-/*SET UP LOOK*/
+/*//////////////////////////////////////////////////SET UP LOOK///////////////////////////////*/
 
 .setup-container {
     background: url("/back.jpg");
 }
 
-.setup {
-    width: 50%;
-    margin: 0 auto;
+.setup-middle-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.setup-middle {
+    width: 40%;
+    /*margin: 0 auto; */
     padding: 1em;
+    text-align: center;
+    background: rgba(0,0,0, 0.7);
+    color:white;
 
+}
+
+.searchbar {
+    font-size: 16px;
+}
+
+select {
+    font-size: 16px;
+    margin-top: 1em;
+}
+
+
+
+.setup-sidebar {
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 2em;
+}
+
+.popular-cities {
+    width: 90%;
+    height:50%;
+    margin: 0 auto;
+    padding:1em;
+    text-align: center;
+}
+
+.popular-cities > p {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.popular-city {
+    text-align: center;
+    padding: 1em;
+}
+
+.logout-setup {
+    z-index: 99999;
+    width: 50%;
+    position: absolute;
+    bottom: 15%;
+    background: inherit;
+    border: 3px solid black;
+    margin: 0 auto;
+    /* margin-top: 60%; */
+    text-align: center;
+    padding: 1em;
+}
+
+.logout-setup:after {
+    display: block;
+    content: "";
+    border-bottom: solid 2px black;
+    transform: scaleX(0);
+    transition: transform 0.25s ease-in-out;
+}
+.logout-setup:hover:after {
+    transform: scaleX(0.8);
 }
 
 .result-info {
@@ -151,15 +227,13 @@ button:hover:after {
 }
 
 .error {
-    color:red;
-    margin: 1em;
-    border: 2px solid blue;
+    color:white;
+    width: 40%;
+    margin: 1em auto;
+    border: 2px solid red;
+    padding: 1em;
 }
 
-.popular-cities {
-    width: 50%;
-    height:50%;
-}
 
 /*//////////////////////////WORKING_AREA LOOK/////////////////////////*/
 .working-area-container {
@@ -203,31 +277,33 @@ button:hover:after {
     font-size: 24px;
 }
 
-/* .category:first-child {
-    animation: move 3s infinite
+.icon {
+    width: 120px;
 }
 
-.category:nth-child(2) {
-    animation: moveOtherWay 3s infinite
+.category:hover {
+    animation: wiggle 1s ease;
+    border: none;
 }
 
-@keyframes move{
-               0%{
-                   transform:translate(0);
-               }
-               50%{
-                   transform:translateY(40px);
-               }
-           }
+@keyframes wiggle {
+    0% {
+        transform: rotate(10deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
 
-@keyframes moveOtherWay{
-                0%{
-                    transform:translate(0);
-                    }
-                50%{
-                  transform:translateY(-40px);                      }
-                      }
-            } */
 
 
 /*////SHOWING RESULTS//////*/
@@ -236,11 +312,12 @@ button:hover:after {
     z-index: 999;
     top: 50%;
     left: 50%;
-    background: pink;
+    background: white;
     transform: translate(-50%, -50%);
     width: 60%;
     height: 60%;
     overflow: scroll;
+    border: 3px solid black;
 }
 
 .result {
@@ -255,6 +332,20 @@ button:hover:after {
 
 .closingButton {
     cursor: pointer;
+}
+
+.logout-wa {
+    position: absolute;
+    bottom: 0;
+    z-index: 999;
+    width: 20%;
+}
+
+.logout-wa .no-underline {
+    color: white;
+    background: inherit;
+
+
 }
 
 /*///////////*/
@@ -277,18 +368,26 @@ button:hover:after {
 }
 /*//////*/
 
+
+.footer-wa {
+    position: absolute;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0, 0.8);;
+    z-index: 99;
+
+}
 /*WEATHER*/
 .weather-container {
-    z-index: 99;
+    z-index: 100;
     position: absolute;
     right: 0;
     bottom: 0;
-    /* background: black; */
     color: white;
     padding: 1em;
     text-align: center;
-    height: 20%;
-    /* width: 15%; */
+    height: 100px;
     border: 7px solid black;
     font-size: 1.6em;
 }
@@ -395,15 +494,4 @@ button:hover:after {
     transform: translate(-50%, -50%);
     z-index: 999999999;
     background: yellow;
-}
-
-/*LOGOUT*/
-.logout {
-    z-index: 99999;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    background: white;
-    padding: 2em;
-    border: 3px solid black;
 }

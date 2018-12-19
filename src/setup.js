@@ -1,13 +1,14 @@
 import React from "react";
 // import axios from "./axios";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 
 
 import Logout from "./logout";
 import Search from "./search";
+import PopularCities from "./popularCities";
 
 
-import {getPopularCities} from "./actions.js";
+import { getPopularCities } from "./actions.js";
 
 class Setup extends React.Component {
     constructor() {
@@ -26,19 +27,18 @@ class Setup extends React.Component {
     render() {
         return (
             //incremental search and choosing how many days
-            <div className="setup-container">
-                <div className="setup">
-                    <h2> Lets set up your adventure! </h2>
-                    <Search/>
+            <div className = "setup-container" >
+                <div className="setup-middle-flex">
+                    <div className = "setup-middle" >
+                        <h1 > Dare to adventure! < /h1>
 
+                        <Search />
+                    </div>
+                </div>
 
-
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <Logout/>
+                <div className="setup-sidebar">
+                    <PopularCities/>
+                    <div className="logout-setup"><Logout/></div>
                 </div>
             </div>
         );

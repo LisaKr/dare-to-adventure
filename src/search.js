@@ -73,18 +73,7 @@ class Search extends React.Component {
         return(
             <div className="search-container">
 
-                <div className="popular-cities">
-                    Popular cities our users like:
-                    {this.props.popularCities && this.props.popularCities.map(
-                        city => {
-                            return(
-                                <div className="popular-city" key={city.city}>
-                                    {city.city}
-                                </div>
-                            );
-                        }
-                    )} <br/> <br/>
-                </div>
+
 
                 <input
                     className = "searchbar"
@@ -131,7 +120,7 @@ class Search extends React.Component {
 
 
                 <div className="day-selector">
-                    Select how many days you are staying!
+                    Select how many days you are staying
                     <br/>
                     <br/>
                     <select onChange={this.handleDayChange}>
