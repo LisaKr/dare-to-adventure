@@ -256,5 +256,40 @@ export default function(state = {}, action) {
         };
     }
 
+
+
+    if (action.type=="CHECK_IF_ACTIVITY_ADDED") {
+
+        console.log("length of selected activity", action);
+
+        if (action.activity.length == 0) {
+            return {
+                ...state,
+                activityAlreadyAdded: false
+            };
+        } else {
+            return {
+                ...state,
+                activityAlreadyAdded: true
+            };
+        }
+
+
+    }
+
+    if (action.type == "SHOW_ADDING_ERROR") {
+        return {
+            ...state,
+            showAddingError: action.addingError
+        };
+    }
+
+    if (action.type == "HIDE_ADDING_ERROR") {
+        return {
+            ...state,
+            showAddingError: action.addingError
+        };
+    }
+
     return state;
 }

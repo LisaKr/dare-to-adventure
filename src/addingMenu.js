@@ -3,7 +3,17 @@ import { connect } from "react-redux";
 // import axios from "./axios";
 
 
-import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, putActivitiesInState, setDeletablePropertyToTrue, groupActivitiesForPlanPage } from "./actions.js";
+import {
+    hideAddingMenu,
+    addVenue,
+    successfullyAdded,
+    checkingActivitiesInDays,
+    putActivitiesInState,
+    setDeletablePropertyToTrue,
+    groupActivitiesForPlanPage,
+    checkIfActivityAlreadyAddedToThisDay,
+    showAddingError,
+    hideAddingError} from "./actions.js";
 
 
 
@@ -24,43 +34,51 @@ class AddingMenu extends React.Component {
                     day => {
                         return(
                             <div key={day} className="day"
+
                                 onClick={ () => {
-                                    let city = this.props.city.replace(/\+/g,' ');
-                                    const promise = addVenue(city,
-                                        this.props.selectedActivityName,
-                                        this.props.selectedActivityLocation,
-                                        this.props.category,
-                                        day,
-                                        this.props.numOfDays);
+                                    let prom = this.props.dispatch(checkIfActivityAlreadyAddedToThisDay(this.props.selectedActivityName, this.props.city, day));
 
+                                    prom.then(()=>{
+                                        console.log("checking for activity ran");
+                                        if (this.props.activityAlreadyAdded) {
+                                            this.props.dispatch(showAddingError());
+                                        } else {
 
-                                    this.props.dispatch(promise);
+                                            let city = this.props.city.replace(/\+/g,' ');
+                                            const promise = addVenue(city,
+                                                this.props.selectedActivityName,
+                                                this.props.selectedActivityLocation,
+                                                this.props.category,
+                                                day,
+                                                this.props.numOfDays);
 
-                                    //after addVenue promise is fullfilled we are starting the then portion
-                                    promise.then(() => {
-                                        console.log("promise then running");
-                                        //and checking for activities in days
-                                        const promise1 = this.props.dispatch(checkingActivitiesInDays(day));
-                                        //and also resetting the list of activities in state
-                                        const promise2 = this.props.dispatch(putActivitiesInState(this.props.city));
-                                        Promise.all([promise1, promise2]).then( ()=> {
-                                            this.props.dispatch(groupActivitiesForPlanPage());
-                                        });
-                                    });
+                                            console.log("promise", promise);
+                                            this.props.dispatch(promise);
 
-                                    for (let i =0; i<this.props.categoryResults.length; i++) {
-                                        if (this.props.categoryResults[i].name == this.props.addingMenuName) {
-                                            this.props.dispatch(setDeletablePropertyToTrue(this.props.categoryResults[i].name));
+                                            //after addVenue promise is fullfilled we are starting the then portion
+                                            promise.then(() => {
+                                                console.log("promise then running");
+                                                //and checking for activities in days
+                                                const promise1 = this.props.dispatch(checkingActivitiesInDays(day));
+                                                //and also resetting the list of activities in state
+                                                const promise2 = this.props.dispatch(putActivitiesInState(this.props.city));
+                                                Promise.all([promise1, promise2]).then( ()=> {
+                                                    this.props.dispatch(groupActivitiesForPlanPage());
+                                                });
+                                            });
+
+                                            for (let i =0; i<this.props.categoryResults.length; i++) {
+                                                if (this.props.categoryResults[i].name == this.props.addingMenuName) {
+                                                    this.props.dispatch(setDeletablePropertyToTrue(this.props.categoryResults[i].name));
+                                                }
+                                            }
+
+                                            this.props.dispatch(successfullyAdded(this.props.selectedActivityName));
+
+                                            this.props.dispatch(hideAddingMenu());
+
                                         }
-                                    }
-
-
-
-
-
-                                    this.props.dispatch(successfullyAdded(this.props.selectedActivityName));
-
-                                    this.props.dispatch(hideAddingMenu());
+                                    });
 
                                 }}>
 
@@ -71,7 +89,12 @@ class AddingMenu extends React.Component {
                     }
                 )}
                 <br/>
-                <button onClick={()=> {this.props.dispatch(hideAddingMenu());}}> Cancel </button>
+                <button onClick={()=> {
+                    this.props.dispatch(hideAddingMenu());
+                    this.props.dispatch(hideAddingError());
+                }}> Cancel </button>
+
+                {this.props.showAddingError && <div className="adding-error"> OOps! Seems you already added it!</div>}
             </div>
         );
     }
@@ -96,10 +119,12 @@ function mapStateToProps(state) {
         showMenu: state.showMenu,
         selectedActivityName: state.selectedActivityName,
         selectedActivityLocation: state.selectedActivityLocation,
-        addedActivity: state.addedActivity,
+        // addedActivity: state.addedActivity,
         arrOfDays: state.arrOfDays,
         addingMenuName: state.addingMenuName,
-        addingMenuLocation: state.addingMenuLocation
+        addingMenuLocation: state.addingMenuLocation,
+        activityAlreadyAdded: state.activityAlreadyAdded,
+        showAddingError: state.showAddingError
     };
 }
 

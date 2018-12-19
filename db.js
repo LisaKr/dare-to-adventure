@@ -124,6 +124,14 @@ exports.getPopularCities = function getPopularCities() {
             LIMIT 3`);
 };
 
+/////////////CHECKING IF ACTIVITY ALREADY EXISTS/////////
+exports.getActivity = function getActivity(user_id, activityName, city, day) {
+    return db.query(`
+        SELECT *
+        FROM activities
+        WHERE user_id=$1 AND activityname=$2 AND city=$3 AND day=$4`, [user_id, activityName, city, day]);
+};
+
 
 /////////////////////HASHING PASSWORDS////////////////////////
 /////////////////////////////////////////////////////////////

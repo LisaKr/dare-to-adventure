@@ -388,6 +388,15 @@ button:hover:after {
 }
 
 
+.adding-error {
+    position: absolute;
+    top:30%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999999;
+    background: yellow;
+}
+
 /*LOGOUT*/
 .logout {
     z-index: 99999;

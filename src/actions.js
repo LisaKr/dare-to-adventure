@@ -367,3 +367,29 @@ export async function getPopularCities() {
         popularCities: resp.data
     };
 }
+
+
+export async function checkIfActivityAlreadyAddedToThisDay(activityName, city, day) {
+    console.log("action runs to check");
+    let resp = await axios.get("/get-activity/" + activityName + "/" + city + "/" + day);
+    console.log("checking in action", resp.data);
+
+    return {
+        type: "CHECK_IF_ACTIVITY_ADDED",
+        activity: resp.data
+    };
+}
+
+export async function showAddingError() {
+    return {
+        type: "SHOW_ADDING_ERROR",
+        addingError: true
+    };
+}
+
+export async function hideAddingError() {
+    return {
+        type: "HIDE_ADDING_ERROR",
+        addingError: false
+    };
+}

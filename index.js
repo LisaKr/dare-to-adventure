@@ -252,7 +252,7 @@ app.get("/check-activity/:activity/:city", async (req,res) => {
 app.get("/get-activities/:city", async (req,res) => {
     try {
         let resp = await db.getActivities(req.session.userID, req.params.city);
-        console.log("all activities on server", resp.rows);
+        // console.log("all activities on server", resp.rows);
         res.json(resp.rows);
     } catch(err) {
         console.log("ERROR IN GETTING ALL ACTIVITIES", err);
@@ -296,6 +296,14 @@ app.get("/get-popular-cities", async (req,res) => {
     } catch(err) {
         console.log("ERROR IN GETTING POPULAR CITIES", err);
     }
+});
+
+///////////////CHECK IF ACTIVITY ALREADY ADDED//////////////////
+app.get("/get-activity/:activityname/:city/:day", async (req, res) => {
+    console.log("params", req.params);
+    let resp = await db.getActivity(req.session.userID, req.params.activityname, req.params.city, req.params.day);
+    console.log("getting activity", resp.rows.length, resp.rows);
+    res.json(resp.rows);
 });
 
 app.get('*', function(req, res) {
