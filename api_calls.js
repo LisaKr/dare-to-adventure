@@ -222,11 +222,9 @@ module.exports.getWeather = promisify(function getWeather(city, cb) {
 
             weatherObj.push({
                 temperature: parsedBody.current.temp_c,
-                iconurl: "http://" + parsedBody.current.condition.icon.substring(2)
+                iconurl: "http://" + parsedBody.current.condition.icon.substring(2),
+                is_day: parsedBody.current.is_day
             });
-
-
-
             cb(null, weatherObj);
         });
     };

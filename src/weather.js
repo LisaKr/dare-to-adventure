@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { setWeatherBackground } from "./actions.js";
+
 
 class Weather extends React.Component {
     constructor() {
@@ -10,12 +12,15 @@ class Weather extends React.Component {
     render() {
         return(
             <div className="weather-container">
+                {this.props.weatherBackground && <img className="weather-pic" src={this.props.weatherBackground}/>}
+
                 {(this.props.weather && this.props.city) && this.props.weather.map(
                     w => {
+                        this.props.dispatch(setWeatherBackground(w.is_day));
                         return (
                             <div key={w.temperature} className="weather">
-                            Current weather in {this.props.city}: <br/>
-                                {w.temperature}° Celcius
+                                {this.props.city} <br/>
+                                {w.temperature}° C
                                 <br/>
                                 <img src={w.iconurl}/>
                             </div>
@@ -31,7 +36,8 @@ function mapStateToProps(state) {
 
     return {
         city: state.city,
-        weather: state.weather
+        weather: state.weather,
+        weatherBackground: state.weatherBackground
     };
 }
 

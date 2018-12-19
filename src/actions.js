@@ -302,7 +302,7 @@ export async function putActivitiesInState(activities) {
 
 
 export async function deleteActivity(activityName) {
-    console.log("deleting action runs");
+    console.log("deleting action runs", activityName);
     await axios.get("/delete/" + activityName);
 
     return {
@@ -324,4 +324,18 @@ export async function setDeletablePropertyToTrue(resultName) {
         type: "SET_DELETABLE_PROPERTY_TO_TRUE",
         resultName: resultName
     };
+}
+
+export async function setWeatherBackground(is_day) {
+    if (is_day == 1) {
+        return {
+            type: "SET_WEATHER_BACKGROUND",
+            weatherBackground: "/day_weather.png"
+        };
+    } else {
+        return {
+            type: "SET_WEATHER_BACKGROUND",
+            weatherBackground: "/night_weather.jpg"
+        };
+    }
 }

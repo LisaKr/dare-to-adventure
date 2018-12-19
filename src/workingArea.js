@@ -147,7 +147,7 @@ class WorkingArea extends React.Component {
                 {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
                 {(this.props.userDidSomeWork || this.props.userActivities) &&
                 <div className="plan-message">
-                    <Link to="/plan"> View/edit your travel plan! </Link>
+                    <Link to="/plan" className="no-underline"> View your travel plan! </Link>
                 </div>}
 
 

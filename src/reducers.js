@@ -167,9 +167,10 @@ export default function(state = {}, action) {
 
     //filter the existing array and remove whatever i removed
     if (action.type=="REMOVE_ACTIVITY") {
+        console.log("reducer runs!", action.activityToRemove);
         state = Object.assign({}, state, {
             userActivities: state.userActivities.filter(
-                activity => activity != action.activityToRemove
+                activity => activity.activityname != action.activityToRemove
             )
         });
     }
@@ -198,6 +199,13 @@ export default function(state = {}, action) {
                 }
             })
         });
+    }
+
+    if (action.type=="SET_WEATHER_BACKGROUND") {
+        return {
+            ...state,
+            weatherBackground: action.weatherBackground
+        };
     }
 
     return state;

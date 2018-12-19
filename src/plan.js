@@ -13,7 +13,9 @@ import {
     hideAddButton,
     changeBackground,
     getWeather,
-    showAddButtonAtFirst } from "./actions.js";
+    showAddButtonAtFirst,
+    deleteActivity,
+    setDeletablePropertyToFalse} from "./actions.js";
 
 
 class Plan extends React.Component {
@@ -104,10 +106,27 @@ class Plan extends React.Component {
                 {this.props.userActivities && this.props.userActivities.map(
                     a => {
                         return (
-                            <div key={a.id} className="user-activities">
+                            <div key={a.activityname} className="user-activities">
                                 <span className="plan-day">day {a.day} </span> || <span className="plan-category"> {a.category} </span> || <span className="plan-activity"> {a.activityname} || {a.activitylocation} </span>
                                 <br/>
-                                <div className="deleteButton" onClick={ () => {this.deleteActivity(a.activityname);}}> DELETE </div>
+                                <div className="deleteButton" onClick={ async () => {
+                                    await this.props.dispatch(deleteActivity(a.activityname));
+
+                                    for (let i = 1; i<this.props.numOfDays; i++) {
+                                        console.log("checking the loop", i);
+                                        await this.props.dispatch(checkingActivitiesInDays(i));
+                                    }
+
+                                    await this.props.dispatch(showAddButtonAtFirst());
+
+                                    // for (let i =0; i<this.props.categoryResults.length; i++) {
+                                    //     if (this.props.categoryResults[i].name == a.activityname) {
+                                    //         // console.log("hoorah!!!", this.props.categoryResults[i].name, r.name);
+                                    //         this.props.dispatch(showAddButtonAtFirst());
+                                    //         this.props.dispatch(setDeletablePropertyToFalse(this.props.categoryResults[i].name));
+                                    //     }
+                                    // }
+                                }}> DELETE </div>
                                 <br/><br/>
                             </div>
                         );
@@ -129,7 +148,8 @@ function mapStateToProps(state) {
     return {
         city: state.city,
         userActivities: state.userActivities,
-        numOfDays: state.numOfDays
+        numOfDays: state.numOfDays,
+        categoryResults: state.categoryResults
     };
 }
 
