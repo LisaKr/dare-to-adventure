@@ -293,10 +293,12 @@ export async function userDidSomeWork() {
     };
 }
 
-export async function putActivitiesInState(activities) {
+export async function putActivitiesInState(city) {
+    let resp = await axios.get("/get-activities/" + city);
+
     return {
         type: "SET_USER_ACTIVITIES",
-        userActivities: activities
+        userActivities: resp.data
     };
 }
 
@@ -338,4 +340,11 @@ export async function setWeatherBackground(is_day) {
             weatherBackground: "/night_weather.jpg"
         };
     }
+}
+
+export async function groupActivitiesForPlanPage() {
+    console.log("group by action");
+    return {
+        type: "GROUP_BY_DAYS"
+    };
 }

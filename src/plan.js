@@ -15,63 +15,38 @@ import {
     getWeather,
     showAddButtonAtFirst,
     deleteActivity,
-    setDeletablePropertyToFalse} from "./actions.js";
+    groupActivitiesForPlanPage
+    // setDeletablePropertyToFalse
+} from "./actions.js";
 
 
 class Plan extends React.Component {
     constructor() {
         super();
 
-        this.deleteActivity = this.deleteActivity.bind(this);
+        // this.deleteActivity = this.deleteActivity.bind(this);
     }
 
-    async deleteActivity(activityName) {
-        //on press on delete i delete activity in the db and then get activities again to set into state,
-        //this time without this activity
-        await axios.get("/delete/" + activityName);
-
-        console.log("this.props.city", this.props.city);
-
-        // let city = this.props.city.replace(/\s/g, '+');
-
-        // console.log("ciry", city);
-
-        let resp = await axios.get("/get-activities/" + this.props.city);
-        console.log("new list of activities", resp.data);
-        this.props.dispatch(putActivitiesInState(resp.data));
-
-        console.log("numOfDays", this.props.numOfDays);
-
-        //then also after deleting I want to check whether any day has become available
-        for (let i = 1; i<this.props.numOfDays; i++) {
-            console.log("checking the loop", i);
-            await this.props.dispatch(checkingActivitiesInDays(i));
-        }
-
-        this.props.dispatch(showAddButtonAtFirst());
-    }
-
-
-    render() {
-
+    componentDidMount() {
         // on reload putting city and activities in state
         // only on reload
         if (!this.props.city) {
             let arrOfDays = [];
 
             axios.get("/current-city").then((resp) => {
-
                 let city = resp.data.replace(/\+/g, " ");
-
-                this.props.dispatch(putCityInState(city));
-                this.props.dispatch(changeBackground(city));
-                this.props.dispatch(getWeather(city));
-
-
-                axios.get("/get-activities/" + resp.data).then( (response) => {
-                    this.props.dispatch(putActivitiesInState(response.data));
+                let promise1 = this.props.dispatch(putCityInState(city));
+                let promise2 = this.props.dispatch(changeBackground(city));
+                let promise3 = this.props.dispatch(getWeather(city));
+                let promise4 = this.props.dispatch(putActivitiesInState(city));
+                console.log("putting activities in state");
+                Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
+                    this.props.dispatch(groupActivitiesForPlanPage());
                 });
-            }).catch(err => console.log("error in plan render", err));
+            })
+                .catch(err => console.log("error in plan render", err));
+
+
 
             axios.get("/numofdays").then((resp) => {
                 this.props.dispatch(setDays(resp.data));
@@ -81,6 +56,7 @@ class Plan extends React.Component {
                 }
                 //to put the whole array into the state
                 this.props.dispatch(createArrayOfDaysInState(arrOfDays));
+
 
                 //adjusting the arrofdays is important because of the possibility of going back to main and
                 //arr of days will be taken there as state
@@ -97,41 +73,88 @@ class Plan extends React.Component {
             });
 
         }
+    }
+
+    // async deleteActivity(activityName) {
+    //     //on press on delete i delete activity in the db and then get activities again to set into state,
+    //     //this time without this activity
+    //     await axios.get("/delete/" + activityName);
+    //
+    //     console.log("this.props.city", this.props.city);
+    //
+    //     // let city = this.props.city.replace(/\s/g, '+');
+    //
+    //     // console.log("ciry", city);
+    //
+    //     let resp = await axios.get("/get-activities/" + this.props.city);
+    //     console.log("new list of activities", resp.data);
+    //     this.props.dispatch(putActivitiesInState(resp.data));
+    //
+    //     console.log("numOfDays", this.props.numOfDays);
+    //
+    //     //then also after deleting I want to check whether any day has become available
+    //     for (let i = 1; i<this.props.numOfDays; i++) {
+    //         console.log("checking the loop", i);
+    //         await this.props.dispatch(checkingActivitiesInDays(i));
+    //     }
+    //
+    //     this.props.dispatch(showAddButtonAtFirst());
+    // }
 
 
+    render() {
 
         return(
             <div className="plan-container">
                 <h1> this is your plan for your travel to {this.props.city}</h1>
-                {this.props.userActivities && this.props.userActivities.map(
-                    a => {
-                        return (
-                            <div key={a.activityname} className="user-activities">
-                                <span className="plan-day">day {a.day} </span> || <span className="plan-category"> {a.category} </span> || <span className="plan-activity"> {a.activityname} || {a.activitylocation} </span>
-                                <br/>
-                                <div className="deleteButton" onClick={ async () => {
-                                    await this.props.dispatch(deleteActivity(a.activityname));
 
-                                    for (let i = 1; i<this.props.numOfDays; i++) {
-                                        console.log("checking the loop", i);
-                                        await this.props.dispatch(checkingActivitiesInDays(i));
-                                    }
+                {this.props.groupedActivities && Object.keys(this.props.groupedActivities).map(
+                    dayAct => {
+                        return(
+                            <div key={dayAct}>
+                                <h1>
+                                    day {dayAct}
+                                </h1>{
+                                    this.props.groupedActivities[dayAct].map(
+                                        activity => {
+                                            return (
+                                                <div key={activity.activityname} className="user-activities">
+                                                    {activity.activityname} || {activity.activitylocation}
 
-                                    await this.props.dispatch(showAddButtonAtFirst());
+                                                    <div className="deleteButton" onClick={ async () => {
+                                                        await this.props.dispatch(deleteActivity(activity.activityname));
 
-                                    // for (let i =0; i<this.props.categoryResults.length; i++) {
-                                    //     if (this.props.categoryResults[i].name == a.activityname) {
-                                    //         // console.log("hoorah!!!", this.props.categoryResults[i].name, r.name);
-                                    //         this.props.dispatch(showAddButtonAtFirst());
-                                    //         this.props.dispatch(setDeletablePropertyToFalse(this.props.categoryResults[i].name));
-                                    //     }
-                                    // }
-                                }}> DELETE </div>
-                                <br/><br/>
+                                                        await this.props.dispatch(groupActivitiesForPlanPage());
+
+                                                        for (let i = 1; i<this.props.numOfDays; i++) {
+                                                            console.log("checking the loop", i);
+                                                            await this.props.dispatch(checkingActivitiesInDays(i));
+                                                        }
+
+                                                        await this.props.dispatch(showAddButtonAtFirst());
+
+                                                    }}> DELETE </div>
+                                                    <br/><br/>
+                                                </div>
+                                            );
+                                        }
+                                    )
+                                }
                             </div>
                         );
-                    }
-                )}
+
+                    })}
+
+
+
+
+
+
+
+                {/* */}
+
+
+
 
                 <Link to="/working-area"> Back to main </Link>
             </div>
@@ -149,7 +172,8 @@ function mapStateToProps(state) {
         city: state.city,
         userActivities: state.userActivities,
         numOfDays: state.numOfDays,
-        categoryResults: state.categoryResults
+        categoryResults: state.categoryResults,
+        groupedActivities: state.groupedActivities
     };
 }
 

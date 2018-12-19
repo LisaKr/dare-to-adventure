@@ -360,6 +360,7 @@ button:hover:after {
     z-index: 99;
     padding: 2em;
     color: inherit;
+    border: 3px solid black;
 }
 
 .no-underline {
@@ -390,4 +391,5 @@ button:hover:after {
     bottom: 0;
     background: white;
     padding: 2em;
+    border: 3px solid black;
 }

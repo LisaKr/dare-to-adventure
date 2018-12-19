@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "./axios";
+// import axios from "./axios";
 
 
-import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, putActivitiesInState, setDeletablePropertyToTrue } from "./actions.js";
+import { hideAddingMenu, addVenue, successfullyAdded, checkingActivitiesInDays, putActivitiesInState, setDeletablePropertyToTrue, groupActivitiesForPlanPage } from "./actions.js";
 
 
 
@@ -40,22 +40,23 @@ class AddingMenu extends React.Component {
                                     promise.then(() => {
                                         console.log("promise then running");
                                         //and checking for activities in days
-                                        this.props.dispatch(checkingActivitiesInDays(day));
+                                        const promise1 = this.props.dispatch(checkingActivitiesInDays(day));
                                         //and also resetting the list of activities in state
-                                        axios.get("/get-activities/" + this.props.city).then((resp) => {
-                                            console.log("new list of activities", resp.data);
-                                            this.props.dispatch(putActivitiesInState(resp.data));
+                                        const promise2 = this.props.dispatch(putActivitiesInState(this.props.city));
+                                        Promise.all([promise1, promise2]).then( ()=> {
+                                            this.props.dispatch(groupActivitiesForPlanPage());
                                         });
-
-                                        for (let i =0; i<this.props.categoryResults.length; i++) {
-                                            if (this.props.categoryResults[i].name == this.props.addingMenuName) {
-                                                this.props.dispatch(setDeletablePropertyToTrue(this.props.categoryResults[i].name));
-                                            }
-                                        }
-
-
-
                                     });
+
+                                    for (let i =0; i<this.props.categoryResults.length; i++) {
+                                        if (this.props.categoryResults[i].name == this.props.addingMenuName) {
+                                            this.props.dispatch(setDeletablePropertyToTrue(this.props.categoryResults[i].name));
+                                        }
+                                    }
+
+
+
+
 
                                     this.props.dispatch(successfullyAdded(this.props.selectedActivityName));
 

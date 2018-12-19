@@ -14,7 +14,8 @@ import {
     hideAddButton,
     showAddButtonAtFirst,
     userDidSomeWork,
-    putActivitiesInState
+    putActivitiesInState,
+    groupActivitiesForPlanPage
 } from "./actions.js";
 
 
@@ -34,22 +35,25 @@ class WorkingArea extends React.Component {
         super();
     }
 
-
-    render(){
-        //if the user isnt coming from the setup page where it is set before redirection then it needs to be gotten again
-        //(happens on log in or refresh)
+    componentDidMount() {
         if (!this.props.city) {
             let arrOfDays = [];
 
             this.props.dispatch(showAddButtonAtFirst());
 
             axios.get("/current-city").then((resp) => {
-                console.log("data", resp.data);
+                // console.log("data", resp.data);
                 let city = resp.data.replace(/\+/g, " ");
                 //.replace(/ /g, '+')
-                this.props.dispatch(putCityInState(city));
-                this.props.dispatch(changeBackground(city));
-                this.props.dispatch(getWeather(city));
+                let promise1 = this.props.dispatch(putCityInState(city));
+                let promise2 = this.props.dispatch(changeBackground(city));
+                let promise3 = this.props.dispatch(getWeather(city));
+                let promise4 = this.props.dispatch(putActivitiesInState(city));
+                console.log("putting activities in state");
+                Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
+                    this.props.dispatch(groupActivitiesForPlanPage());
+                });
+
 
                 axios.get("/numofdays").then((resp) => {
                     // console.log("num of days", resp.data);
@@ -73,11 +77,7 @@ class WorkingArea extends React.Component {
                         });
                     }
 
-                    //to pull all activities the user has for this city
-                    axios.get("/get-activities/" + city).then( (response) => {
-                        // console.log("response for all users activities", response.data);
-                        this.props.dispatch(putActivitiesInState(response.data));
-                    });
+
 
 
                 });
@@ -115,11 +115,14 @@ class WorkingArea extends React.Component {
                     this.props.dispatch(userDidSomeWork());
                 }
             });
-
-
-
-
         }
+
+    }
+
+
+    render(){
+        //if the user isnt coming from the setup page where it is set before redirection then it needs to be gotten again
+        //(happens on log in or refresh)
 
         return(
             <div className="working-area-container">
