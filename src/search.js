@@ -120,9 +120,7 @@ class Search extends React.Component {
 
 
                 <div className="day-selector">
-                    Select how many days you are staying
-                    <br/>
-                    <br/>
+                    <p>Select how many days you are staying</p>
                     <select onChange={this.handleDayChange}>
                         <option value = "null">Select</option>
                         <option value="1">1</option>

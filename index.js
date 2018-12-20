@@ -201,7 +201,7 @@ app.get("/weather/:city", async (req,res) => {
 ///////////////ADDING VENUE TO THE ACTIVITIES TABLE////////////////
 app.get("/add-venue/:city/:activityName/:activityLocation/:category/:day/:numofdays", async (req,res) => {
     try {
-        // console.log("trying", req.params);
+        console.log("trying", req.params);
         let resp = await db.addVenue(
             req.session.userID,
             req.params.city,
@@ -210,8 +210,8 @@ app.get("/add-venue/:city/:activityName/:activityLocation/:category/:day/:numofd
             req.params.category,
             req.params.day,
             req.params.numofdays);
-        // console.log("resp after adding venue", resp.rows[0]);
-        console.log("venue added!");
+        console.log("resp after adding VENUE", resp.rows[0]);
+        console.log("venue added!!!!!");
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN ADDING VENUE", err);

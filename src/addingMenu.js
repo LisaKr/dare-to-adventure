@@ -30,7 +30,7 @@ class AddingMenu extends React.Component {
             <div className="adding-menu">
                 <p>Which day would you like to add this activity to?</p>
                 <br/>
-                {this.props.numOfDays && this.props.arrOfDays.map(
+                {this.props.numOfDays && this.props.arrOfDays.sort().map(
                     day => {
                         return(
                             <div key={day} className="day"
@@ -39,7 +39,7 @@ class AddingMenu extends React.Component {
                                     let prom = this.props.dispatch(checkIfActivityAlreadyAddedToThisDay(this.props.selectedActivityName, this.props.city, day));
 
                                     prom.then(()=>{
-                                        console.log("checking for activity ran");
+                                        console.log("checking for activity ran for this parameters", this.props.selectedActivityName);
                                         if (this.props.activityAlreadyAdded) {
                                             this.props.dispatch(showAddingError());
                                         } else {
@@ -63,6 +63,7 @@ class AddingMenu extends React.Component {
                                                 //and also resetting the list of activities in state
                                                 const promise2 = this.props.dispatch(putActivitiesInState(this.props.city));
                                                 Promise.all([promise1, promise2]).then( ()=> {
+                                                    console.log("promise all in adding menu runs");
                                                     this.props.dispatch(groupActivitiesForPlanPage());
                                                 });
                                             });

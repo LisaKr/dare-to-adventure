@@ -7,6 +7,8 @@ import Setup from "./setup";
 import WorkingArea from "./workingArea";
 import Checker from "./checker";
 import Plan from "./plan";
+import Todo from "./todo";
+
 
 
 
@@ -40,6 +42,11 @@ export default class App extends React.Component {
                     <Route
                         path="/plan"
                         component={Plan}
+                    />
+
+                    <Route
+                        path="/todo"
+                        component={Todo}
                     />
                 </div>
             </BrowserRouter>

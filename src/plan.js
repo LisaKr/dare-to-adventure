@@ -129,7 +129,7 @@ class Plan extends React.Component {
 
                                                             await this.props.dispatch(groupActivitiesForPlanPage());
 
-                                                            for (let i = 1; i<this.props.numOfDays; i++) {
+                                                            for (let i = 1; i<=this.props.numOfDays; i++) {
                                                                 console.log("checking the loop", i);
                                                                 await this.props.dispatch(checkingActivitiesInDays(i));
                                                             }
@@ -148,8 +148,11 @@ class Plan extends React.Component {
                             );
 
                         })}
+                    <break></break>
+
+                    <Link to="/working-area"> <button className="backButton">Back to main </button></Link>
+
                 </div>
-                <Link to="/working-area"> <button className="moreButton">Back to main </button></Link>
             </div>
         );
     }

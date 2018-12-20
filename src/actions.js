@@ -198,6 +198,8 @@ export async function setActivityInState(selectedName, selectedLocation) {
 
 export async function addVenue(city, activityName, activityLocation, category, day, numOfDays) {
 
+    console.log("NAME IM PASSING TO AXIOS TO ADD", activityName);
+
     try {
         if (category == "4d4b7105d754a06374d81259") {
             category = "Food";
@@ -209,8 +211,12 @@ export async function addVenue(city, activityName, activityLocation, category, d
             category = "Nightlife";
         }
 
+        activityName = activityName.replace(/\//g, " ");
+
+        console.log("SHOULD BE CORRECT" );
+
         // console.log("action", city, activity, category, day, numOfDays);
-        let resp = await axios.get("/add-venue/" + city + "/" + activityName + "/" + activityLocation + "/" + category + "/" + day+ "/" + numOfDays);
+        let resp = await axios.get("/add-venue/" + encodeURIComponent(city) + "/" + encodeURIComponent(activityName) + "/" + encodeURIComponent(activityLocation) + "/" + encodeURIComponent(category) + "/" + encodeURIComponent(day) + "/" + encodeURIComponent(numOfDays));
         console.log("resp after adding", resp.data);
 
         if (resp.data.error) {
@@ -306,6 +312,8 @@ export async function putActivitiesInState(city) {
 
 export async function deleteActivity(activityName) {
     console.log("deleting action runs", activityName);
+    activityName = activityName.replace(/\//g, " ");
+
     await axios.get("/delete/" + activityName);
 
     return {
@@ -372,7 +380,7 @@ export async function getPopularCities() {
 
 export async function checkIfActivityAlreadyAddedToThisDay(activityName, city, day) {
     console.log("action runs to check");
-    let resp = await axios.get("/get-activity/" + activityName + "/" + city + "/" + day);
+    let resp = await axios.get("/get-activity/" + encodeURIComponent(activityName) + "/" + encodeURIComponent(city) + "/" + encodeURIComponent(day));
     console.log("checking in action", resp.data);
 
     return {

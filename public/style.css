@@ -9,7 +9,7 @@ html, body, main, .page, .frontpage-container, .app-wrapper, .setup-container, .
     height: 100%;
 }
 
-input:focus, button:focus {
+input:focus, button:focus, select:focus {
     outline: none;
 }
 
@@ -152,7 +152,8 @@ button:hover:after {
 
 /*background image*/
 .setup-container {
-    background: url("/back.jpg");
+    background: url("/back_setup.jpeg");
+    background-size: cover;
 }
 
 .setup-middle-flex {
@@ -179,6 +180,10 @@ button:hover:after {
 
 .searchbar {
     font-size: 16px;
+}
+
+.day-selector > p {
+    font-size: 20px;
 }
 
 select {
@@ -243,6 +248,7 @@ select {
     margin: 1em auto;
     border: 2px solid red;
     padding: 1em;
+    font-size: 20px;
 }
 
 
@@ -322,7 +328,7 @@ select {
     height: 160px;
     bottom: 0;
     width: 100%;
-    background: rgba(0,0,0, 0.8);;
+    background: rgba(0,0,0, 0.7);;
     z-index: 99;
 }
 
@@ -548,15 +554,16 @@ select {
     text-align: center;
 }
 
-/* .no-underline {
+.no-underline {
     text-decoration: none;
     color:black;
-} */
+}
 
 /*/////////////////////////////////////////////////////PLAN PAGE///////////////////////////////*/
 
 .plan-container {
     width: 100%;
+    overflow: scroll;
 }
 
 .plan-container > h1 {
@@ -570,15 +577,25 @@ select {
     word-spacing: 0.5em;
 }
 
-.plan-container > a {
+
+.backButton {
     z-index: 9999;
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 50%;
     transform: translate(-50%);
-    width: 80%;
-    margin: 1em;
+    width: 100%;
     text-align: center;
+    margin-bottom: 2em;
+    padding: 1em;
+    /* margin: 0 auto; */
+}
+
+break {
+    flex-basis: 100%;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
 }
 
 /*to add flex to the days*/
@@ -597,7 +614,7 @@ select {
     background: rgba(0,0,0, 0.8);
     z-index: 99;
     position: relative;
-    margin: 1em;
+    margin: 2em;
     color: white;
     padding: 1.5em;
     text-align: center;
@@ -631,4 +648,22 @@ select {
     background: tomato;
     padding: 2em;
     width: 70%;
+}
+
+
+/*/////////////////TO_DO PART/////////////*/
+
+.todo-container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.todo-container > h1 {
+    text-align: center;
+    margin: 1em;
+}
+
+.todo-container > ul > li {
+    margin: 1em;
+    font-size: 20px;
 }

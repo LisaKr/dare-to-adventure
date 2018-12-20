@@ -12,7 +12,8 @@ import {
     checkingActivitiesInDays,
     showAddButtonAtFirst,
     deleteActivity,
-    setDeletablePropertyToFalse}
+    setDeletablePropertyToFalse,
+    groupActivitiesForPlanPage}
     from "./actions.js";
 
 import AddingMenu from "./AddingMenu";
@@ -56,9 +57,9 @@ class CategoryResults extends React.Component {
     // }
 
 
-
-
     render() {
+
+
 
         return(
             <div className="category-results-container">
@@ -95,8 +96,11 @@ class CategoryResults extends React.Component {
                                     <div className="deleteButton" onClick = { async () => {
                                         await this.props.dispatch(deleteActivity(r.name));
 
-                                        for (let i = 1; i<this.props.numOfDays; i++) {
-                                            console.log("checking the loop", i);
+                                        await this.props.dispatch(groupActivitiesForPlanPage());
+
+
+                                        for (let i = 1; i<=this.props.numOfDays; i++) {
+                                            console.log("checking days after deleting something", i, "length of numofdays", this.props.numOfDays);
                                             await this.props.dispatch(checkingActivitiesInDays(i));
                                         }
 
