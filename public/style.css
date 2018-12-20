@@ -1,4 +1,4 @@
-/*/////////////////////////////////////////GENERAL LOOK//////////////////////////////////*/
+/*/////////////////////////////////////////GENERAL LOOK/////////////////////////////////////////////////*/
 
 body {
     margin: 0;
@@ -14,13 +14,15 @@ input:focus, button:focus {
 }
 
 
-/*////////////////////////////////////////LOGGED OUT LOOK/////////////////////////////////////*/
+/*///////////////////////////////////////////////LOGGED OUT LOOK/////////////////////////////////////////////*/
+/*background image with plane*/
 .page {
     background-image: url("/back.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
+/*typewriter effect*/
 .MyTypist {
     font-size: 100px;
     color:white;
@@ -37,6 +39,7 @@ animation: blink 1s linear infinite;
   100% { opacity:1; }
 }
 
+/*container where you choose between login and registration*/
 .login-registr {
     animation: 3.8s ease fadein;
     width:20%;
@@ -45,7 +48,6 @@ animation: blink 1s linear infinite;
     background: rgba(255, 255, 255, 0.2);
     padding: 0.5em;
     border-radius: 4px;
-
 }
 
 @keyframes fadein{
@@ -54,6 +56,7 @@ animation: blink 1s linear infinite;
     100% { opacity:1; }
 }
 
+/*buttons leading to registration and login*/
 .frontpage-button {
     color: white;
     background: inherit;
@@ -65,7 +68,6 @@ animation: blink 1s linear infinite;
 
 .no-underline {
     text-decoration: none;
-
 }
 
 .frontpage-button:after, .test:after {
@@ -79,6 +81,7 @@ animation: blink 1s linear infinite;
     transform: scaleX(0.6);
 }
 
+/*forms to actually login and register*/
 .login-container, .registration-container {
     position: absolute;
     top: 40%;
@@ -94,7 +97,6 @@ animation: blink 1s linear infinite;
     top: 30%;
 }
 
-
 .login-form-container > input, .registration-form-container > input {
     margin: 1em;
     display: block;
@@ -109,6 +111,7 @@ animation: blink 1s linear infinite;
     text-decoration: none;
 }
 
+/*buttons that log in or sign up*/
 button {
     background: linear-gradient(45deg, #fff 50%, #E94F37 50%);
     padding: 8px 16px;
@@ -143,10 +146,11 @@ button:hover:after {
 }
 
 
-/*/////////////////////////////////////////////////////////////////////////////////////////////*/
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-/*//////////////////////////////////////////////////SET UP LOOK///////////////////////////////*/
+/*//////////////////////////////////////////////////SET UP LOOK//////////////////////////////////////////*/
 
+/*background image*/
 .setup-container {
     background: url("/back.jpg");
 }
@@ -157,6 +161,7 @@ button:hover:after {
     align-items: center;
     height: 100%;
 }
+
 .setup-middle {
     width: 40%;
     /*margin: 0 auto; */
@@ -165,7 +170,6 @@ button:hover:after {
     background: rgba(0,0,0, 0.7);
     color:white;
     border-radius: 4px;
-
 }
 
 .setup-middle > h1 {
@@ -181,8 +185,6 @@ select {
     font-size: 16px;
     margin-top: 1em;
 }
-
-
 
 .setup-sidebar {
     position: absolute;
@@ -244,12 +246,12 @@ select {
 }
 
 
-/*//////////////////////////WORKING_AREA LOOK/////////////////////////*/
+/*///////////////////////////////////////////WORKING_AREA LOOK////////////////////////////////////////*/
 .working-area-container, .plan-container {
     overflow:hidden;
 }
 
-/*BACKGROUND IMAGE*/
+/*BACKGROUND IMAGE COMING FROM API*/
 .background {
     position:absolute;
     z-index: 1;
@@ -286,6 +288,7 @@ select {
     font-size: 24px;
 }
 
+/*category logos*/
 .icon {
     width: 120px;
 }
@@ -313,7 +316,7 @@ select {
     }
 }
 
-/*/////FOOTER/////*/
+/*///// WORKING AREA FOOTER/////*/
 .footer-wa {
     position: absolute;
     height: 160px;
@@ -388,7 +391,7 @@ select {
 }
 /*//////*/
 
-/*////SHOWING RESULTS//////*/
+/*/////////SHOWING CATEGORY RESULTS//////////*/
 .category-results-container {
     position: absolute;
     z-index: 999;
@@ -453,7 +456,7 @@ select {
 
 /*///////////*/
 
-/*///////DETAILS OF THE VENUE/////*/
+/*//////////////DETAILS OF THE VENUE//////////*/
 .venue-details-container {
     position: absolute;
     z-index: 999;
@@ -490,8 +493,6 @@ select {
 /*//////*/
 
 
-
-
 /*////MENU WHERE YOU SELECT TO WHICH DAY YOU'RE ADDING////*/
 .adding-menu {
     position: fixed;
@@ -517,7 +518,7 @@ select {
     padding: 0.2em;
 }
 
-/*/////WHEN YOU SUCCESSFULLY ADD AN ACTIVITY TO YOUR LIST//////*/
+/*////////POP-UP WHEN YOU SUCCESSFULLY ADD AN ACTIVITY TO YOUR LIST////////*/
 .added-activity-container {
     position: absolute;
     z-index: 9999;
@@ -547,15 +548,12 @@ select {
     text-align: center;
 }
 
-
-
-
-.no-underline {
+/* .no-underline {
     text-decoration: none;
     color:black;
-}
+} */
 
-/*//////////////PLAN PAGE///////////*/
+/*/////////////////////////////////////////////////////PLAN PAGE///////////////////////////////*/
 
 .plan-container {
     width: 100%;
@@ -583,6 +581,7 @@ select {
     text-align: center;
 }
 
+/*to add flex to the days*/
 .day-container {
     display: flex;
     flex-wrap: wrap;
@@ -591,6 +590,7 @@ select {
     overflow: scroll;
 }
 
+/*days themselves*/
 .grouped-day {
     width: 35%;
     height: 40%;
