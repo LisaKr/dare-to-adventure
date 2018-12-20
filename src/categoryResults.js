@@ -65,32 +65,33 @@ class CategoryResults extends React.Component {
 
                 <div className="closingButton" onClick={ () => {this.props.dispatch(hideCategoryResults());}}> X </div>
 
-                {this.props.categoryResults && this.props.categoryResults.map(
+                <div className="all-results">
+                    {this.props.categoryResults && this.props.categoryResults.map(
 
-                    r => {
-
-
-                        return (
-                            <div key={r.id} className="result">
-
-                                <div className="result-info" onClick={ () => {
-                                    this.props.dispatch(getVenueDetails(r.id));
-                                }}>
-                                    {r.name}, {r.location}
-                                </div>
+                        r => {
 
 
-                                {(this.props.showAddButton && !r.deletable) &&
+                            return (
+                                <div key={r.id} className="result">
+
+                                    <div className="result-info" onClick={ () => {
+                                        this.props.dispatch(getVenueDetails(r.id));
+                                    }}>
+                                        {r.name} || {r.location}
+                                    </div>
+
+
+                                    {(this.props.showAddButton && !r.deletable) &&
                                 <div className="addButton" onClick={ () => {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu(r.name, r.location));
                                     //create state property with an array of full days
                                 }}>
-                                Add to list
+                                 || Add to list
                                 </div>}
 
 
-                                {r.deletable &&
+                                    {r.deletable &&
                                     <div className="deleteButton" onClick = { async () => {
                                         await this.props.dispatch(deleteActivity(r.name));
 
@@ -109,25 +110,25 @@ class CategoryResults extends React.Component {
                                             }
                                         }
                                     }}>
-                                    Delete
+                                     || Delete
                                     </div>}
 
 
 
-                            </div>
-                        );
-                    }
-                )}
+                                </div>
+                            );
+                        }
+                    )}
 
+                    <div className="moreButton"
+                        onClick={ () => {
+                            this.props.dispatch(getCategoryResults(this.props.city, this.props.category, this.props.offset));
+                        }}>
+                        <button>MORE</button>
+                    </div>
+                </div>
                 {/*SHOWING THE MENU WITH DAYS WHEN YOU'RE ADDING AN ACTIVITY*/}
                 {this.props.showMenu &&  <AddingMenu/>}
-
-                <div className="moreButton"
-                    onClick={ () => {
-                        this.props.dispatch(getCategoryResults(this.props.city, this.props.category, this.props.offset));
-                    }}>
-                MORE
-                </div>
             </div>
         );
     }

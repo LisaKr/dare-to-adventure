@@ -167,6 +167,7 @@ export async function getWeather(city){
 
 
 export async function showAddingMenu(name, location){
+    console.log("SHOW ADDING MENU RUNS!!!");
     return {
         type: "SHOW_ADDING_MENU",
         showMenu: true,

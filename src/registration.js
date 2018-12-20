@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "./axios";
+import { Link } from 'react-router-dom';
+
 
 
 export default class Registration extends React.Component {
@@ -49,6 +51,8 @@ export default class Registration extends React.Component {
                     <div className="error-message"> {this.state.error} </div>
                     <div className="slider-button"> <button> Sign Up! </button> </div>
                 </form>
+                <br/><br/>
+                <Link to="/login" className="no-underline"> <span className="test">Already registered? Log in here! </span></Link>
             </div>
         );
     }

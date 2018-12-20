@@ -106,57 +106,50 @@ class Plan extends React.Component {
 
         return(
             <div className="plan-container">
-                <h1> this is your plan for your travel to {this.props.city}</h1>
+                <img src={this.props.backgroundUrl} className="background"/>
 
-                {this.props.groupedActivities && Object.keys(this.props.groupedActivities).map(
-                    dayAct => {
-                        return(
-                            <div key={dayAct}>
-                                <h1>
-                                    day {dayAct}
-                                </h1>{
-                                    this.props.groupedActivities[dayAct].map(
-                                        activity => {
-                                            return (
-                                                <div key={activity.activityname} className="user-activities">
-                                                    {activity.activityname} || {activity.activitylocation}
+                <h1> your trip to {this.props.city}</h1>
 
-                                                    <div className="deleteButton" onClick={ async () => {
-                                                        await this.props.dispatch(deleteActivity(activity.activityname));
+                <div className="day-container">
+                    {this.props.groupedActivities && Object.keys(this.props.groupedActivities).map(
+                        dayAct => {
+                            return(
+                                <div key={dayAct} className="grouped-day">
+                                    <h3>
+                                    Day {dayAct}
+                                    </h3>{
+                                        this.props.groupedActivities[dayAct].map(
+                                            activity => {
+                                                return (
+                                                    <div key={activity.activityname} className="user-activities">
+                                                        {activity.activityname} || {activity.activitylocation} || {activity.category}
 
-                                                        await this.props.dispatch(groupActivitiesForPlanPage());
+                                                        <div className="deleteButton" onClick={ async () => {
+                                                            await this.props.dispatch(deleteActivity(activity.activityname));
 
-                                                        for (let i = 1; i<this.props.numOfDays; i++) {
-                                                            console.log("checking the loop", i);
-                                                            await this.props.dispatch(checkingActivitiesInDays(i));
-                                                        }
+                                                            await this.props.dispatch(groupActivitiesForPlanPage());
 
-                                                        await this.props.dispatch(showAddButtonAtFirst());
+                                                            for (let i = 1; i<this.props.numOfDays; i++) {
+                                                                console.log("checking the loop", i);
+                                                                await this.props.dispatch(checkingActivitiesInDays(i));
+                                                            }
 
-                                                    }}> DELETE </div>
-                                                    <br/><br/>
-                                                </div>
-                                            );
-                                        }
-                                    )
-                                }
-                            </div>
-                        );
+                                                            await this.props.dispatch(showAddButtonAtFirst());
 
-                    })}
+                                                        }}>&nbsp;|| DELETE </div>
+                                                        <br/><br/>
+                                                    </div>
+                                                );
+                                            }
+                                        )
+                                    }
 
+                                </div>
+                            );
 
-
-
-
-
-
-                {/* */}
-
-
-
-
-                <Link to="/working-area"> Back to main </Link>
+                        })}
+                </div>
+                <Link to="/working-area"> <button className="moreButton">Back to main </button></Link>
             </div>
         );
     }
@@ -173,7 +166,8 @@ function mapStateToProps(state) {
         userActivities: state.userActivities,
         numOfDays: state.numOfDays,
         categoryResults: state.categoryResults,
-        groupedActivities: state.groupedActivities
+        groupedActivities: state.groupedActivities,
+        backgroundUrl: state.backgroundUrl
     };
 }
 

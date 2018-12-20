@@ -28,7 +28,7 @@ class AddingMenu extends React.Component {
 
         return (
             <div className="adding-menu">
-                Which day would you like to add this activity to?
+                <p>Which day would you like to add this activity to?</p>
                 <br/>
                 {this.props.numOfDays && this.props.arrOfDays.map(
                     day => {
@@ -94,7 +94,7 @@ class AddingMenu extends React.Component {
                     this.props.dispatch(hideAddingError());
                 }}> Cancel </button>
 
-                {this.props.showAddingError && <div className="adding-error"> OOps! Seems you already added it!</div>}
+                {this.props.showAddingError && <div className="adding-error"> Oops! Seems you already added it to that day!</div>}
             </div>
         );
     }

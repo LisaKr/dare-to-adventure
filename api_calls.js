@@ -43,6 +43,7 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 module.exports.getVenues = promisify(function getVenues(city, category, offset, cb) {
 
     city = city.replace(/\s/g, '+');
+    console.log("getting venues!!!!");
 
     let options = {
         method: "GET",

@@ -44,7 +44,9 @@ export default class Login extends React.Component {
                     <input type="text" name="email" autoComplete="off" placeholder="e-mail" onChange={this.handleInput}/>
                     <input type="password" name="password" autoComplete="off" placeholder="password" onChange={this.handleInput}/>
                     <div className="slider-button"><button> Log In! </button></div>
+                    <br/><br/>
                 </form>
+                <Link to="/registration" className="no-underline"> <span className="test">No account? Sign up here! </span></Link>
             </div>
         );
     }

@@ -5,7 +5,7 @@ body {
     font-family: "Helvetica Neue";
 }
 
-html, body, main, .page, .frontpage-container, .app-wrapper, .setup-container, .working-area-container, .background-container {
+html, body, main, .page, .frontpage-container, .app-wrapper, .setup-container, .working-area-container, .background-container, .plan-container {
     height: 100%;
 }
 
@@ -13,10 +13,6 @@ input:focus, button:focus {
     outline: none;
 }
 
-h1 {
-    font-family: "Great Vibes";
-    font-size: 60px;
-}
 
 /*////////////////////////////////////////LOGGED OUT LOOK/////////////////////////////////////*/
 .page {
@@ -43,11 +39,13 @@ animation: blink 1s linear infinite;
 
 .login-registr {
     animation: 3.8s ease fadein;
-    width: 100px;
-    height: 100px;
-    width:50%;
-    margin: 10em auto;
+    width:20%;
+    margin: 7em auto;
     text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5em;
+    border-radius: 4px;
+
 }
 
 @keyframes fadein{
@@ -70,15 +68,15 @@ animation: blink 1s linear infinite;
 
 }
 
-.frontpage-button:after {
+.frontpage-button:after, .test:after {
     display: block;
     content: "";
     border-bottom: solid 2px white;
     transform: scaleX(0);
     transition: transform 0.25s ease-in-out;
 }
-.frontpage-button:hover:after {
-    transform: scaleX(0.2);
+.frontpage-button:hover:after, .test:hover:after {
+    transform: scaleX(0.6);
 }
 
 .login-container, .registration-container {
@@ -92,6 +90,10 @@ animation: blink 1s linear infinite;
     color:white;
 }
 
+.registration-container {
+    top: 30%;
+}
+
 
 .login-form-container > input, .registration-form-container > input {
     margin: 1em;
@@ -99,6 +101,12 @@ animation: blink 1s linear infinite;
     margin: 1em auto;
     border: 0;
     font-size: 1.2em;
+}
+
+.login-container > a, .registration-container > a {
+    color:white;
+    font-size: 18px;
+    text-decoration: none;
 }
 
 button {
@@ -156,7 +164,13 @@ button:hover:after {
     text-align: center;
     background: rgba(0,0,0, 0.7);
     color:white;
+    border-radius: 4px;
 
+}
+
+.setup-middle > h1 {
+    font-family: "Homemade Apple";
+    font-size: 45px;
 }
 
 .searchbar {
@@ -221,11 +235,6 @@ select {
     transform: scaleX(0.8);
 }
 
-.result-info {
-    cursor: pointer;
-    margin: 0.5em;
-}
-
 .error {
     color:white;
     width: 40%;
@@ -236,7 +245,7 @@ select {
 
 
 /*//////////////////////////WORKING_AREA LOOK/////////////////////////*/
-.working-area-container {
+.working-area-container, .plan-container {
     overflow:hidden;
 }
 
@@ -263,7 +272,7 @@ select {
     /* flex: 0 15%; */
     height: 25%;
     width: 15%;
-    background: rgba(0,0,0, 0.8);;
+    background: rgba(0,0,0, 0.8);
     z-index: 99;
     position: relative;
     margin: 1em;
@@ -304,80 +313,52 @@ select {
     }
 }
 
+/*/////FOOTER/////*/
+.footer-wa {
+    position: absolute;
+    height: 160px;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0, 0.8);;
+    z-index: 99;
+}
 
-
-/*////SHOWING RESULTS//////*/
-.category-results-container {
-    position: fixed;
-    z-index: 999;
-    top: 50%;
+/*button to see your activities*/
+.plan-message {
+    position:absolute;
+    bottom:0;
     left: 50%;
-    background: white;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    height: 60%;
-    overflow: scroll;
-    border: 3px solid black;
+    transform: translate(-50%);
+    z-index: 99;
+    padding: 2em;
+    border: 3px solid white;
+    color:white;
+    margin-bottom: 2em;
 }
 
-.result {
-    margin: 1em;
-    cursor: pointer;
+.plan-message > a {
+    color:white;
 }
 
-.moreButton {
-    border: 1px solid black;
-    cursor: pointer;
-}
-
-.closingButton {
-    cursor: pointer;
-}
-
+/*LOGOUT WA*/
 .logout-wa {
     position: absolute;
     bottom: 0;
+    left: 0;
     z-index: 999;
-    width: 20%;
+    width: 8%;
+    padding: 2em;
+    border: 3px solid white;
+    margin-left: 1em;
+    margin-bottom: 2em;
+    text-align: center;
 }
 
 .logout-wa .no-underline {
     color: white;
     background: inherit;
-
-
 }
 
-/*///////////*/
-
-/*///////DETAILS OF THE VENUE/////*/
-.venue-details-container {
-    position: absolute;
-    z-index: 999;
-    top: 50%;
-    left: 50%;
-    background: aqua;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    /* height:80%; */
-}
-
-.venue-image {
-    height: 20em;
-    width: 20em;
-}
-/*//////*/
-
-
-.footer-wa {
-    position: absolute;
-    height: 100px;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0,0,0, 0.8);;
-    z-index: 99;
-
-}
 /*WEATHER*/
 .weather-container {
     z-index: 100;
@@ -388,7 +369,7 @@ select {
     padding: 1em;
     text-align: center;
     height: 100px;
-    border: 7px solid black;
+    border: 3px solid white;
     font-size: 1.6em;
 }
 .weather {
@@ -407,6 +388,110 @@ select {
 }
 /*//////*/
 
+/*////SHOWING RESULTS//////*/
+.category-results-container {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border: 3px solid black;
+
+}
+
+.all-results {
+    position: relative;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+    height: 80%;
+    overflow: scroll;
+    /* padding: 3em; */
+}
+
+
+.result {
+    margin: 1em;
+    cursor: pointer;
+}
+
+.result-info {
+    cursor: pointer;
+    margin: 0.5em;
+    display: inline-block;
+}
+
+.addButton {
+    display: inline-block;
+    font-weight: 500;
+}
+
+.moreButton {
+    cursor: pointer;
+    width: 20%;
+    margin: 0 auto;
+    z-index: 9999;
+    position: relative;
+}
+
+.closingButton {
+    cursor: pointer;
+    margin: 0.5em;
+    position:fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 10%;
+    z-index: 99;
+}
+
+
+/*///////////*/
+
+/*///////DETAILS OF THE VENUE/////*/
+.venue-details-container {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    border: 3px solid black;
+}
+
+.venue {
+    margin: 2em;
+}
+
+.venue > p > span, .venue >span {
+    text-decoration: underline;
+}
+
+.venue > p {
+    display: inline-block;
+}
+
+.venue-image {
+    display: block;
+    height: 20em;
+    width: 20em;
+    margin: 0 auto;
+}
+
+.black {
+    color:black;
+}
+/*//////*/
+
+
+
+
 /*////MENU WHERE YOU SELECT TO WHICH DAY YOU'RE ADDING////*/
 .adding-menu {
     position: fixed;
@@ -418,27 +503,36 @@ select {
     height: 50%;
     padding: 1em;
     width: 60%;
+    height: 70%;
     text-align: center;
+    border: 3px solid black;
 }
 
 .day {
     cursor: pointer;
     border: 1px solid black;
+    width: 20%;
+    margin: 0.4em auto;
+    overflow: scroll;
+    padding: 0.2em;
 }
 
 /*/////WHEN YOU SUCCESSFULLY ADD AN ACTIVITY TO YOUR LIST//////*/
 .added-activity-container {
     position: absolute;
     z-index: 9999;
-    top: 50%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
-    height: 50%;
-    padding: 1em;
-    width: 50%;
-    height: 20%;
+    background: #E94F37;
+    padding: 2em;
+    width: 40%;
     text-align: center;
+    border: 3px solid black;
+}
+
+.added-activity-container .closingButton {
+    width: 0;
 }
 
 
@@ -454,32 +548,73 @@ select {
 }
 
 
-/*button to see your activities*/
-.plan-message {
-    position:absolute;
-    bottom:0;
-    left: 50%;
-    transform: translate(-50%);
-    background: white;
-    z-index: 99;
-    padding: 2em;
-    color: inherit;
-    border: 3px solid black;
-}
+
 
 .no-underline {
     text-decoration: none;
     color:black;
 }
 
-/*/////////*/
+/*//////////////PLAN PAGE///////////*/
 
 .plan-container {
-    padding: 2em;
+    width: 100%;
 }
+
+.plan-container > h1 {
+    position: relative;
+    z-index: 9999;
+    color: white;
+    font-family: "Homemade Apple";
+    background: rgba(0,0,0, 0.8);
+    text-align: center;
+    margin-top: 0;
+    word-spacing: 0.5em;
+}
+
+.plan-container > a {
+    z-index: 9999;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    width: 80%;
+    margin: 1em;
+    text-align: center;
+}
+
+.day-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: space-around;
+    overflow: scroll;
+}
+
+.grouped-day {
+    width: 35%;
+    height: 40%;
+    background: rgba(0,0,0, 0.8);
+    z-index: 99;
+    position: relative;
+    margin: 1em;
+    color: white;
+    padding: 1.5em;
+    text-align: center;
+}
+
 
 .deleteButton {
     cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    color: #E94F37;
+}
+
+.user-activities .deleteButton {
+    /* margin: 1em; */
+    color: white;
+    font-size: 0.8em;
 }
 
 .plan-day {
@@ -489,9 +624,11 @@ select {
 
 .adding-error {
     position: absolute;
-    top:30%;
+    top:15%;
     left:50%;
     transform: translate(-50%, -50%);
     z-index: 999999999;
-    background: yellow;
+    background: tomato;
+    padding: 2em;
+    width: 70%;
 }

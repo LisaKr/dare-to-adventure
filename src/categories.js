@@ -18,7 +18,7 @@ class Categories extends React.Component {
                         this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06374d81259", 0));
                         this.props.dispatch(setCategoryToState("4d4b7105d754a06374d81259"));
                     }}>
-                    <img className="icon" src="/food.png"/>
+                    <img className="icon" src="/burger.png"/>
                 </div>
 
                 <div className="category"
