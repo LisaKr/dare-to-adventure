@@ -185,9 +185,6 @@ export async function hideAddingMenu(){
 
 export async function setActivityInState(selectedName, selectedLocation) {
 
-    // let selectedActivity = selectedName + " || " + selectedLocation;
-
-    // console.log("selected activity", selectedActivity);
 
     return {
         type: "SET_ACTIVITY",
@@ -400,5 +397,19 @@ export async function hideAddingError() {
     return {
         type: "HIDE_ADDING_ERROR",
         addingError: false
+    };
+}
+
+export async function currentPopularCity(city) {
+
+    if (city == null) {
+        return {
+            type: "SET_POPULAR_CITY",
+            currentPopularCity: null
+        };
+    }
+    return {
+        type: "SET_POPULAR_CITY",
+        currentPopularCity: city
     };
 }

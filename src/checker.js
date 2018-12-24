@@ -27,7 +27,6 @@ export default class Checker extends React.Component {
     render() {
         return (
             <div>
-            hello
             </div>
         );
     }

@@ -26,7 +26,7 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
         });
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
-            console.log("PEXELS BODY", parsedBody.photos[0].url);
+            console.log("PEXELS BODY", parsedBody);
             let imgurl = parsedBody.photos[0].src.original;
             cb(null, imgurl);
         });

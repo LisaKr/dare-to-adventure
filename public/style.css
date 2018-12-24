@@ -216,6 +216,7 @@ select {
 .popular-city {
     text-align: center;
     padding: 1em;
+    cursor: pointer;
 }
 
 .logout-setup {

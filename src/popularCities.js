@@ -2,7 +2,7 @@ import React from "react";
 // import axios from "./axios";
 import {connect} from "react-redux";
 
-import { getPopularCities } from "./actions.js";
+import { getPopularCities, currentPopularCity } from "./actions.js";
 
 
 class PopularCities extends React.Component {
@@ -25,7 +25,9 @@ class PopularCities extends React.Component {
                 {this.props.popularCities && this.props.popularCities.map(
                     city => {
                         return (
-                            <div className = "popular-city" key = {city.city}>
+                            <div className = "popular-city" key = {city.city} onClick={() => {
+                                this.props.dispatch(currentPopularCity(city.city));
+                            }}>
                                 {city.city}
                             </div>
                         );

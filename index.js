@@ -23,13 +23,13 @@ app.use(
 );
 
 
-//protecting from cross-site requests, after cookies and bodyParser
-// app.use(csurf());
-//
-// app.use(function(req, res, next){
-//     res.cookie('mytoken', req.csrfToken());
-//     next();
-// });
+// protecting from cross-site requests, after cookies and bodyParser
+app.use(csurf());
+
+app.use(function(req, res, next){
+    res.cookie('mytoken', req.csrfToken());
+    next();
+});
 
 
 app.use(express.static("./public"));
@@ -51,6 +51,14 @@ app.get("/welcome", needNoUserID, (req,res) => {
 });
 
 app.get("/", needUserID, (req,res) => {
+    res.sendFile(__dirname + "/index.html");
+});
+
+app.get("/setup", needUserID, (req,res) => {
+    res.sendFile(__dirname + "/index.html");
+});
+
+app.get("/working-area", needUserID, (req,res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
@@ -329,3 +337,9 @@ function needUserID(req, res, next) {
         next();
     }
 }
+
+
+
+////////////////////////////////////
+//loading screen: show the element when the axios request goes to the server and hide it when the results come in from the back
+//graph ql‚

@@ -291,5 +291,12 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SET_POPULAR_CITY") {
+        return {
+            ...state,
+            currentPopularCity: action.currentPopularCity
+        };
+    }
+
     return state;
 }

@@ -11,7 +11,8 @@ import { getSearchResults,
     createArrayOfDaysInState,
     showAddButtonAtFirst,
     addCityCount,
-    getPopularCities } from "./actions.js";
+    getPopularCities,
+    currentPopularCity} from "./actions.js";
 import { Link } from 'react-router-dom';
 
 
@@ -79,8 +80,11 @@ class Search extends React.Component {
                     className = "searchbar"
                     type="text"
                     placeholder="Choose a city"
-                    onChange={e =>
-                        this.props.dispatch(getSearchResults(e.target.value))
+                    value = {this.props.currentPopularCity}
+                    onChange={e => {
+                        this.props.dispatch(getSearchResults(e.target.value));
+                        this.props.dispatch(currentPopularCity());
+                    }
                     }/>
 
 
@@ -161,7 +165,8 @@ function mapStateToProps(state) {
         error: state.error,
         numOfDays: state.numOfDays,
         backgroundUrl: state.backgroundUrl,
-        popularCities: state.popularCities
+        popularCities: state.popularCities,
+        currentPopularCity: state.currentPopularCity
     };
 }
 
