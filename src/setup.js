@@ -1,28 +1,16 @@
-import React from "react";
-// import axios from "./axios";
-import {connect} from "react-redux";
+//component presented to new users and registered users who haven't created any plans 
 
+import React from "react";
+import {connect} from "react-redux";
 
 import Logout from "./logout";
 import Search from "./search";
 import PopularCities from "./popularCities";
 
-
-import { getPopularCities } from "./actions.js";
-
 class Setup extends React.Component {
     constructor() {
         super();
-        this.state = {};
     }
-
-    async componentDidMount() {
-        console.log(" setup runs!!!!!!!!");
-        this.props.dispatch(getPopularCities());
-
-    }
-
-
 
     render() {
         return (
@@ -46,8 +34,6 @@ class Setup extends React.Component {
 }
 
 function mapStateToProps(state) {
-
-
     return {
         popularCities: state.popularCities
     };

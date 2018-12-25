@@ -15,6 +15,8 @@ export default function Todo() {
                 <li> Fix small bugs 🐛 </li>
                 <li> Clean up the code  😳 </li>
                 <li> On getting API category results loop through them to adjust add/delete buttons</li>
+                <li> Combine delete and on mount functions (because the sequence of actions is the same)</li>
+                <li> Add functionality to selecting a popular city</li>
             </ul>
         </div>
     );

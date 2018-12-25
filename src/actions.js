@@ -41,20 +41,6 @@ export async function getPopularCities() {
     }
 }
 
-//put the selected popular city in state in order to put it into the search field
-export async function currentPopularCity(city) {
-
-    if (city == null) {
-        return {
-            type: "SET_POPULAR_CITY",
-            currentPopularCity: null
-        };
-    }
-    return {
-        type: "SET_POPULAR_CITY",
-        currentPopularCity: city
-    };
-}
 
 //the incoming search request is coming from the e.target.value of the search field
 export async function getSearchResults(request) {
@@ -271,7 +257,7 @@ export async function hideVenue(){
 //puts the name and location of the selected venue in state for further usage
 export async function showAddingMenu(){
     return {
-        type: "SHOW_ADDING_MENU",
+        type: "SHOW_OR_HIDE_ADDING_MENU",
         showMenu: true
     };
 }
@@ -279,7 +265,7 @@ export async function showAddingMenu(){
 //hide the adding menu by clicking on "Cancel"
 export async function hideAddingMenu(){
     return {
-        type: "SHOW_ADDING_MENU",
+        type: "SHOW_OR_HIDE_ADDING_MENU",
         showMenu: false
     };
 }

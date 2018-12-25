@@ -1,3 +1,5 @@
+//redirecting in the welcome component
+
 import React from "react";
 import { HashRouter, Route } from 'react-router-dom';
 import Registration from './registration';

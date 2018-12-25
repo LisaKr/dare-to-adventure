@@ -1,3 +1,5 @@
+//a pop-up showing the details of the selected venue
+
 import React from "react";
 import { connect } from "react-redux";
 
@@ -29,23 +31,18 @@ class VenueDetails extends React.Component {
                                 <img src={v.imgurl} className="venue-image"/>
                             </div>
                         );
-                    }
-                )}
+                    })}
             </div>
         );
     }
-
 }
-
 
 
 function mapStateToProps(state) {
-
     return {
         city: state.city,
-        venueDetails: state.venueDetails    };
+        venueDetails: state.venueDetails
+    };
 }
-
-
 
 export default connect(mapStateToProps)(VenueDetails);

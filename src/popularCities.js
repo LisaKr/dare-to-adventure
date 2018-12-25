@@ -1,21 +1,18 @@
+//shows the current top 3 popular cities and puts the currently clicked popular city in state
+
 import React from "react";
-// import axios from "./axios";
 import {connect} from "react-redux";
 
-import { getPopularCities, currentPopularCity } from "./actions.js";
-
+import { getPopularCities, hideResults, changeBackground, putCityInState, getWeather, addCityCount, showAddButtonAtFirst} from "./actions.js";
 
 class PopularCities extends React.Component {
 
     constructor() {
         super();
-        this.state = {};
     }
 
     async componentDidMount() {
-        console.log(" setup runs!!!!!!!!");
         this.props.dispatch(getPopularCities());
-
     }
 
     render () {
@@ -26,22 +23,29 @@ class PopularCities extends React.Component {
                     city => {
                         return (
                             <div className = "popular-city" key = {city.city} onClick={() => {
-                                this.props.dispatch(currentPopularCity(city.city));
+                                // this.props.dispatch(currentPopularCity(city.city));
+                                document.querySelector('.searchbar').value = city.city;
+                                this.props.dispatch(hideResults());
+                                this.props.dispatch(changeBackground(city.city.replace(/\s+/g, '+')));
+                                this.props.dispatch(putCityInState(city.city));
+                                this.props.dispatch(getWeather(city.city.replace(/\s+/g, '+')));
+                                const prom = this.props.dispatch(addCityCount(city.city));
+                                prom.then(()=>{
+                                    this.props.dispatch(getPopularCities());
+                                });
+                                this.handleCityChange();
+                                this.props.dispatch(showAddButtonAtFirst());
                             }}>
                                 {city.city}
                             </div>
                         );
-                    }
-                )
-                }
+                    })}
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-
-
     return {
         popularCities: state.popularCities
     };

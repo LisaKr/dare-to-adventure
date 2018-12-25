@@ -3,7 +3,6 @@ import axios from "./axios";
 import { Link } from 'react-router-dom';
 
 
-
 export default class Registration extends React.Component {
     constructor() {
         super();
@@ -11,7 +10,6 @@ export default class Registration extends React.Component {
 
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
 
@@ -25,7 +23,6 @@ export default class Registration extends React.Component {
         e.preventDefault();
         try {
             let resp = await axios.post("/register-user", this.state);
-            console.log("registration resp on the front", resp);
             if (resp.data.error) {
                 this.setState({
                     error: "Oops! Something went wrong, please try again!"
@@ -56,5 +53,4 @@ export default class Registration extends React.Component {
             </div>
         );
     }
-
 }

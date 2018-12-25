@@ -1,3 +1,5 @@
+//showing the weather for the respective city
+
 import React from "react";
 import { connect } from "react-redux";
 
@@ -25,22 +27,18 @@ class Weather extends React.Component {
                                 <img src={w.iconurl}/>
                             </div>
                         );
-                    }
-                )}
+                    })}
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-
     return {
         city: state.city,
         weather: state.weather,
         weatherBackground: state.weatherBackground
     };
 }
-
-
 
 export default connect(mapStateToProps)(Weather);

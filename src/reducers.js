@@ -1,5 +1,21 @@
 export default function(state = {}, action) {
 
+    ///////////////SETUP ACTIONS////////////
+
+    if (action.type == "USER_DID_SOME_WORK") {
+        return {
+            ...state,
+            userDidSomeWork: action.userDidSomeWork
+        };
+    }
+
+    if (action.type=="GET_POPULAR_CITIES") {
+        return {
+            ...state,
+            popularCities: action.popularCities
+        };
+    }
+
     if (action.type == "GET_SEARCH_RESULTS") {
         return {
             ...state,
@@ -35,13 +51,7 @@ export default function(state = {}, action) {
         };
     }
 
-    if (action.type == "SET_ARRAY_OF_DAYS") {
-        return {
-            ...state,
-            arrOfDays: action.arrOfDays
-        };
-    }
-
+    //if the user didn't select both city and days
     if (action.type == "SHOW_ERROR") {
         return {
             ...state,
@@ -49,6 +59,50 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SET_ARRAY_OF_DAYS") {
+        return {
+            ...state,
+            arrOfDays: action.arrOfDays
+        };
+    }
+
+    if (action.type == "GET_WEATHER") {
+        return {
+            ...state,
+            weather: action.weather
+        };
+    }
+
+    if (action.type=="SET_WEATHER_BACKGROUND") {
+        return {
+            ...state,
+            weatherBackground: action.weatherBackground
+        };
+    }
+
+    if (action.type == "SET_USER_ACTIVITIES") {
+        return {
+            ...state,
+            userActivities: action.userActivities
+        };
+    }
+
+    if (action.type=="GROUP_BY_DAYS") {
+
+        const displayData = {};
+
+        state.userActivities.forEach(function(item) {
+            displayData[item.day] = displayData[item.day] || [];
+            displayData[item.day].push(item);
+        });
+
+        return {
+            ...state,
+            groupedActivities: displayData
+        };
+    }
+
+    /////////////////WORKING AREA ACTIONS////////////////
     if (action.type == "SHOW_CATEGORY_RESULTS") {
 
         return {
@@ -73,20 +127,14 @@ export default function(state = {}, action) {
         };
     }
 
-    if (action.type == "GET_WEATHER") {
-        return {
-            ...state,
-            weather: action.weather
-        };
-    }
-
-    if (action.type == "SHOW_ADDING_MENU") {
+    if (action.type == "SHOW_OR_HIDE_ADDING_MENU") {
         return {
             ...state,
             showMenu: action.showMenu
         };
     }
 
+    //////SELECTING, ADDING AND REMOVING ACTIVITY////
     if (action.type == "SET_ACTIVITY") {
         return {
             ...state,
@@ -103,15 +151,45 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type=="CHECK_IF_ACTIVITY_ADDED") {
+
+        if (action.activity.length == 0) {
+            return {
+                ...state,
+                activityAlreadyAdded: false
+            };
+        } else {
+            return {
+                ...state,
+                activityAlreadyAdded: true
+            };
+        }
+    }
+
+    if (action.type == "SHOW_ADDING_ERROR") {
+        return {
+            ...state,
+            showAddingError: action.addingError
+        };
+    }
+
+    if (action.type == "HIDE_ADDING_ERROR") {
+        return {
+            ...state,
+            showAddingError: action.addingError
+        };
+    }
+
     if (action.type == "REMOVE_DAY") {
-        // here im hoping to remove the day from the array of days if it has more than 5 activities
+        //removing the day from the array of days if it has more than 5 activities
         state = Object.assign({}, state, {
             arrOfDays: state.arrOfDays.filter(
                 day => day != action.day
             )
         });
 
-        //after filtering the array I'm also checking whether it is now empty and hide the add button then
+        //after filtering the array I'm also checking whether it is now empty (meaning there are no more days with free slots)
+        //and hide the add button then
         if (state.arrOfDays.length == 0) {
             return {
                 ...state,
@@ -119,7 +197,6 @@ export default function(state = {}, action) {
                 showAddingWarningButton: true
             };
         }
-
     }
 
     if (action.type=="ADD_DAY_AGAIN") {
@@ -141,21 +218,7 @@ export default function(state = {}, action) {
     }
 
 
-    if (action.type == "USER_DID_SOME_WORK") {
-        return {
-            ...state,
-            userDidSomeWork: action.userDidSomeWork
-        };
-    }
-
-    if (action.type == "SET_USER_ACTIVITIES") {
-        return {
-            ...state,
-            userActivities: action.userActivities
-        };
-    }
-
-    //filter the existing array and remove whatever i removed
+    //filter the existing array and remove whatever activity i removed
     if (action.type=="REMOVE_ACTIVITY") {
         state = Object.assign({}, state, {
             userActivities: state.userActivities.filter(
@@ -190,78 +253,7 @@ export default function(state = {}, action) {
         });
     }
 
-    if (action.type=="SET_WEATHER_BACKGROUND") {
-        return {
-            ...state,
-            weatherBackground: action.weatherBackground
-        };
-    }
-
-    if (action.type=="GROUP_BY_DAYS") {
-
-        const displayData = {};
-
-        state.userActivities.forEach(function(item) {
-            displayData[item.day] = displayData[item.day] || [];
-            displayData[item.day].push(item);
-        });
-
-
-
-        // console.log("group by try out", result, "type of this", typeof(result));
-
-        return {
-            ...state,
-            groupedActivities: displayData
-        };
-    }
-
-    if (action.type=="GET_POPULAR_CITIES") {
-        return {
-            ...state,
-            popularCities: action.popularCities
-        };
-    }
-
-
-
-    if (action.type=="CHECK_IF_ACTIVITY_ADDED") {
-
-        if (action.activity.length == 0) {
-            return {
-                ...state,
-                activityAlreadyAdded: false
-            };
-        } else {
-            return {
-                ...state,
-                activityAlreadyAdded: true
-            };
-        }
-
-
-    }
-
-    if (action.type == "SHOW_ADDING_ERROR") {
-        return {
-            ...state,
-            showAddingError: action.addingError
-        };
-    }
-
-    if (action.type == "HIDE_ADDING_ERROR") {
-        return {
-            ...state,
-            showAddingError: action.addingError
-        };
-    }
-
-    if (action.type == "SET_POPULAR_CITY") {
-        return {
-            ...state,
-            currentPopularCity: action.currentPopularCity
-        };
-    }
+    /////////////////////
 
     return state;
 }

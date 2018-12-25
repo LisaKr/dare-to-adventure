@@ -611,7 +611,6 @@ break {
 /*days themselves*/
 .grouped-day {
     width: 35%;
-    height: 40%;
     background: rgba(0,0,0, 0.8);
     z-index: 99;
     position: relative;

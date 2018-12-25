@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import axios from "./axios";
 
-
-
 export default class Login extends React.Component {
     constructor() {
         super();
@@ -23,7 +21,6 @@ export default class Login extends React.Component {
         e.preventDefault();
         try {
             let resp = await axios.post("/login-user", this.state);
-            console.log("login resp on the front", resp);
             if (resp.data.error) {
                 this.setState({
                     error: "Oops! Something went wrong, please try again!"
@@ -43,6 +40,8 @@ export default class Login extends React.Component {
                 <form onSubmit={this.handleSubmit} className="login-form-container">
                     <input type="text" name="email" autoComplete="off" placeholder="e-mail" onChange={this.handleInput}/>
                     <input type="password" name="password" autoComplete="off" placeholder="password" onChange={this.handleInput}/>
+                    <div className="error-message"> {this.state.error} </div>
+                    <br/>
                     <div className="slider-button"><button> Log In! </button></div>
                     <br/><br/>
                 </form>

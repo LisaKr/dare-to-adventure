@@ -1,3 +1,5 @@
+//the conponent the user sees after selecting all options or after logging in and previosuly having worked on some plans
+
 import React from "react";
 import axios from "./axios";
 import { connect } from "react-redux";
@@ -26,65 +28,53 @@ import AddedActivity from "./addedActivity";
 import Logout from "./logout";
 
 
-
-
-
 class WorkingArea extends React.Component {
     constructor() {
         super();
     }
 
-    componentDidMount() {
-        console.log("component did mount");
-        if (!this.props.city) {
-            let arrOfDays = [];
+    async componentDidMount() {
+        let arrOfDays = [];
 
-            this.props.dispatch(showAddButtonAtFirst());
+        this.props.dispatch(showAddButtonAtFirst());
 
-            axios.get("/current-city").then((resp) => {
-                let city = resp.data.replace(/\+/g, " ");
-                //.replace(/ /g, '+')
-                let promise1 = this.props.dispatch(putCityInState(city));
-                let promise2 = this.props.dispatch(changeBackground(resp.data));
-                let promise3 = this.props.dispatch(getWeather(city));
-                let promise4 = this.props.dispatch(putActivitiesInState(city));
-                console.log("putting activities in state");
-                Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
-                    console.log("all promises resolved!");
-                    this.props.dispatch(groupActivitiesForPlanPage());
-                }).catch(err => {console.log(err);});
-
-
-                axios.get("/numofdays").then((resp) => {
-
-                    this.props.dispatch(setDays(resp.data));
-
-                    for (let i = 0; i<resp.data; i++) {
-                        arrOfDays.push(i+1);
-                    }
-                    //to put the whole array into the state
-                    this.props.dispatch(createArrayOfDaysInState(arrOfDays));
-
-                    //do the checking for full days before re-setting the arrOfDays
-                    //for each day in the array I start the checking query
-                    for (let i = 1; i<arrOfDays.length+1; i++) {
-                        // console.log("checking the loop", i);
-                        this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
-                            if (this.props.arrOfDays == []) {
-                                this.props.dispatch(hideAddButton());
-                            }
-                        });
-                    }
-                });
-            }).catch(err=>{console.log("error in getting current city on the front", err);});
-            //to know whether or not to show "view/edit your plan"
-            // axios.get("/check-user-history").then( (resp) => {
-            //     if (resp.data != "") {
-            //         this.props.dispatch(userDidSomeWork());
-            //     }
-            // });
+        let userDidSomeWork = await axios.get("/check-user-history");
+        //only in case the user is reloading the page right after setup and before choosing any activities
+        //in this case the user is redirected back to setup
+        if (userDidSomeWork.data == "" && !this.props.city) {
+            this.props.history.push('/setup');
         }
 
+        let resp = await axios.get("/current-city");
+        let city = resp.data.replace(/\+/g, " ");
+
+        let promise1 = this.props.dispatch(putCityInState(city));
+        let promise2 = this.props.dispatch(changeBackground(resp.data));
+        let promise3 = this.props.dispatch(getWeather(city));
+        let promise4 = this.props.dispatch(putActivitiesInState(city));
+        Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
+            this.props.dispatch(groupActivitiesForPlanPage());
+        }).catch(err => {console.log(err);});
+
+
+        let response = await axios.get("/numofdays");
+
+        this.props.dispatch(setDays(response.data));
+
+        for (let i = 0; i<resp.data; i++) {
+            arrOfDays.push(i+1);
+        }
+        //to put the whole array into the state
+        this.props.dispatch(createArrayOfDaysInState(arrOfDays));
+        //do the checking for full days before re-setting the arrOfDays
+        //for each day in the array I start the checking query
+        for (let i = 1; i<arrOfDays.length+1; i++) {
+            this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
+                if (this.props.arrOfDays == []) {
+                    this.props.dispatch(hideAddButton());
+                }
+            });
+        }
     }
 
 

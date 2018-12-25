@@ -1,3 +1,5 @@
+//starting out the whole react app
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 //logged out experience
@@ -5,7 +7,7 @@ import Welcome from './welcome';
 //logged in experience
 import App from './app';
 
-import { hideResults } from "./actions.js";
+// import { hideResults } from "./actions.js";
 
 
 //redux
@@ -18,8 +20,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
 
-
-
 //deciding which component to render depending on which route the user is taking
 let component;
 
@@ -29,6 +29,7 @@ if (location.pathname === "/welcome") {
     component = <Welcome/>;
 //the logged in path renders the component for the logged-in experience
 //inside the logged in experience we can do more local browser routing
+//only app is connected to redux
 } else {
     component = (
         <Provider store={store}>

@@ -115,7 +115,6 @@ app.get("/logout", function(req, res) {
 app.get("/check-user-history", async (req,res) => {
     try {
         let resp = await db.checkUserHistory(req.session.userID);
-        // console.log("response after checking for activities!!!", resp);
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN REGISTRATION: ", err);
@@ -130,7 +129,7 @@ app.get("/check-user-history", async (req,res) => {
 app.get("/current-city", async (req,res) => {
     try {
         let resp = await db.getCurrentCity(req.session.userID);
-        // console.log("users current city on the back", resp);
+        console.log("users current city on the back", resp);
         //now I need to start an api request to get the url of this city back and send this url to the front
         res.json(resp.rows[0].city);
     } catch(err) {
