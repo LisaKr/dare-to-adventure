@@ -69,7 +69,7 @@ class AddingMenu extends React.Component {
                                             });
 
                                             for (let i =0; i<this.props.categoryResults.length; i++) {
-                                                if (this.props.categoryResults[i].name == this.props.addingMenuName) {
+                                                if (this.props.categoryResults[i].name == this.props.selectedActivityName) {
                                                     this.props.dispatch(setDeletablePropertyToTrue(this.props.categoryResults[i].name));
                                                 }
                                             }

@@ -43,7 +43,6 @@ class WorkingArea extends React.Component {
             this.props.dispatch(showAddButtonAtFirst());
 
             axios.get("/current-city").then((resp) => {
-                // console.log("data", resp.data);
                 let city = resp.data.replace(/\+/g, " ");
                 //.replace(/ /g, '+')
                 let promise1 = this.props.dispatch(putCityInState(city));
@@ -58,8 +57,7 @@ class WorkingArea extends React.Component {
 
 
                 axios.get("/numofdays").then((resp) => {
-                    // console.log("num of days", resp.data);
-                    //for inserting into database
+
                     this.props.dispatch(setDays(resp.data));
 
                     for (let i = 0; i<resp.data; i++) {
@@ -78,45 +76,14 @@ class WorkingArea extends React.Component {
                             }
                         });
                     }
-
-
-
-
                 });
-
-
-
             }).catch(err=>{console.log("error in getting current city on the front", err);});
-
-            // axios.get("/numofdays").then((resp) => {
-            //     // console.log("num of days", resp.data);
-            //     //for inserting into database
-            //     this.props.dispatch(setDays(resp.data));
-            //
-            //     for (let i = 0; i<resp.data; i++) {
-            //         arrOfDays.push(i+1);
-            //     }
-            //     //to put the whole array into the state
-            //     this.props.dispatch(createArrayOfDaysInState(arrOfDays));
-            //
-            //     //do the checking for full days before re-setting the arrOfDays
-            //     //for each day in the array I start the checking query
-            //     for (let i = 1; i<arrOfDays.length+1; i++) {
-            //         // console.log("checking the loop", i);
-            //         this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
-            //             if (this.props.arrOfDays == []) {
-            //                 this.props.dispatch(hideAddButton());
-            //             }
-            //         });
-            //     }
-            // }).catch(err=>{console.log("error in getting current days on the front", err);});
-
             //to know whether or not to show "view/edit your plan"
-            axios.get("/check-user-history").then( (resp) => {
-                if (resp.data != "") {
-                    this.props.dispatch(userDidSomeWork());
-                }
-            });
+            // axios.get("/check-user-history").then( (resp) => {
+            //     if (resp.data != "") {
+            //         this.props.dispatch(userDidSomeWork());
+            //     }
+            // });
         }
 
     }

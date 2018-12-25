@@ -12,7 +12,7 @@ export default class Checker extends React.Component {
     async componentDidMount() {
         try {
             let userDidSomeWork = await axios.get("/check-user-history");
-            console.log("from app","userDidSomeWork", userDidSomeWork, "this.props.history", this.props.history);
+            console.log("from app","userDidSomeWork", userDidSomeWork.data);
             // if there is nothing in activities, redirect to the choosing page
             if (userDidSomeWork.data == "") {
                 this.props.history.push('/setup');
