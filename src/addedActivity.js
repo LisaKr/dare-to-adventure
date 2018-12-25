@@ -1,3 +1,5 @@
+//a pop-up showing that the activity the user chose was added to their list
+
 import React from "react";
 import { connect } from "react-redux";
 
@@ -19,15 +21,10 @@ class addedActivity extends React.Component {
 
 }
 
-
-
 function mapStateToProps(state) {
-
     return {
         addedActivity: state.addedActivity
     };
 }
-
-
 
 export default connect(mapStateToProps)(addedActivity);

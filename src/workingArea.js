@@ -13,7 +13,6 @@ import {
     checkingActivitiesInDays,
     hideAddButton,
     showAddButtonAtFirst,
-    userDidSomeWork,
     putActivitiesInState,
     groupActivitiesForPlanPage
 } from "./actions.js";

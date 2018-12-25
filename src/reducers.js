@@ -250,8 +250,6 @@ export default function(state = {}, action) {
 
     if (action.type=="CHECK_IF_ACTIVITY_ADDED") {
 
-        console.log("length of selected activity", action);
-
         if (action.activity.length == 0) {
             return {
                 ...state,
