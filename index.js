@@ -23,7 +23,7 @@ app.use(
 );
 
 
-// protecting from cross-site requests, after cookies and bodyParser
+//protecting from cross-site requests, after cookies and bodyParser
 app.use(csurf());
 
 app.use(function(req, res, next){
