@@ -86,7 +86,7 @@ app.post("/register-user", async (req,res) => {
 });
 
 
-/////////////login//////////////////////
+//////////////////////login//////////////////////
 app.post("/login-user", async (req, res) => {
     try {
         let resp = await db.getUserByMail(req.body.email);
@@ -102,7 +102,7 @@ app.post("/login-user", async (req, res) => {
     }
 });
 
-///////////////////logout////////////////////////////
+////////////////////////logout////////////////////////////
 app.get("/logout", function(req, res) {
     req.session = null;
     res.redirect("/welcome");
@@ -124,16 +124,13 @@ app.get("/check-user-history", async (req,res) => {
 
 ////////////////////////SEEING WHICH CITY USER HAS WORKED ON TO LOAD THE BACKGROUND PIC/////////////////////////////////
 
-//here i am just making request to the database and getting the city the user is working on
-//what is sent back is the name of the city
+//getting only the name of the last city the user has worked on
 app.get("/current-city", async (req,res) => {
     try {
         let resp = await db.getCurrentCity(req.session.userID);
-        console.log("users current city on the back", resp);
-        //now I need to start an api request to get the url of this city back and send this url to the front
         res.json(resp.rows[0].city);
     } catch(err) {
-        console.log(err);
+        console.log("ERROR IN GETTING CURRENT CITY", err);
     }
 });
 
@@ -142,38 +139,37 @@ app.get("/numofdays", async (req,res) => {
         let resp = await db.getNumOfDays(req.session.userID);
         res.json(resp.rows[0].numofdays);
     } catch(err) {
-        console.log(err);
+        console.log("ERROR IN GETTING NUM OF DAYS", err);
     }
 });
 
 //here I am actually starting an API request for the city I want to get an image of
 app.get("/current-city-pic/:city", async (req,res) => {
     try {
-        //now I need to start an api request to get the url of this city back and send this url to the front
         let pexelscity = await getCityPicsPexels(req.params.city);
-        //sending the url to the background pic to the front to render
         res.json(pexelscity);
     } catch(err) {
-        console.log(err);
+        console.log("ERROR IN GETTING IMAGE FOR THE CITY", err);
     }
 });
 
 
 //////////////////////GETTING SEARCH RESULTS////////////////////////////////////
 app.get("/search/:request", async (req,res) => {
-    console.log("search hit!");
-    let resp = await db.search(req.params.request);
-    console.log("search results", resp.rows);
-    res.json(resp.rows);
+    try {
+        let resp = await db.search(req.params.request);
+        res.json(resp.rows);
+    } catch(err) {
+        console.log("ERROR IN GETTING SEARCH RESULTS", err);
+    }
+
 });
 
 
 ///////////////////GETTING CATEGORIES RESULTS/////////////////////
 app.get("/venues/:city/:category/:offset", async (req, res) => {
     try {
-        // console.log("req params", req.params);
         let resp = await getVenues(req.params.city, req.params.category, req.params.offset);
-        // console.log("venues on the server", resp);
         res.json(resp);
     } catch(err) {
         console.log("ERROR IN GETTING VENUES", err);
@@ -184,20 +180,16 @@ app.get("/venues/:city/:category/:offset", async (req, res) => {
 app.get("/venue-details/:id", async (req,res) => {
     try {
         let resp = await getVenueDetails(req.params.id);
-        // console.log("VENUE DETAILS ON THE BACK", resp);
         res.json(resp);
     } catch(err) {
         console.log("ERROR IN GETTING VENUE DETAILS", err);
     }
-
-
 });
 
 
 ////////////SHOWING WEATHER FOR THE CITY//////////////////////
 app.get("/weather/:city", async (req,res) => {
     try {
-        console.log("city in req.params weathee", req.params);
         let resp = await getWeather(req.params.city);
         res.json(resp);
     } catch(err) {
@@ -227,8 +219,6 @@ app.get("/add-venue/:city/:activityName/:activityLocation/:category/:day/:numofd
 app.get("/check-day/:day", async (req,res) => {
     try {
         let resp = await db.checkDay(req.params.day, req.session.userID);
-        // console.log("day response", resp.rows);
-        console.log("checking days running");
         res.json(resp.rows);
     } catch(err) {
         console.log("ERROR IN CHECKING DAYS FOR ACTIVITIES", err);
@@ -239,11 +229,8 @@ app.get("/check-day/:day", async (req,res) => {
 ///////////////////CHECKING IF AN ACTIVITY IS ALREADY ADDED////////////
 app.get("/check-activity/:activity/:city", async (req,res) => {
     try {
-        console.log("req.params", req.params);
         let resp = await db.checkActivity(req.params.activity, req.session.userID, req.params.city);
-        // console.log("response for activity", resp.rows);
         res.json(resp.rows);
-
     } catch(err) {
         console.log("ERROR IN CHECKING IF ACTIVITY ALREADY THERE", err);
     }
@@ -253,7 +240,6 @@ app.get("/check-activity/:activity/:city", async (req,res) => {
 app.get("/get-activities/:city", async (req,res) => {
     try {
         let resp = await db.getActivities(req.session.userID, req.params.city);
-        // console.log("all activities on server", resp.rows);
         res.json(resp.rows);
     } catch(err) {
         console.log("ERROR IN GETTING ALL ACTIVITIES", err);
@@ -263,9 +249,7 @@ app.get("/get-activities/:city", async (req,res) => {
 ////////////////DELETE AN ACTIVITY////////////////////
 app.get("/delete/:activityName", async (req,res) => {
     try {
-        console.log("ACTIVITY", req.params.activityName);
-        let resp = await db.deleteActivity(req.params.activityName, req.session.userID);
-        console.log("response after deleting an activity", resp.rows);
+        await db.deleteActivity(req.params.activityName, req.session.userID);
         res.json({
             awesome:true
         });
@@ -277,8 +261,7 @@ app.get("/delete/:activityName", async (req,res) => {
 /////////////////////ADDING COUNT TO A SELECTED CITY//////////////////////////
 app.get("/add-count/:city", async (req,res) => {
     try {
-        let resp = await db.addCount(req.params.city);
-        console.log("city added", resp.rows);
+        await db.addCount(req.params.city);
         res.json({
             great: true
         });
@@ -292,7 +275,6 @@ app.get("/add-count/:city", async (req,res) => {
 app.get("/get-popular-cities", async (req,res) => {
     try {
         let resp = await db.getPopularCities();
-        console.log("get popular cities!!", resp.rows);
         res.json(resp.rows);
     } catch(err) {
         console.log("ERROR IN GETTING POPULAR CITIES", err);
@@ -301,12 +283,11 @@ app.get("/get-popular-cities", async (req,res) => {
 
 ///////////////CHECK IF ACTIVITY ALREADY ADDED//////////////////
 app.get("/get-activity/:activityname/:city/:day", async (req, res) => {
-    console.log("params", req.params);
     let resp = await db.getActivity(req.session.userID, req.params.activityname, req.params.city, req.params.day);
-    console.log("getting activity", resp.rows.length, resp.rows);
     res.json(resp.rows);
 });
 
+///////////////////DEFAULT STAR ROUTE/////////////////////
 app.get('*', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
@@ -330,9 +311,3 @@ function needUserID(req, res, next) {
         next();
     }
 }
-
-
-
-////////////////////////////////////
-//loading screen: show the element when the axios request goes to the server and hide it when the results come in from the back
-//graph ql‚

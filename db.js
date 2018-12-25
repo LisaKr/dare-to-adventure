@@ -29,7 +29,7 @@ exports.getUserByMail = function getUserByMail(email) {
     );
 };
 
-/////////////////////CHECKING IF USER HAS HAD ACTIVITY ALREADY/////////////////////////////////
+/////////////////////CHECKING IF USER HAS HAD ACTIVITY INSERTED INTO ACTIVITIES TABLE ALREADY/////////////////////////////////
 exports.checkUserHistory = function checkUserHistory(id) {
     return db.query(`
         SELECT *

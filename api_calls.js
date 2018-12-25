@@ -54,8 +54,6 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
     };
     // alternative: v2/search/
 
-    // console.log("options", options);
-
     let callback = resp => {
         if (resp.statusCode != 200) {
             cb(resp.statusCode);
@@ -67,21 +65,13 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
         });
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
-            // console.log("BODY", parsedBody.response.groups[0].items);
             //this is for search endpoint!!!
-
             // let name = parsedBody.response.venues[0].name;
             // let address = parsedBody.response.venues[0].location.address;
             // let list = parsedBody.response.venues;
-            // console.log(
-            //     "NAME ON THE BACK ",
-            //     name, address, list
-            // );
-
             /////////////////////////////////////////////////////////////////
             //this is for the explore endpoint!
-            // let name = parsedBody.response.groups[0].items[0].venue.name;
-            // let address = parsedBody.response.groups[0].items[0].venue.location.address;
+
             let venueObj = [];
 
             for (var i=0; i<parsedBody.response.groups[0].items.length; i++) {
@@ -93,7 +83,6 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
                     activity: parsedBody.response.groups[0].items[i].venue.name + " || " + parsedBody.response.groups[0].items[i].venue.location.address
                 });
             }
-            // console.log("VENUE OBJ IN API", venueObj);
             cb(null, venueObj);
         });
     };
@@ -124,10 +113,6 @@ module.exports.getVenueDetails = promisify(function getVenueDetails(id, cb) {
         });
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
-            console.log("VENUE DETAILS KOMPLETT", parsedBody.response.venue.tips.groups[0].items[0].text);
-            // console.log("VENUE DETAILS", parsedBody.response.venue.price.message);
-            // console.log("venue details", parsedBody.response.venue);
-            // let imgurl = parsedBody.response.venue.bestPhoto.prefix + "100x100" + parsedBody.response.venue.bestPhoto.suffix;
 
             let venueDescriptionObj = [];
 
@@ -215,10 +200,6 @@ module.exports.getWeather = promisify(function getWeather(city, cb) {
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
 
-            // console.log("weather body in api file", parsedBody);
-            // console.log("temperature", parsedBody.current.temp_c);
-            // console.log("iconurl", parsedBody.current.condition.icon.substring(2));
-
             let weatherObj = [];
 
             weatherObj.push({
@@ -234,42 +215,3 @@ module.exports.getWeather = promisify(function getWeather(city, cb) {
 
     req.end();
 });
-
-
-
-
-
-
-///////NOT USING IT BECAUSE PEXELS WORKS//////////////////////
-
-///////////////////////////////////////////GET BACKGROUND FROM TELEPORT///////////////////////////////////////////////
-// module.exports.getCityPics = promisify(function getCityPics(city, cb) {
-//
-//     console.log("helper city", city);
-//     let options = {
-//         method: "GET",
-//         host: "api.teleport.org",
-//         path: "/api/urban_areas/slug:" + city + "/images"
-//     };
-//
-//     let callback = resp => {
-//         if (resp.statusCode != 200) {
-//             cb(resp.statusCode);
-//             return;
-//         }
-//         let body = "";
-//         resp.on("data", chunk => {
-//             body += chunk;
-//         });
-//         resp.on("end", () => {
-//             let parsedBody = JSON.parse(body);
-//             console.log("IMAGE NEW API", parsedBody.photos[0].image.web);
-//             let imgurl = parsedBody.photos[0].image.web;
-//             cb(null, imgurl);
-//         });
-//     };
-//
-//     const req = https.request(options, callback);
-//     req.end();
-//
-// });

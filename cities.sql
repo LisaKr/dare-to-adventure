@@ -2,5 +2,6 @@ DROP TABLE IF EXISTS cities;
 
 CREATE TABLE cities(
     id SERIAL PRIMARY KEY,
-    city VARCHAR(255) NOT NULL
+    city VARCHAR(255) NOT NULL,
+    count INT NOT NULL
 );

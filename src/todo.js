@@ -17,6 +17,8 @@ export default function Todo() {
                 <li> On getting API category results loop through them to adjust add/delete buttons</li>
                 <li> Combine delete and on mount functions (because the sequence of actions is the same)</li>
                 <li> Add functionality to selecting a popular city</li>
+                <li> Loading screen: show the element when the axios request goes to the server and hide it when the results come in from the back</li>
+
             </ul>
         </div>
     );
