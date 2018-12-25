@@ -38,9 +38,9 @@ class WorkingArea extends React.Component {
 
         this.props.dispatch(showAddButtonAtFirst());
 
-        let userDidSomeWork = await axios.get("/check-user-history");
         //only in case the user is reloading the page right after setup and before choosing any activities
         //in this case the user is redirected back to setup
+        let userDidSomeWork = await axios.get("/check-user-history");
         if (userDidSomeWork.data == "" && !this.props.city) {
             this.props.history.push('/setup');
         }
@@ -56,9 +56,7 @@ class WorkingArea extends React.Component {
             this.props.dispatch(groupActivitiesForPlanPage());
         }).catch(err => {console.log(err);});
 
-
         let response = await axios.get("/numofdays");
-
         this.props.dispatch(setDays(response.data));
 
         for (let i = 0; i<resp.data; i++) {
@@ -66,8 +64,8 @@ class WorkingArea extends React.Component {
         }
         //to put the whole array into the state
         this.props.dispatch(createArrayOfDaysInState(arrOfDays));
+
         //do the checking for full days before re-setting the arrOfDays
-        //for each day in the array I start the checking query
         for (let i = 1; i<arrOfDays.length+1; i++) {
             this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
                 if (this.props.arrOfDays == []) {
@@ -79,13 +77,8 @@ class WorkingArea extends React.Component {
 
 
     render(){
-        //if the user isnt coming from the setup page where it is set before redirection then it needs to be gotten again
-        //(happens on log in or refresh)
-
         return(
             <div className="working-area-container">
-
-
                 <img src={this.props.backgroundUrl} className="background"/>
 
                 {this.props.showAddingWarningButton &&
@@ -106,27 +99,23 @@ class WorkingArea extends React.Component {
                 {this.props.addedActivity && <AddedActivity/>}
 
                 <div className="footer-wa">
-
                     {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
                     {(this.props.userDidSomeWork || this.props.userActivities) &&
                         <div className="plan-message">
                             <Link to="/plan" className="no-underline"> View your travel plan! </Link>
                         </div>}
 
-
                     {/*DISPLAYING WEATHER*/}
                     <Weather/>
 
                     <div className="logout-wa"><Logout/></div>
                 </div>
-
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-
     return {
         backgroundUrl: state.backgroundUrl,
         numOfDays: state.numOfDays,
@@ -143,7 +132,5 @@ function mapStateToProps(state) {
         userActivities: state.userActivities
     };
 }
-
-
 
 export default connect(mapStateToProps)(WorkingArea);
