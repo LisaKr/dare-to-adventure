@@ -157,29 +157,6 @@ export default function(state = {}, action) {
 
     //filter the existing array and remove whatever i removed
     if (action.type=="REMOVE_ACTIVITY") {
-
-        // console.log("reducer strats",Object.keys(state.groupedActivities).length);
-
-        //first removing it from grouped activities
-        //for every key in the object
-        // for (let i=1; i<Object.keys(state.groupedActivities).length+1; i++) {
-        //     console.log("reducer runs!", state.groupedActivities[i], state.groupedActivities[i].length);
-        //     //im going through all objects in the value array for this key
-        //     for (let j=0; j<state.groupedActivities[i].length; j++) {
-        //
-        //         if (state.groupedActivities[i][j].activityname == action.activityToRemove) {
-        //             console.log("the object to modify", state.groupedActivities[i][j]);
-        //
-        //             state = Object.assign({}, state, {
-        //                 //i want to remove this
-        //                 groupedActivities: state.groupedActivities[i][j].filter()
-        //
-        //             }
-        //             );
-        //         }
-        //     }
-        // }
-
         state = Object.assign({}, state, {
             userActivities: state.userActivities.filter(
                 activity => activity.activityname != action.activityToRemove

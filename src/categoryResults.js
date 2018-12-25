@@ -1,6 +1,7 @@
+//showing foursquare API results for the respective category, handling clicks on "more", "add" and "delete" buttons
+
 import React from "react";
 import { connect } from "react-redux";
-// import axios from "./axios";
 
 import {
     hideCategoryResults,
@@ -8,117 +9,67 @@ import {
     getCategoryResults,
     showAddingMenu,
     setActivityInState,
-    // putActivitiesInState,
     checkingActivitiesInDays,
     showAddButtonAtFirst,
     deleteActivity,
     setDeletablePropertyToFalse,
-    groupActivitiesForPlanPage}
-    from "./actions.js";
+    groupActivitiesForPlanPage
+} from "./actions.js";
 
 import AddingMenu from "./AddingMenu";
 
 class CategoryResults extends React.Component {
     constructor() {
         super();
-
-        // this.deleteActivity = this.deleteActivity.bind(this);
-
     }
 
-    // async deleteActivity(activityName) {
-    //     // console.log("activity in delete in category", activity);
-    //     // console.log(activity == this.props.selectedActivity, activity, this.props.selectedActivity);
-    //     //deleting
-    //     await axios.get("/delete/" + activityName);
-    //
-    //     //resetting user activities in state
-    //     let resp = await axios.get("/get-activities/" + this.props.city);
-    //     console.log("new list of activities in delete in categories", resp.data);
-    //     this.props.dispatch(putActivitiesInState(resp.data));
-    //
-    //     //then also after deleting I want to check whether any day has become available
-    //     for (let i = 1; i<this.props.numOfDays; i++) {
-    //         console.log("checking the loop", i);
-    //         await this.props.dispatch(checkingActivitiesInDays(i));
-    //     }
-    //
-    //     //showing add button again as something has become available again
-    //     this.props.dispatch(showAddButtonAtFirst());
-    //
-    //     //but i also need to set the property of this activity to deletable false
-    //     for (let i =0; i<this.props.categoryResults.length; i++) {
-    //         if (this.props.categoryResults[i].name == activityName) {
-    //             console.log("hoorah!!!", this.props.categoryResults[i].name, activityName);
-    //             this.props.dispatch(showAddButtonAtFirst());
-    //             this.props.categoryResults[i].deletable = false;
-    //         }
-    //     }
-    // }
-
-
     render() {
-
-
-
         return(
             <div className="category-results-container">
-
                 <div className="closingButton" onClick={ () => {this.props.dispatch(hideCategoryResults());}}> X </div>
-
                 <div className="all-results">
                     {this.props.categoryResults && this.props.categoryResults.map(
-
                         r => {
-
-
                             return (
+                                //the result div contains name, location and add/delete button
                                 <div key={r.id} className="result">
-
+                                    {/*the result info contains only name and location. click on it results in
+                                    showing the venue details (another API request with the respective id)*/}
                                     <div className="result-info" onClick={ () => {
                                         this.props.dispatch(getVenueDetails(r.id));
                                     }}>
                                         {r.name} || {r.location}
                                     </div>
-
-
+                                    {/*when there are still free slots in some days AND the activity isn't added yet*/}
                                     {(this.props.showAddButton && !r.deletable) &&
                                 <div className="addButton" onClick={ () => {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu(r.name, r.location));
-                                    //create state property with an array of full days
                                 }}>
                                  || Add to list
                                 </div>}
 
-
+                                    {/*if the activity is already added*/}
                                     {r.deletable &&
                                     <div className="deleteButton" onClick = { async () => {
+                                        {/*userActivities get updated in state first and the groupedActivities follow*/}
                                         await this.props.dispatch(deleteActivity(r.name));
-
                                         await this.props.dispatch(groupActivitiesForPlanPage());
-
-
+                                        {/*check every day in the arrOfDays for freed up spots in order to allow to add activities to that day again*/}
                                         for (let i = 1; i<=this.props.numOfDays; i++) {
-                                            console.log("checking days after deleting something", i, "length of numofdays", this.props.numOfDays);
                                             await this.props.dispatch(checkingActivitiesInDays(i));
                                         }
-
+                                        {/*showing add button again as at least one spot has been freed*/}
                                         await this.props.dispatch(showAddButtonAtFirst());
-
+                                        {/*change the deletable property of the deleted activity in order to toggle the add/delete button*/}
                                         for (let i =0; i<this.props.categoryResults.length; i++) {
                                             if (this.props.categoryResults[i].name == r.name) {
-                                                // console.log("hoorah!!!", this.props.categoryResults[i].name, r.name);
-                                                this.props.dispatch(showAddButtonAtFirst());
                                                 this.props.dispatch(setDeletablePropertyToFalse(this.props.categoryResults[i].name));
                                             }
                                         }
                                     }}>
                                      || Delete
                                     </div>}
-
-
-
                                 </div>
                             );
                         }
@@ -136,12 +87,9 @@ class CategoryResults extends React.Component {
             </div>
         );
     }
-
-
 }
 
 function mapStateToProps(state) {
-
     return {
         city: state.city,
         category: state.category,
@@ -157,7 +105,5 @@ function mapStateToProps(state) {
         userActivities: state.userActivities
     };
 }
-
-
 
 export default connect(mapStateToProps)(CategoryResults);

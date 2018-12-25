@@ -1,3 +1,4 @@
+//customized axios to include csrf
 import axios from 'axios';
 
 var instance = axios.create({

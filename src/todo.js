@@ -14,6 +14,7 @@ export default function Todo() {
                 <li> Add PDF export 📖</li>
                 <li> Fix small bugs 🐛 </li>
                 <li> Clean up the code  😳 </li>
+                <li> On getting API category results loop through them to adjust add/delete buttons</li>
             </ul>
         </div>
     );

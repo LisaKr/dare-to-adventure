@@ -1,3 +1,5 @@
+//showing the four main categories and handling clicks on them
+
 import React from "react";
 import { connect } from "react-redux";
 
@@ -11,11 +13,11 @@ class Categories extends React.Component {
     render() {
         return (
             <div className="category-container">
-
                 <div className="category"
                     onClick={ () => {
                         {/*WE ARE GETTING FIRST SET OF RESULTS AND SETTING THE CATEGORY IN STATE FOR THE "MORE" BUTTON*/}
                         this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06374d81259", 0));
+                        {/*we need category for the later db inserton of the selected activity and for the handling of the "more" button*/}
                         this.props.dispatch(setCategoryToState("4d4b7105d754a06374d81259"));
                     }}>
                     <img className="icon" src="/burger.png"/>
@@ -47,14 +49,10 @@ class Categories extends React.Component {
     }
 }
 
-
 function mapStateToProps(state) {
-
     return {
         city: state.city
     };
 }
-
-
 
 export default connect(mapStateToProps)(Categories);
