@@ -26,7 +26,6 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
         });
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
-            console.log("PEXELS BODY", parsedBody);
             let imgurl = parsedBody.photos[0].src.original;
             cb(null, imgurl);
         });
@@ -43,7 +42,6 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 module.exports.getVenues = promisify(function getVenues(city, category, offset, cb) {
 
     city = city.replace(/\s/g, '+');
-    console.log("getting venues!!!!");
 
     let options = {
         method: "GET",
@@ -178,7 +176,6 @@ module.exports.getWeather = promisify(function getWeather(city, cb) {
 
 
     city = city.replace(/\s/g, '+');
-    console.log("weather city", city);
 
     let options = {
         method: "GET",
