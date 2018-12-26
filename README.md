@@ -35,9 +35,14 @@ After selecting city and the amount of days for the trip the user is shown their
   <img src="showcase3.gif"/>
 </p>
 
-When exploring activities from different categories (which come from Foursquare API) user can click on a venue to get more detailed information (including description, price range and other users' reviews) about it.
+Results for each category are shown in bulks of 10. They come from Foursquare API. A "more" button is provided allowing the user to browsing the category as long as they like.
+<p align="center">
+  <img src="showcase7.gif"/>
+</p>
 
-Results for each category are shown in bulks of 10. A "more" button is provided allowing the user to browsing the category as long as they like.
+
+When exploring activities from different categories user can click on a venue to get more detailed information (including description, price range and other users' reviews) about it.
+
 <p align="center">
   <img src="showcase4.gif"/>
 </p>
