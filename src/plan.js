@@ -28,6 +28,8 @@ class Plan extends React.Component {
 
     async componentDidMount() {
 
+        console.log("plan mounted");
+
         //only in case the user is reloading the page right after setup and before choosing any activities
         //in this case the user is redirected back to setup
         let userDidSomeWork = await axios.get("/check-user-history");
@@ -54,7 +56,7 @@ class Plan extends React.Component {
 
         this.props.dispatch(setDays(response.data));
 
-        for (let i = 0; i<resp.data; i++) {
+        for (let i = 0; i<response.data; i++) {
             arrOfDays.push(i+1);
         }
         //to put the whole array into the state

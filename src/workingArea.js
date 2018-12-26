@@ -34,6 +34,7 @@ class WorkingArea extends React.Component {
     }
 
     async componentDidMount() {
+        console.log("wa mounted");
         let arrOfDays = [];
 
         this.props.dispatch(showAddButtonAtFirst());
@@ -59,7 +60,7 @@ class WorkingArea extends React.Component {
         let response = await axios.get("/numofdays");
         this.props.dispatch(setDays(response.data));
 
-        for (let i = 0; i<resp.data; i++) {
+        for (let i = 0; i<response.data; i++) {
             arrOfDays.push(i+1);
         }
         //to put the whole array into the state
