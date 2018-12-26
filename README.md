@@ -16,9 +16,10 @@ Tech stack
 
 Overview
 --------
+#### Short description 
 For the final project at SPICED Academy I have built a single-page travel website which allows users to explore a city of their choice and to create a personal itinerary for the next city trip adjusted to their needs and preferences. 
 
-#### Front page
+#### Walkthrough
 Upon arrival on the website the user can register or log in. 
 <p align="center">
   <img src="showcase1.gif"/>
