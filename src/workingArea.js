@@ -100,7 +100,7 @@ class WorkingArea extends React.Component {
                 {this.props.addedActivity && <AddedActivity/>}
 
                 <div className="footer-wa">
-                    <h4>Background images are provided by <a href="https://www.pexels.com/" className="no-underline">Pexels API</a></h4>
+                    <h4>Background images are provided by <a href="https://www.pexels.com/" className="no-underline" taget="_blank">Pexels API</a></h4>
                     {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
                     {(this.props.userDidSomeWork || this.props.userActivities) &&
                         <div className="plan-message">
