@@ -333,6 +333,19 @@ select {
     z-index: 99;
 }
 
+.footer-wa h4 {
+    color:white;
+    position: absolute;
+    bottom:0;
+    left:0;
+    margin-bottom:0;
+    padding: 0.5em;
+}
+
+.footer-wa .no-underline {
+    color:white;
+}
+
 /*button to see your activities*/
 .plan-message {
     position:absolute;
@@ -343,7 +356,7 @@ select {
     padding: 2em;
     border: 3px solid white;
     color:white;
-    margin-bottom: 2em;
+    margin-bottom: 3em;
 }
 
 .plan-message > a {
@@ -360,7 +373,7 @@ select {
     padding: 2em;
     border: 3px solid white;
     margin-left: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 3em;
     text-align: center;
 }
 
