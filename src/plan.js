@@ -4,7 +4,8 @@ import React from "react";
 import axios from "./axios";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import {
     putActivitiesInState,
@@ -27,9 +28,6 @@ class Plan extends React.Component {
     }
 
     async componentDidMount() {
-
-        console.log("plan mounted");
-
         //only in case the user is reloading the page right after setup and before choosing any activities
         //in this case the user is redirected back to setup
         let userDidSomeWork = await axios.get("/check-user-history");
@@ -73,6 +71,21 @@ class Plan extends React.Component {
                 }
             });
         }
+    }
+
+
+
+    exportToPdf(e){
+        e.preventDefault();
+        const input = document.body;
+        html2canvas(input, {scale: 0.8})
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/jpeg');
+                const pdf = new jsPDF('l', 'mm');
+                pdf.addImage(imgData, 'JPEG', 5, 10);
+                pdf.save("myTravelPlan.pdf");
+            })
+        ;
     }
 
     render() {
@@ -127,7 +140,9 @@ class Plan extends React.Component {
                     <break></break>
 
                     <Link to="/working-area"> <button className="backButton">Back to main </button></Link>
-
+                    {this.props.groupedActivities &&
+                    <span><button onClick={this.exportToPdf} className="backButton small"> Export your travel plan
+                    </button></span>}
                 </div>
             </div>
         );
