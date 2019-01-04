@@ -229,6 +229,14 @@ export async function setCategoryToState(category) {
     };
 }
 
+//SHOW RESULTS OF SUB CATEGORIES
+export async function showFoodSubCategories(category) {
+    return {
+        type: `SHOW_SUB_CATEGORY`,
+        category: category
+    };
+}
+
 //getting details of the currently selected venue
 export async function getVenueDetails(id) {
 

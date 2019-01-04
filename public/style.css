@@ -281,7 +281,6 @@ select {
     /* flex: 0 15%; */
     height: 25%;
     width: 15%;
-    background: rgba(0,0,0, 0.8);
     z-index: 99;
     position: relative;
     margin: 1em;
@@ -293,6 +292,14 @@ select {
     cursor: pointer;
     text-align: center;
     font-size: 24px;
+}
+
+.black {
+    background: rgba(0,0,0, 0.8);
+}
+
+.white {
+    background: rgba(255, 255, 255, 0.6);
 }
 
 /*category logos*/
@@ -678,4 +685,25 @@ break {
 .todo-container > ul > li {
     margin: 1em;
     font-size: 20px;
+}
+
+/*///////SUB_CATEGORIES//////*/
+
+.subcategories-container {
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+}
+
+.subcategories-food {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.subcategory {
+    width: 300px;
+    height: 100px;
+    background: red;
+
 }

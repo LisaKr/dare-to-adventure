@@ -112,6 +112,14 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SHOW_SUB_CATEGORY") {
+
+        return {
+            ...state,
+            subcategoryToShow: action.category
+        };
+    }
+
     if (action.type=="HIDE_CATEGORY_RESULTS") {
         return {
             ...state,
