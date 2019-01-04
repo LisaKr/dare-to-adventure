@@ -12,6 +12,7 @@ class Weather extends React.Component {
     }
 
     render() {
+
         return(
             <div className="weather-container">
                 {this.props.weatherBackground && <img className="weather-pic" src={this.props.weatherBackground}/>}

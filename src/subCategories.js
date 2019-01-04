@@ -40,7 +40,8 @@ class subCategories extends React.Component {
                 {this.props.subcategoryToShow=="FOOD" &&
                 <div className="subcategories-food">
                     <div className="subcategory black"
-                        onClick={ () => {
+                        onClick={ (e) => {
+                            e.preventDefault();
                             this.changeBackground(0);
                             this.hideDinnerOptions();
                             this.props.dispatch(setCategoryToState("breakfast"));
@@ -254,4 +255,5 @@ export default connect(mapStateToProps)(subCategories);
 // document.addEventListener('click', function () {
 //     console.log("document click runs");
 //     document.querySelector(".dinner-options-container").style.display = 'none';
+//     document.querySelector(".subcategories-container").style.display = 'none';
 // });

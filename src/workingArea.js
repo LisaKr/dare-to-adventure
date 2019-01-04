@@ -101,14 +101,15 @@ class WorkingArea extends React.Component {
 
                 <div className="footer-wa">
                     <h4>Background images are provided by <a href="https://www.pexels.com/" className="no-underline" taget="_blank">Pexels API</a></h4>
+
+                    {/*DISPLAYING WEATHER*/}
+                    <Weather/>
+                    
                     {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
                     {(this.props.userDidSomeWork || this.props.userActivities) &&
                         <div className="plan-message">
                             <Link to="/plan" className="no-underline"> View your travel plan! </Link>
                         </div>}
-
-                    {/*DISPLAYING WEATHER*/}
-                    <Weather/>
 
                     <div className="logout-wa"><Logout/></div>
                 </div>

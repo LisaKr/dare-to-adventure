@@ -332,8 +332,10 @@ select {
 
 /*///// WORKING AREA FOOTER/////*/
 .footer-wa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
-    height: 160px;
     bottom: 0;
     width: 100%;
     background: rgba(0,0,0, 0.7);;
@@ -344,7 +346,7 @@ select {
     color:white;
     position: absolute;
     bottom:0;
-    left:0;
+    right:0;
     margin-bottom:0;
     padding: 0.5em;
 }
@@ -355,15 +357,15 @@ select {
 
 /*button to see your activities*/
 .plan-message {
-    position:absolute;
+    /* position:absolute;
     bottom:0;
-    left: 50%;
-    transform: translate(-50%);
+    left: 50%; */
+    /* transform: translate(-50%); */
     z-index: 99;
-    padding: 2em;
+    padding: 1em;
     border: 3px solid white;
     color:white;
-    margin-bottom: 3em;
+    margin-bottom: 1em;
 }
 
 .plan-message > a {
@@ -372,15 +374,15 @@ select {
 
 /*LOGOUT WA*/
 .logout-wa {
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
-    left: 0;
+    left: 0; */
     z-index: 999;
     width: 8%;
-    padding: 2em;
+    padding: 1em;
     border: 3px solid white;
-    margin-left: 1em;
-    margin-bottom: 3em;
+    margin-bottom: 1em;
+    margin-right: 1em;
     text-align: center;
 }
 
@@ -392,29 +394,39 @@ select {
 /*WEATHER*/
 .weather-container {
     z-index: 100;
-    position: absolute;
+    /* position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 0; */
+    position: relative;
     color: white;
-    padding: 1em;
     text-align: center;
-    height: 100px;
+    width: 15%;
+    height: 100%;
     border: 3px solid white;
-    font-size: 1.6em;
+    font-size: 1.1em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    margin-left: 1em;
 }
 .weather {
+    position: relative;
     height: 100%;
     width: 100%;
-    position: relative;
     z-index: 9999999;
 }
 
 .weather-pic {
+    /*
     position: absolute;
     right: 0;
-    bottom: 0;
-    height: 100%;
+    bottom: 0; */
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 1;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 /*//////*/
 
@@ -704,8 +716,8 @@ break {
 
 .subcategory {
     /* background: rgba(0,0,0, 0.7); */
-    height: 100px;
-    width: 15%;
+    height: 150px;
+    width: 150px;
     color: white;
     display: flex;
     justify-content: center;
@@ -714,6 +726,30 @@ break {
     border-radius: 50%;
     font-size: 1.3em;
 }
+
+.subcategory:hover {
+        animation: wiggle-diff 1s ease;
+        border: none;
+}
+
+@keyframes wiggle-diff {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(-20deg);
+        }
+        50% {
+            transform: rotate(10deg);
+        }
+        75% {
+            transform: rotate(-5deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+}
+
 
 .dinner-options-container {
     display: flex;
@@ -733,13 +769,13 @@ break {
 
 .dinner-subcat {
     background: rgba(0,0,0, 0.7);
-    height: 70px;
+    height: 50px;
     width: 10%;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 100%;
     font-size: 1.3em;
 }

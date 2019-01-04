@@ -56,7 +56,8 @@ class Categories extends React.Component {
         return (
             <div className="category-container">
                 <div className="category black"
-                    onClick={ () => {
+                    onClick={ (e) => {
+                        e.preventDefault();
                         {/*WE ARE GETTING FIRST SET OF RESULTS AND SETTING THE CATEGORY IN STATE FOR THE "MORE" BUTTON*/}
                         {/*this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06374d81259", 0));*/}
                         {/*we need category for the later db inserton of the selected activity and for the handling of the "more" button*/}
