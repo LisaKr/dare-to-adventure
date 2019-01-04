@@ -3,7 +3,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getCategoryResults, setCategoryToState, showFoodSubCategories } from "./actions.js";
+import { getCategoryResults, setCategoryToState, showFoodSubCategories, setOptionToState, hideSubCategories } from "./actions.js";
 
 import SubCategories from "./subCategories";
 
@@ -40,14 +40,14 @@ class Categories extends React.Component {
     //         return "category white";
     // }
 
-    changeBackground() {
+    changeBackground(i) {
         let categories = document.querySelectorAll(".category");
         categories.forEach(cat => {
             cat.classList.remove("black");
             cat.classList.add("white");
         });
-        document.querySelectorAll(".category")[0].classList.remove("white");
-        document.querySelectorAll(".category")[0].classList.add("black");
+        document.querySelectorAll(".category")[i].classList.remove("white");
+        document.querySelectorAll(".category")[i].classList.add("black");
     }
 
     render() {
@@ -64,30 +64,37 @@ class Categories extends React.Component {
                         this.props.dispatch(showFoodSubCategories("FOOD"));
                         // this.changeBackgroundOfOthers();
                         // this.changeBackgroundOfCurrent();
-                        this.changeBackground();
+                        this.changeBackground(0);
                     }}>
                     <img className="icon" src="/burger.png"/>
                 </div>
 
                 <div className="category black"
                     onClick={ () => {
-                        this.props.dispatch(getCategoryResults(this.props.city, "4d4b7104d754a06370d81259", 0));
-                        this.props.dispatch(setCategoryToState("4d4b7104d754a06370d81259"));
+                        this.props.dispatch(showFoodSubCategories("CULTURE"));
+                        this.changeBackground(1);
+                        // this.props.dispatch(getCategoryResults(this.props.city, "4d4b7104d754a06370d81259", 0, "exploreEndpoint"));
+                        // this.props.dispatch(setCategoryToState("4d4b7104d754a06370d81259"));
                     }}>
                     <img className="icon" src="/culture.png"/>
                 </div>
 
                 <div className="category black"
                     onClick={ () => {
-                        this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06377d81259", 0));
+                        this.changeBackground(2);
+                        this.props.dispatch(hideSubCategories());
+                        this.props.dispatch(setOptionToState("exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06377d81259", 0, "exploreEndpoint"));
                         this.props.dispatch(setCategoryToState("4d4b7105d754a06377d81259"));
                     }}
                 > <img className="icon" src="/nature.png"/> </div>
 
                 <div className="category black"
                     onClick={ () => {
-                        this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06376d81259", 0));
-                        this.props.dispatch(setCategoryToState("4d4b7105d754a06376d81259"));
+                        this.changeBackground(3);
+                        this.props.dispatch(showFoodSubCategories("NIGHTLIFE"));
+                        // this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06376d81259", 0));
+                        // this.props.dispatch(setCategoryToState("4d4b7105d754a06376d81259"));
                     }}>
                     <img className="icon" src="/nightlife.png"/> </div>
                 <break></break>

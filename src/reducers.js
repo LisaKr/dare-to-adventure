@@ -44,6 +44,13 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SET_OPTION") {
+        return {
+            ...state,
+            option: action.option
+        };
+    }
+
     if (action.type == "SET_DAYS") {
         return {
             ...state,
@@ -259,6 +266,13 @@ export default function(state = {}, action) {
                 }
             })
         });
+    }
+
+    if (action.type=="HIDE_SUBCATEGORIES") {
+        return {
+            ...state,
+            subcategoryToShow: action.subcategoryToShow
+        };
     }
 
     /////////////////////

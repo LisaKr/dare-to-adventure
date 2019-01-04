@@ -187,10 +187,10 @@ export async function groupActivitiesForPlanPage() {
 }
 
 //the offset is zero on the first click on the category, in the subsequent requests it is replaced with the state offset
-export async function getCategoryResults(city, category, offset){
+export async function getCategoryResults(city, categoryOrIntent, offset, option){
 
     try {
-        let resp = await axios.get("/venues/" + city + "/" + category + "/" + offset);
+        let resp = await axios.get("/venues/" + city + "/" + categoryOrIntent + "/" + offset + "/" + option);
 
         //if it's the first request to get category results the next request will have an offset of 10
         if (offset == 0) {
@@ -229,6 +229,13 @@ export async function setCategoryToState(category) {
     };
 }
 
+//put the enpoint option in the state for the more button
+export async function setOptionToState(option) {
+    return {
+        type: "SET_OPTION",
+        option: option
+    };
+}
 //SHOW RESULTS OF SUB CATEGORIES
 export async function showFoodSubCategories(category) {
     return {
@@ -278,6 +285,13 @@ export async function hideAddingMenu(){
     };
 }
 
+export async function hideSubCategories(){
+    return {
+        type: "HIDE_SUBCATEGORIES",
+        subcategoryToShow: null
+    };
+}
+
 //put the currently selected activity in state (e.g. to check whether this activity was alreaddy added to this particular day and show that it was successfully added to your list)
 export async function setActivityInState(selectedName, selectedLocation) {
     return {
@@ -316,15 +330,48 @@ export async function hideAddingError() {
 //adding activity to the db
 export async function addVenue(city, activityName, activityLocation, category, day, numOfDays) {
     try {
+
+        //categories need to be translated into names. sad but has to be done
         if (category == "4d4b7105d754a06374d81259") {
             category = "Food";
         } else if (category == "4d4b7104d754a06370d81259") {
             category = "Culture";
         } else if (category == "4d4b7105d754a06377d81259") {
             category = "Nature & Outdoors";
-        } else {
+        } else if (category=="4d4b7105d754a06376d81259") {
             category = "Nightlife";
+        } else if (category=="4bf58dd8d48988d110941735") {
+            category = "Italian Dinner";
+        } else if (category=="4bf58dd8d48988d142941735") {
+            category = "Asian Dinner";
+        } else if (category=="4bf58dd8d48988d10d941735") {
+            category = "German Dinner";
+        } else if (category=="4bf58dd8d48988d16c941735") {
+            category = "Burger Dinner";
+        } else if (category=="4bf58dd8d48988d1c1941735") {
+            category = "Mexican Dinner";
+        } else if (category=="4bf58dd8d48988d181941735") {
+            category = "Museum";
+        } else if (category == "4bf58dd8d48988d1e2931735") {
+            category="Gallery";
+        } else if (category == "4bf58dd8d48988d137941735") {
+            category="Theater";
+        } else if (category == "4bf58dd8d48988d17f941735") {
+            category="Cinema";
+        } else if (category == "5032792091d4c4b30a586d5c") {
+            category="Music";
+        } else if (category == "4bf58dd8d48988d11b941735") {
+            category="Pub";
+        } else if (category == "4bf58dd8d48988d11e941735") {
+            category="Cocktail bar";
+        } else if (category == "4bf58dd8d48988d1d8941735") {
+            category="Queer bar";
+        } else if (category == "4bf58dd8d48988d11f941735") {
+            category="Clubbing";
+        } else if (category == "4bf58dd8d48988d123941735") {
+            category="Wine bar";
         }
+
         //to prevent slashes in addresses in names so that it is not read as a part of the path
         activityName = activityName.replace(/\//g, " ");
 

@@ -39,18 +39,17 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 
 ////////////////////////////////GETTING CATEGORY RESULTS////////////////////////////////////
 
-module.exports.getVenues = promisify(function getVenues(city, category, offset, cb) {
+module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(city, intent, offset, cb) {
 
     city = city.replace(/\s/g, '+');
 
     let options = {
         method: "GET",
         host: "api.foursquare.com",
-        path: `/v2/venues/explore?categoryId=${category}&near=${city}&offset=${offset}&limit=10&client_id=${
+        path: `/v2/search/recommendations?intent=${intent}&near=${city}&offset=${offset}&limit=10&client_id=${
             secrets.id
         }&client_secret=${secrets.secret}&v=20181214`
     };
-    // alternative: v2/search/
 
     let callback = resp => {
         if (resp.statusCode != 200) {
@@ -63,10 +62,50 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
         });
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
-            //this is for search endpoint!!!
-            // let name = parsedBody.response.venues[0].name;
-            // let address = parsedBody.response.venues[0].location.address;
-            // let list = parsedBody.response.venues;
+
+            ////////////this is for recommendations endpoint////////
+            let venueObj = [];
+            for (var i=0; i<parsedBody.response.group.results.length; i++) {
+                venueObj.push({
+                    id: parsedBody.response.group.results[i].venue.id,
+                    name: parsedBody.response.group.results[i].venue.name,
+                    location: parsedBody.response.group.results[i].venue.location.address,
+                    deletable: false,
+                    activity: parsedBody.response.group.results[i].venue.name + " || " + parsedBody.response.group.results[i].venue.location.address
+                });
+            }
+            cb(null, venueObj);
+        });
+    };
+
+    const req = https.request(options, callback);
+    req.end();
+});
+
+module.exports.getVenuesExploreEndpoint = promisify(function getVenues(city, category, offset, cb) {
+
+    city = city.replace(/\s/g, '+');
+
+    let options = {
+        method: "GET",
+        host: "api.foursquare.com",
+        path: `/v2/venues/explore?categoryId=${category}&near=${city}&offset=${offset}&limit=10&client_id=${
+            secrets.id
+        }&client_secret=${secrets.secret}&v=20181214`
+    };
+
+
+    let callback = resp => {
+        if (resp.statusCode != 200) {
+            cb(resp.statusCode);
+            return;
+        }
+        let body = "";
+        resp.on("data", chunk => {
+            body += chunk;
+        });
+        resp.on("end", () => {
+            let parsedBody = JSON.parse(body);
             /////////////////////////////////////////////////////////////////
             //this is for the explore endpoint!
 
@@ -81,6 +120,7 @@ module.exports.getVenues = promisify(function getVenues(city, category, offset, 
                     activity: parsedBody.response.groups[0].items[i].venue.name + " || " + parsedBody.response.groups[0].items[i].venue.location.address
                 });
             }
+
             cb(null, venueObj);
         });
     };

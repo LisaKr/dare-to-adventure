@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const csurf = require("csurf");
 const cookieSession = require("cookie-session");
 const db = require("./db.js");
-const { getVenues, getVenueDetails, getCityPicsPexels, getWeather } = require("./api_calls.js");
+const { getVenuesRecommendationEndpoint, getVenuesExploreEndpoint, getVenueDetails, getCityPicsPexels, getWeather } = require("./api_calls.js");
 const ca = require("chalk-animation");
 
 app.use(compression());
@@ -167,10 +167,17 @@ app.get("/search/:request", async (req,res) => {
 
 
 ///////////////////GETTING CATEGORIES RESULTS/////////////////////
-app.get("/venues/:city/:category/:offset", async (req, res) => {
+app.get("/venues/:city/:categoryOrIntent/:offset/:option", async (req, res) => {
     try {
-        let resp = await getVenues(req.params.city, req.params.category, req.params.offset);
-        res.json(resp);
+        if (req.params.option == "recEndpoint") {
+            let resp = await getVenuesRecommendationEndpoint(req.params.city, req.params.categoryOrIntent, req.params.offset);
+            res.json(resp);
+        }
+
+        if (req.params.option == "exploreEndpoint") {
+            let resp = await getVenuesExploreEndpoint(req.params.city, req.params.categoryOrIntent, req.params.offset);
+            res.json(resp);
+        }
     } catch(err) {
         console.log("ERROR IN GETTING VENUES", err);
     }
@@ -200,12 +207,13 @@ app.get("/weather/:city", async (req,res) => {
 ///////////////ADDING VENUE TO THE ACTIVITIES TABLE////////////////
 app.get("/add-venue/:city/:activityName/:activityLocation/:category/:day/:numofdays", async (req,res) => {
     try {
+        let category = req.params.category.charAt(0).toUpperCase() + req.params.category.substr(1);
         let resp = await db.addVenue(
             req.session.userID,
             req.params.city,
             req.params.activityName,
             req.params.activityLocation,
-            req.params.category,
+            category,
             req.params.day,
             req.params.numofdays);
         res.json(resp.rows[0]);

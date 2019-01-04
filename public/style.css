@@ -337,7 +337,7 @@ select {
     bottom: 0;
     width: 100%;
     background: rgba(0,0,0, 0.7);;
-    z-index: 99;
+    z-index: 1000;
 }
 
 .footer-wa h4 {
@@ -421,8 +421,8 @@ select {
 /*/////////SHOWING CATEGORY RESULTS//////////*/
 .category-results-container {
     position: absolute;
-    z-index: 999;
-    top: 50%;
+    z-index: 9999;
+    top: 40%;
     left: 50%;
     background: white;
     transform: translate(-50%, -50%);
@@ -486,7 +486,7 @@ select {
 /*//////////////DETAILS OF THE VENUE//////////*/
 .venue-details-container {
     position: absolute;
-    z-index: 999;
+    z-index: 99999;
     top: 50%;
     left: 50%;
     background: white;
@@ -696,17 +696,50 @@ break {
     margin-top: 2em;
 }
 
-.subcategories-food {
+.subcategories-food, .subcategories-culture, .subcategories-nightlife {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
 .subcategory {
-    background: rgba(0,0,0, 0.7);
+    /* background: rgba(0,0,0, 0.7); */
+    height: 100px;
+    width: 15%;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.3em;
+}
+
+.dinner-options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 2em;
+    align-items: center;
+}
+
+.dinner-options-container > .closingButton {
+    position: inherit;
+    font-size: 3em;
+    text-align: center;
+    width: 1%;
+    margin:0;
+}
+
+.dinner-subcat {
+    background: rgba(0,0,0, 0.7);
+    height: 70px;
+    width: 10%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.3em;
 }

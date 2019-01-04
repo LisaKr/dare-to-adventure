@@ -77,7 +77,8 @@ class CategoryResults extends React.Component {
 
                     <div className="moreButton"
                         onClick={ () => {
-                            this.props.dispatch(getCategoryResults(this.props.city, this.props.category, this.props.offset));
+                            console.log("more is clicked", this.props.category, this.props.option);
+                            this.props.dispatch(getCategoryResults(this.props.city, this.props.category, this.props.offset, this.props.option));
                         }}>
                         <button>MORE</button>
                     </div>
@@ -102,7 +103,8 @@ function mapStateToProps(state) {
         showAddButton: state.showAddButton,
         showAddingWarningButton: state.showAddingWarningButton,
         showDeleteButton: state.showDeleteButton,
-        userActivities: state.userActivities
+        userActivities: state.userActivities,
+        option: state.option
     };
 }
 

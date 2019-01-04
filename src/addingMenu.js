@@ -13,7 +13,8 @@ import {
     groupActivitiesForPlanPage,
     checkIfActivityAlreadyAddedToThisDay,
     showAddingError,
-    hideAddingError
+    hideAddingError,
+    hideSubCategories
 } from "./actions.js";
 
 
@@ -72,6 +73,7 @@ class AddingMenu extends React.Component {
                                             }
                                             //showing the pop-up about adding the activity and hiding the menu with the day selection
                                             this.props.dispatch(hideAddingMenu());
+                                            // this.props.dispatch(hideSubCategories());
                                             this.props.dispatch(successfullyAdded(this.props.selectedActivityName));
                                         }
                                     });
