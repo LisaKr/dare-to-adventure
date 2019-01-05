@@ -19,7 +19,8 @@ class VenueDetails extends React.Component {
                     v => {
                         return (
                             <div key={v.id} className="venue">
-                                {v.name}  || {v.category} || {v.likes}  || {v.rating && <p>Rating: {v.rating}</p>} || <a href={v.url} target="_blank" rel="noopener noreferrer" className="black">Website</a>
+                                <img src={v.imgurl} className="venue-image"/>
+                                <div className="venue-details">{v.name}  || {v.category} || {v.likes}  || {v.rating && <p>Rating: {v.rating}</p>} || <a href={v.url} target="_blank" rel="noopener noreferrer">Website</a></div>
 
                                 <br/>
                                 <span>Price range:</span> {v.price}
@@ -28,7 +29,6 @@ class VenueDetails extends React.Component {
                                 <br/>
                                 {v.tip && <p><span>Other users say:</span> {v.tip}</p>}
                                 <br/><br/>
-                                <img src={v.imgurl} className="venue-image"/>
                             </div>
                         );
                     })}

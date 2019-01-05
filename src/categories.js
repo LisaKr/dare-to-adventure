@@ -50,6 +50,14 @@ class Categories extends React.Component {
         document.querySelectorAll(".category")[i].classList.add("black");
     }
 
+    changeBackgroundBackToBlack() {
+        let categories = document.querySelectorAll(".category");
+        categories.forEach(cat => {
+            cat.classList.remove("white");
+            cat.classList.add("black");
+        });
+    }
+
     render() {
         // var catClass = this.getClass();
 
@@ -58,22 +66,33 @@ class Categories extends React.Component {
                 <div className="category black"
                     onClick={ (e) => {
                         e.preventDefault();
-                        {/*WE ARE GETTING FIRST SET OF RESULTS AND SETTING THE CATEGORY IN STATE FOR THE "MORE" BUTTON*/}
-                        {/*this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06374d81259", 0));*/}
                         {/*we need category for the later db inserton of the selected activity and for the handling of the "more" button*/}
                         // this.props.dispatch(setCategoryToState("4d4b7105d754a06374d81259"));
-                        this.props.dispatch(showFoodSubCategories("FOOD"));
+                        if (this.props.subcategoryToShow == "FOOD") {
+                            this.props.dispatch(showFoodSubCategories(null));
+                            this.changeBackgroundBackToBlack();
+                        } else {
+                            this.changeBackground(0);
+                            this.props.dispatch(showFoodSubCategories("FOOD"));
+                        }
+
                         // this.changeBackgroundOfOthers();
                         // this.changeBackgroundOfCurrent();
-                        this.changeBackground(0);
+
                     }}>
                     <img className="icon" src="/burger.png"/>
                 </div>
 
                 <div className="category black"
                     onClick={ () => {
-                        this.props.dispatch(showFoodSubCategories("CULTURE"));
-                        this.changeBackground(1);
+                        if (this.props.subcategoryToShow == "CULTURE") {
+                            this.props.dispatch(showFoodSubCategories(null));
+                            this.changeBackgroundBackToBlack();
+                        } else {
+                            this.changeBackground(1);
+                            this.props.dispatch(showFoodSubCategories("CULTURE"));
+                        }
+
                         // this.props.dispatch(getCategoryResults(this.props.city, "4d4b7104d754a06370d81259", 0, "exploreEndpoint"));
                         // this.props.dispatch(setCategoryToState("4d4b7104d754a06370d81259"));
                     }}>
@@ -82,18 +101,30 @@ class Categories extends React.Component {
 
                 <div className="category black"
                     onClick={ () => {
-                        this.changeBackground(2);
-                        this.props.dispatch(hideSubCategories());
-                        this.props.dispatch(setOptionToState("exploreEndpoint"));
-                        this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06377d81259", 0, "exploreEndpoint"));
-                        this.props.dispatch(setCategoryToState("4d4b7105d754a06377d81259"));
+                        if (this.props.subcategoryToShow == "NATURE") {
+                            this.props.dispatch(showFoodSubCategories(null));
+                            this.changeBackgroundBackToBlack();
+                        } else {
+                            this.changeBackground(2);
+                            this.props.dispatch(showFoodSubCategories("NATURE"));
+                        }
+                        // this.changeBackground(2);
+                        // this.props.dispatch(hideSubCategories());
+                        // this.props.dispatch(setOptionToState("exploreEndpoint"));
+                        // this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06377d81259", 0, "exploreEndpoint"));
+                        // this.props.dispatch(setCategoryToState("4d4b7105d754a06377d81259"));
                     }}
                 > <img className="icon" src="/nature.png"/> </div>
 
                 <div className="category black"
                     onClick={ () => {
-                        this.changeBackground(3);
-                        this.props.dispatch(showFoodSubCategories("NIGHTLIFE"));
+                        if (this.props.subcategoryToShow == "NIGHTLIFE") {
+                            this.props.dispatch(showFoodSubCategories(null));
+                            this.changeBackgroundBackToBlack();
+                        } else {
+                            this.changeBackground(3);
+                            this.props.dispatch(showFoodSubCategories("NIGHTLIFE"));
+                        }
                         // this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06376d81259", 0));
                         // this.props.dispatch(setCategoryToState("4d4b7105d754a06376d81259"));
                     }}>

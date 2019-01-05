@@ -112,7 +112,7 @@ animation: blink 1s linear infinite;
 }
 
 /*buttons that log in or sign up*/
-button {
+button, .addButton {
     background: linear-gradient(45deg, #fff 50%, #E94F37 50%);
     padding: 8px 16px;
     border-radius: 4px;
@@ -122,7 +122,7 @@ button {
     cursor: pointer;
 }
 
-button:after {
+button:after, .addButton:after {
   content: "";
   top: 0;
   bottom: 0;
@@ -133,14 +133,14 @@ button:after {
 }
 
 button,
-button:after {
+button:after, .addButton, .addButton:after {
   background-size: 300%;
   background-position: 100%;
   transition: 0.6s;
 }
 
 button:hover,
-button:hover:after {
+button:hover:after, .addButton:hover, .addButton:hover:after {
   background-position: 0;
   color: #E94F37; /*For IE*/
 }
@@ -279,8 +279,8 @@ select {
 /*category boxes themselves*/
 .category {
     /* flex: 0 15%; */
-    height: 25%;
-    width: 15%;
+    height: 200px;
+    width: 200px;
     z-index: 99;
     position: relative;
     margin: 1em;
@@ -426,7 +426,9 @@ select {
     transform: translate(-50%, -50%);
     width: 60%;
     height: 60%;
-    border: 3px solid black;
+    border: 1px solid black;
+    border-radius: 12px;
+    text-align: center;
 
 }
 
@@ -439,13 +441,14 @@ select {
     transform: translate(-50%, -50%);
     height: 80%;
     overflow: scroll;
-    /* padding: 3em; */
+    font-size: 1.2em;
 }
 
 
 .result {
-    margin: 1em;
+    margin: 1em 4em;
     cursor: pointer;
+    text-align: left;
 }
 
 .result-info {
@@ -456,7 +459,8 @@ select {
 
 .addButton {
     display: inline-block;
-    font-weight: 500;
+    /* font-weight: 500; */
+    float: right;
 }
 
 .moreButton {
@@ -472,10 +476,9 @@ select {
     margin: 0.5em;
     position:fixed;
     top: 0;
-    left:0;
-    width: 100%;
-    height: 10%;
-    z-index: 99;
+    left:95%;
+    font-size: 24px;
+    z-index: 99999;
 }
 
 
@@ -490,7 +493,24 @@ select {
     background: white;
     transform: translate(-50%, -50%);
     width: 80%;
-    border: 3px solid black;
+    border: 1px solid black;
+    border-radius: 12px;
+    overflow: scroll;
+}
+
+.venue-details {
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+}
+
+.venue-details > p {
+    display: inline-block;
+}
+
+.venue-details > a {
+    text-decoration: none;
+    color: black;
 }
 
 .venue {
@@ -694,7 +714,7 @@ break {
     margin-top: 2em;
 }
 
-.subcategories-food, .subcategories-culture, .subcategories-nightlife {
+.subcategories-food, .subcategories-culture, .subcategories-nightlife, .subcategories-nature {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -713,10 +733,10 @@ break {
     font-size: 1.3em;
 }
 
-.subcategory:hover {
+/* .subcategory:hover {
         animation: wiggle-diff 1s ease;
         border: none;
-}
+} */
 
 @keyframes wiggle-diff {
         0% {
@@ -755,13 +775,13 @@ break {
 
 .dinner-subcat {
     background: rgba(0,0,0, 0.7);
-    height: 50px;
+    height: 80px;
     width: 10%;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border-radius: 100%;
+    border-radius: 5px;
     font-size: 1.3em;
 }

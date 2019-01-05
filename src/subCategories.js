@@ -34,6 +34,14 @@ class subCategories extends React.Component {
         document.querySelectorAll(".subcategory")[i].classList.add("black");
     }
 
+    changeBackgroundBackToBlack() {
+        let categories = document.querySelectorAll(".subcategory");
+        categories.forEach(cat => {
+            cat.classList.remove("white");
+            cat.classList.add("black");
+        });
+    }
+
     render() {
         return(
             <div className="subcategories-container">
@@ -64,8 +72,14 @@ class subCategories extends React.Component {
 
                     <div className="subcategory black"
                         onClick={ () => {
-                            this.changeBackground(2);
-                            this.showDinnerOptions();
+                            if (this.state.showDinner == false) {
+                                this.changeBackground(2);
+                                this.showDinnerOptions();
+                            } else {
+                                this.hideDinnerOptions();
+                                this.changeBackgroundBackToBlack();
+                            }
+
                         }}>
                     Dinner
                     </div>
@@ -128,9 +142,6 @@ class subCategories extends React.Component {
                         }}>
                     Mexican
                     </div>
-
-                    <div className="closingButton" onClick={() => {this.hideDinnerOptions();}}> X </div>
-
                 </div>}
 
                 {this.props.subcategoryToShow=="CULTURE" &&
@@ -185,6 +196,50 @@ class subCategories extends React.Component {
                         Music
                     </div>
                 </div>}
+
+                {this.props.subcategoryToShow=="NATURE" &&
+                <div className="subcategories-nature">
+                    <div className="subcategory black"
+                        onClick={ () => {
+                            this.changeBackground(0);
+                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d1e2941735"));
+                            this.props.dispatch(setOptionToState("exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d1e2941735", 0, "exploreEndpoint"));
+                        }}>
+                    Beach
+                    </div>
+
+                    <div className="subcategory black"
+                        onClick={ () => {
+                            this.changeBackground(1);
+                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d163941735"));
+                            this.props.dispatch(setOptionToState("exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d163941735", 0, "exploreEndpoint"));
+                        }}>
+                    Park
+                    </div>
+
+                    <div className="subcategory black"
+                        onClick={ () => {
+                            this.changeBackground(2);
+                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d161941735"));
+                            this.props.dispatch(setOptionToState("exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d161941735", 0, "exploreEndpoint"));
+                        }}>
+                    Lake
+                    </div>
+
+                    <div className="subcategory black"
+                        onClick={ () => {
+                            this.changeBackground(3);
+                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d159941735"));
+                            this.props.dispatch(setOptionToState("exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d159941735", 0, "exploreEndpoint"));
+                        }}>
+                    Hiking
+                    </div>
+                </div>
+                }
 
                 {this.props.subcategoryToShow=="NIGHTLIFE" &&
                 <div className="subcategories-nightlife">

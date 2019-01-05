@@ -23,10 +23,21 @@ class CategoryResults extends React.Component {
         super();
     }
 
+    changeBackgroundBackToBlack() {
+        let categories = document.querySelectorAll(".subcategory");
+        categories.forEach(cat => {
+            cat.classList.remove("white");
+            cat.classList.add("black");
+        });
+    }
+
     render() {
         return(
             <div className="category-results-container">
-                <div className="closingButton" onClick={ () => {this.props.dispatch(hideCategoryResults());}}> X </div>
+                <div className="closingButton" onClick={ () => {
+                    this.props.dispatch(hideCategoryResults());
+                    this.changeBackgroundBackToBlack();
+                }}> X </div>
                 <div className="all-results">
                     {this.props.categoryResults && this.props.categoryResults.map(
                         r => {
@@ -46,7 +57,7 @@ class CategoryResults extends React.Component {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu(r.name, r.location));
                                 }}>
-                                 || Add to list
+                                 Add to list
                                 </div>}
 
                                     {/*if the activity is already added*/}

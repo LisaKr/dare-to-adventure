@@ -370,6 +370,14 @@ export async function addVenue(city, activityName, activityLocation, category, d
             category="Clubbing";
         } else if (category == "4bf58dd8d48988d123941735") {
             category="Wine bar";
+        } else if (category == "4bf58dd8d48988d1e2941735") {
+            category="Beach";
+        } else if (category == "4bf58dd8d48988d163941735") {
+            category="Park";
+        } else if (category == "4bf58dd8d48988d161941735") {
+            category="Lake";
+        } else if (category == "4bf58dd8d48988d159941735") {
+            category="Hiking";
         }
 
         //to prevent slashes in addresses in names so that it is not read as a part of the path
