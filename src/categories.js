@@ -70,6 +70,7 @@ class Categories extends React.Component {
                             {/*we need category for the later db inserton of the selected activity and for the handling of the "more" button*/}
                             // this.props.dispatch(setCategoryToState("4d4b7105d754a06374d81259"));
                             if (this.props.subcategoryToShow == "FOOD") {
+                                this.props.dispatch(hideDinnerOptions());
                                 this.props.dispatch(showFoodSubCategories(null));
                                 this.changeBackgroundBackToBlack();
                             } else {
