@@ -66,10 +66,10 @@ Future Features
 --------
 -  Make it responsive 📱 
 - Add event integration from eventbrite API (find events for that city for specific dates) 📅
-- Add sub-categories when choosing activities (e.g. Italian / Chinese etc or Museums / Theaters....) 📓
 - Add add/delete buttons to Foursquare category results on load (so that the user sees right away which venues have already been added)
 - DRY the code
 - Add loading screen while waiting for API results
-- Add PDF export 📖
+- Add filtering by location
+- Fix PDF export 📖
 
 
