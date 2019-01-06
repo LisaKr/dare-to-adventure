@@ -687,7 +687,6 @@ select {
     width: 0;
 }
 
-
 .addingWarningButton {
     cursor: auto;
     position:absolute;
@@ -763,7 +762,6 @@ break {
     text-align: center;
 }
 
-
 .deleteButton {
     cursor: pointer;
     display: inline-block;
@@ -771,7 +769,6 @@ break {
 }
 
 .user-activities .deleteButton {
-    /* margin: 1em; */
     color: white;
     font-size: 0.8em;
 }
