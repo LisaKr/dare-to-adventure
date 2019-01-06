@@ -79,7 +79,7 @@ class CategoryResults extends React.Component {
                                             }
                                         }
                                     }}>
-                                     || Delete
+                                     Delete
                                     </div>}
                                 </div>
                             );
