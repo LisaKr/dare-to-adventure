@@ -3,7 +3,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getCategoryResults, setCategoryToState, showFoodSubCategories, setOptionToState, hideSubCategories } from "./actions.js";
+import { getCategoryResults, setCategoryToState, showFoodSubCategories, setOptionToState, hideSubCategories, hideDinnerOptions } from "./actions.js";
 
 import SubCategories from "./subCategories";
 
@@ -89,12 +89,10 @@ class Categories extends React.Component {
                             this.props.dispatch(showFoodSubCategories(null));
                             this.changeBackgroundBackToBlack();
                         } else {
+                            this.props.dispatch(hideDinnerOptions());
                             this.changeBackground(1);
                             this.props.dispatch(showFoodSubCategories("CULTURE"));
                         }
-
-                        // this.props.dispatch(getCategoryResults(this.props.city, "4d4b7104d754a06370d81259", 0, "exploreEndpoint"));
-                        // this.props.dispatch(setCategoryToState("4d4b7104d754a06370d81259"));
                     }}>
                     <img className="icon" src="/culture.png"/>
                 </div>
@@ -105,6 +103,7 @@ class Categories extends React.Component {
                             this.props.dispatch(showFoodSubCategories(null));
                             this.changeBackgroundBackToBlack();
                         } else {
+                            this.props.dispatch(hideDinnerOptions());
                             this.changeBackground(2);
                             this.props.dispatch(showFoodSubCategories("NATURE"));
                         }
@@ -122,6 +121,7 @@ class Categories extends React.Component {
                             this.props.dispatch(showFoodSubCategories(null));
                             this.changeBackgroundBackToBlack();
                         } else {
+                            this.props.dispatch(hideDinnerOptions());
                             this.changeBackground(3);
                             this.props.dispatch(showFoodSubCategories("NIGHTLIFE"));
                         }
@@ -139,7 +139,8 @@ class Categories extends React.Component {
 function mapStateToProps(state) {
     return {
         city: state.city,
-        subcategoryToShow: state.subcategoryToShow
+        subcategoryToShow: state.subcategoryToShow,
+        dinnerShown: state.dinnerShown
     };
 }
 

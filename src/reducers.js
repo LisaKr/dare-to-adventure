@@ -120,10 +120,23 @@ export default function(state = {}, action) {
     }
 
     if (action.type == "SHOW_SUB_CATEGORY") {
-
         return {
             ...state,
             subcategoryToShow: action.category
+        };
+    }
+
+    if (action.type == "HIDE_DINNER_OPTIONS") {
+        return {
+            ...state,
+            dinnerShown: action.dinnerShown
+        };
+    }
+
+    if (action.type == "SHOW_DINNER_OPTIONS") {
+        return {
+            ...state,
+            dinnerShown: action.dinnerShown
         };
     }
 

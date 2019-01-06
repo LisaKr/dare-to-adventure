@@ -1,28 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getCategoryResults, setCategoryToState, setOptionToState } from "./actions.js";
+import { getCategoryResults, setCategoryToState, setOptionToState, hideDinnerOptions, showDinnerOptions } from "./actions.js";
 
 
 class subCategories extends React.Component {
     constructor() {
         super();
-        this.state = {showDinner: false};
-        this.showDinnerOptions = this.showDinnerOptions.bind(this);
-        this.hideDinnerOptions = this.hideDinnerOptions.bind(this);
+        // this.state = {showDinner: false};
+        // this.showDinnerOptions = this.showDinnerOptions.bind(this);
+        // this.hideDinnerOptions = this.hideDinnerOptions.bind(this);
     }
 
-    showDinnerOptions() {
-        this.setState({
-            showDinner: true
-        });
-    }
-
-    hideDinnerOptions() {
-        this.setState({
-            showDinner: false
-        });
-    }
+    // showDinnerOptions() {
+    //     this.setState({
+    //         showDinner: true
+    //     });
+    // }
+    //
+    // hideDinnerOptions() {
+    //     this.setState({
+    //         showDinner: false
+    //     });
+    // }
 
     changeBackground(i) {
         let categories = document.querySelectorAll(".subcategory");
@@ -51,7 +51,7 @@ class subCategories extends React.Component {
                         onClick={ (e) => {
                             e.preventDefault();
                             this.changeBackground(0);
-                            this.hideDinnerOptions();
+                            this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("breakfast"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
                             this.props.dispatch(getCategoryResults(this.props.city, "breakfast", 0, "recEndpoint"));
@@ -62,7 +62,7 @@ class subCategories extends React.Component {
                     <div className="subcategory black"
                         onClick={ () => {
                             this.changeBackground(1);
-                            this.hideDinnerOptions();
+                            this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("lunch"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
                             this.props.dispatch(getCategoryResults(this.props.city, "lunch", 0, "recEndpoint"));
@@ -72,11 +72,11 @@ class subCategories extends React.Component {
 
                     <div className="subcategory black"
                         onClick={ () => {
-                            if (this.state.showDinner == false) {
+                            if (this.props.dinnerShown == false || this.props.dinnerShown == null) {
                                 this.changeBackground(2);
-                                this.showDinnerOptions();
+                                this.props.dispatch(showDinnerOptions());
                             } else {
-                                this.hideDinnerOptions();
+                                this.props.dispatch(hideDinnerOptions());
                                 this.changeBackgroundBackToBlack();
                             }
 
@@ -87,7 +87,7 @@ class subCategories extends React.Component {
                     <div className="subcategory black"
                         onClick={ () => {
                             this.changeBackground(3);
-                            this.hideDinnerOptions();
+                            this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("coffee"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
                             this.props.dispatch(getCategoryResults(this.props.city, "coffee", 0, "recEndpoint"));
@@ -96,7 +96,7 @@ class subCategories extends React.Component {
                     </div>
                 </div>
                 }
-                {this.state.showDinner &&
+                {this.props.dinnerShown &&
                 <div className="dinner-options-container">
                     <div className="dinner-subcat"
                         onClick={ () => {
@@ -301,7 +301,8 @@ class subCategories extends React.Component {
 function mapStateToProps(state) {
     return {
         city: state.city,
-        subcategoryToShow: state.subcategoryToShow
+        subcategoryToShow: state.subcategoryToShow,
+        dinnerShown: state.dinnerShown
     };
 }
 

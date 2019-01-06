@@ -244,6 +244,21 @@ export async function showFoodSubCategories(category) {
     };
 }
 
+//SHOW/HIDE DINNER OPTIONS
+
+export async function hideDinnerOptions() {
+    return {
+        type: `HIDE_DINNER_OPTIONS`,
+        dinnerShown: false
+    };
+}
+
+export async function showDinnerOptions() {
+    return {
+        type: `SHOW_DINNER_OPTIONS`,
+        dinnerShown: true
+    };
+}
 //getting details of the currently selected venue
 export async function getVenueDetails(id) {
 
