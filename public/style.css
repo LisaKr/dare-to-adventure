@@ -269,21 +269,33 @@ select {
 /*////*/
 
 /*to create flex for categories*/
-.category-container {
+.categories-container {
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
     justify-content: space-between;
+}
+
+/*includes category boxes and the subcategory list*/
+.category-container {
+    z-index: 99;
+    position: relative;
+    margin: 1em;
+    margin-bottom: 0;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 500px;
 }
 
 /*category boxes themselves*/
 .category {
-    /* flex: 0 15%; */
+    z-index: 99;
     height: 200px;
     width: 200px;
-    z-index: 99;
     position: relative;
     margin: 1em;
+    margin-bottom: 0;
     color: white;
     display: flex;
     justify-content: center;
@@ -291,7 +303,6 @@ select {
     border-radius: 100%;
     cursor: pointer;
     text-align: center;
-    font-size: 24px;
 }
 
 .black {
@@ -330,7 +341,98 @@ select {
     }
 }
 
-/*///// WORKING AREA FOOTER/////*/
+.subcategories-container {
+    z-index: 999999;
+    width: 200px;
+    color:white;
+    margin-top: -1em;
+    border-radius: 10px;
+}
+
+.subcategories-container > .black {
+    background: rgba(0,0,0, 0.6);
+}
+
+.subcategory {
+    color:white;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.subcategory:hover {
+    font-weight: 800;
+}
+
+/*///////SUB_CATEGORIES FLEXBOX VERSION//////*/
+
+/* .subcategories-container {
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    margin-top: 2em;
+}
+
+.subcategories-food, .subcategories-culture, .subcategories-nightlife, .subcategories-nature {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* .subcategory {
+    height: 150px;
+    width: 150px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.3em;
+} */
+
+.dinner-options-container {
+    position: absolute;
+    z-index: 999999;
+    top: 60%;
+    left: 95%;
+    background: rgba(0,0,0, 0.8);
+    width: 200px;
+}
+
+.dinner-subcat {
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.dinner-subcat:hover {
+    font-weight: 800;
+}
+
+/* ///DINNER SUBCATEGORY AS FLEXBOX VERSION/////
+
+.dinner-options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 2em;
+    align-items: center;
+}
+
+
+.dinner-subcat {
+    background: rgba(0,0,0, 0.7);
+    height: 80px;
+    width: 10%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.3em;
+} */
+
+/*//////////// WORKING AREA FOOTER//////////*/
 .footer-wa {
     display: flex;
     justify-content: space-between;
@@ -429,7 +531,7 @@ select {
     border: 1px solid black;
     border-radius: 12px;
     text-align: center;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.9);
     color: white;
 }
 
@@ -535,9 +637,9 @@ select {
     border: 2px solid white;
 }
 
-.black {
+/* .black {
     color:black;
-}
+} */
 /*//////*/
 
 
@@ -707,85 +809,4 @@ break {
 .todo-container > ul > li {
     margin: 1em;
     font-size: 20px;
-}
-
-/*///////SUB_CATEGORIES//////*/
-
-.subcategories-container {
-    z-index: 999;
-    height: 100%;
-    width: 100%;
-    margin-top: 2em;
-}
-
-.subcategories-food, .subcategories-culture, .subcategories-nightlife, .subcategories-nature {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.subcategory {
-    /* background: rgba(0,0,0, 0.7); */
-    height: 150px;
-    width: 150px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 1.3em;
-}
-
-/* .subcategory:hover {
-        animation: wiggle-diff 1s ease;
-        border: none;
-} */
-
-@keyframes wiggle-diff {
-        0% {
-            transform: rotate(0deg);
-        }
-        25% {
-            transform: rotate(-20deg);
-        }
-        50% {
-            transform: rotate(10deg);
-        }
-        75% {
-            transform: rotate(-5deg);
-        }
-        100% {
-            transform: rotate(0deg);
-        }
-}
-
-
-.dinner-options-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 2em;
-    align-items: center;
-}
-
-.dinner-options-container > .closingButton {
-    position: inherit;
-    font-size: 3em;
-    text-align: center;
-    width: 1%;
-    margin:0;
-}
-
-.dinner-subcat {
-    background: rgba(0,0,0, 0.7);
-    height: 80px;
-    width: 10%;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1.3em;
 }

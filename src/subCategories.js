@@ -46,7 +46,7 @@ class subCategories extends React.Component {
         return(
             <div className="subcategories-container">
                 {this.props.subcategoryToShow=="FOOD" &&
-                <div className="subcategories-food">
+                <div>
                     <div className="subcategory black"
                         onClick={ (e) => {
                             e.preventDefault();
@@ -70,7 +70,7 @@ class subCategories extends React.Component {
                     Lunch
                     </div>
 
-                    <div className="subcategory black"
+                    <div className="subcategory black dinner"
                         onClick={ () => {
                             if (this.props.dinnerShown == false || this.props.dinnerShown == null) {
                                 this.changeBackground(2);
@@ -96,56 +96,58 @@ class subCategories extends React.Component {
                     </div>
                 </div>
                 }
+
                 {this.props.dinnerShown &&
-                <div className="dinner-options-container">
-                    <div className="dinner-subcat"
-                        onClick={ () => {
-                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d110941735"));
-                            this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d110941735", 0, "exploreEndpoint"));
-                        }}>
-                    Italian
-                    </div>
+            <div className="dinner-options-container">
+                <div className="dinner-subcat"
+                    onClick={ () => {
+                        this.props.dispatch(setCategoryToState("4bf58dd8d48988d110941735"));
+                        this.props.dispatch(setOptionToState("exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d110941735", 0, "exploreEndpoint"));
+                    }}>
+                Italian
+                </div>
 
-                    <div className="dinner-subcat"
-                        onClick={ () => {
-                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d142941735"));
-                            this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d142941735", 0, "exploreEndpoint"));
-                        }}>
-                    Asian
-                    </div>
+                <div className="dinner-subcat"
+                    onClick={ () => {
+                        this.props.dispatch(setCategoryToState("4bf58dd8d48988d142941735"));
+                        this.props.dispatch(setOptionToState("exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d142941735", 0, "exploreEndpoint"));
+                    }}>
+                Asian
+                </div>
 
-                    <div className="dinner-subcat"
-                        onClick={ () => {
-                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d10d941735"));
-                            this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d10d941735", 0, "exploreEndpoint"));
-                        }} >
-                    German
-                    </div>
+                <div className="dinner-subcat"
+                    onClick={ () => {
+                        this.props.dispatch(setCategoryToState("4bf58dd8d48988d10d941735"));
+                        this.props.dispatch(setOptionToState("exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d10d941735", 0, "exploreEndpoint"));
+                    }} >
+                German
+                </div>
 
-                    <div className="dinner-subcat"
-                        onClick={ () => {
-                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d16c941735"));
-                            this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d16c941735", 0, "exploreEndpoint"));
-                        }}>
-                    Burgers
-                    </div>
+                <div className="dinner-subcat"
+                    onClick={ () => {
+                        this.props.dispatch(setCategoryToState("4bf58dd8d48988d16c941735"));
+                        this.props.dispatch(setOptionToState("exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d16c941735", 0, "exploreEndpoint"));
+                    }}>
+                Burgers
+                </div>
 
-                    <div className="dinner-subcat"
-                        onClick={ () => {
-                            this.props.dispatch(setCategoryToState("4bf58dd8d48988d1c1941735"));
-                            this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d1c1941735", 0, "exploreEndpoint"));
-                        }}>
-                    Mexican
-                    </div>
-                </div>}
+                <div className="dinner-subcat"
+                    onClick={ () => {
+                        this.props.dispatch(setCategoryToState("4bf58dd8d48988d1c1941735"));
+                        this.props.dispatch(setOptionToState("exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d1c1941735", 0, "exploreEndpoint"));
+                    }}>
+                Mexican
+                </div>
+            </div>}
+
 
                 {this.props.subcategoryToShow=="CULTURE" &&
-                <div className="subcategories-culture">
+                <div>
                     <div className="subcategory black"
                         onClick={ () => {
                             this.changeBackground(0);
@@ -198,7 +200,7 @@ class subCategories extends React.Component {
                 </div>}
 
                 {this.props.subcategoryToShow=="NATURE" &&
-                <div className="subcategories-nature">
+                <div>
                     <div className="subcategory black"
                         onClick={ () => {
                             this.changeBackground(0);
@@ -242,7 +244,7 @@ class subCategories extends React.Component {
                 }
 
                 {this.props.subcategoryToShow=="NIGHTLIFE" &&
-                <div className="subcategories-nightlife">
+                <div>
                     <div className="subcategory black"
                         onClick={ () => {
                             this.changeBackground(0);
