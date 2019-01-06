@@ -36,6 +36,12 @@ After selecting city and the amount of days for the trip the user is shown their
   <img src="showcase3.gif"/>
 </p>
 
+When choosing a category, the user is presented with a more detailed choice (e.g. breakfast, lunch, dinner or coffee when selecting the food category). Addiiotnally, the "dinner" subcategory presents the user with the choice of cuisine.
+<p align="center">
+  <img src="showcase8.gif"/>
+</p>
+
+
 Results for each category are shown in bulks of 10. They come from Foursquare API. A "more" button is provided allowing the user to browsing the category as long as they like.
 <p align="center">
   <img src="showcase7.gif"/>
