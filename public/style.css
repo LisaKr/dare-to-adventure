@@ -112,7 +112,7 @@ animation: blink 1s linear infinite;
 }
 
 /*buttons that log in or sign up*/
-button, .addButton {
+button, .addButton, .deleteButton {
     background: linear-gradient(45deg, #fff 50%, #E94F37 50%);
     padding: 8px 16px;
     border-radius: 4px;
@@ -122,7 +122,7 @@ button, .addButton {
     cursor: pointer;
 }
 
-button:after, .addButton:after {
+button:after, .addButton:after, .deleteButton:after {
   content: "";
   top: 0;
   bottom: 0;
@@ -133,14 +133,14 @@ button:after, .addButton:after {
 }
 
 button,
-button:after, .addButton, .addButton:after {
+button:after, .addButton, .addButton:after, .deleteButton, .deleteButton:after {
   background-size: 300%;
   background-position: 100%;
   transition: 0.6s;
 }
 
 button:hover,
-button:hover:after, .addButton:hover, .addButton:hover:after {
+button:hover:after, .addButton:hover, .addButton:hover:after, .deleteButton:hover, .deleteButton:hover:after {
   background-position: 0;
   color: #E94F37; /*For IE*/
 }
@@ -559,7 +559,7 @@ select {
     display: inline-block;
 }
 
-.addButton {
+.addButton, .deleteButton {
     display: inline-block;
     /* font-weight: 500; */
     float: right;
@@ -768,7 +768,6 @@ break {
     cursor: pointer;
     display: inline-block;
     font-weight: 400;
-    color: #E94F37;
 }
 
 .user-activities .deleteButton {
