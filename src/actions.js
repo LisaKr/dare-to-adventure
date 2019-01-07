@@ -147,6 +147,14 @@ export async function createArrayOfDaysInState(arrOfDays) {
     };
 }
 
+export async function setCoordinates(address) {
+    var resp = await axios.get("/coord/" + address);
+    return {
+        type: "SET_COORDINATES",
+        coord: resp.data
+    };
+}
+
 //Setting the error in case the user did not select both city and days
 export async function showError() {
     return {

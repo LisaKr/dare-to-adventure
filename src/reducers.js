@@ -58,6 +58,13 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SET_COORDINATES") {
+        return {
+            ...state,
+            coord: action.coord
+        };
+    }
+
     //if the user didn't select both city and days
     if (action.type == "SHOW_ERROR") {
         return {

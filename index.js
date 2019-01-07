@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const csurf = require("csurf");
 const cookieSession = require("cookie-session");
 const db = require("./db.js");
-const { getVenuesRecommendationEndpoint, getVenuesExploreEndpoint, getVenueDetails, getCityPicsPexels, getWeather } = require("./api_calls.js");
+const { getVenuesRecommendationEndpoint, getCoord, getVenuesExploreEndpoint, getVenueDetails, getCityPicsPexels, getWeather } = require("./api_calls.js");
 const ca = require("chalk-animation");
 
 app.use(compression());
@@ -293,6 +293,17 @@ app.get("/get-popular-cities", async (req,res) => {
 app.get("/get-activity/:activityname/:city/:day", async (req, res) => {
     let resp = await db.getActivity(req.session.userID, req.params.activityname, req.params.city, req.params.day);
     res.json(resp.rows);
+});
+
+///test
+app.get("/coord/:address", async (req,res) => {
+    try {
+        let resp = await getCoord(req.params.address);
+        console.log("resp", resp);
+        res.json(resp);
+    } catch(err) {
+        console.log("error in test", err);
+    }
 });
 
 ///////////////////DEFAULT STAR ROUTE/////////////////////

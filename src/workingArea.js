@@ -16,7 +16,8 @@ import {
     hideAddButton,
     showAddButtonAtFirst,
     putActivitiesInState,
-    groupActivitiesForPlanPage
+    groupActivitiesForPlanPage,
+    setCoordinates
 } from "./actions.js";
 
 
@@ -34,7 +35,6 @@ class WorkingArea extends React.Component {
     }
 
     async componentDidMount() {
-        console.log("wa mounted");
         let arrOfDays = [];
 
         this.props.dispatch(showAddButtonAtFirst());
@@ -104,7 +104,7 @@ class WorkingArea extends React.Component {
 
                     {/*DISPLAYING WEATHER*/}
                     <Weather/>
-                    
+
                     {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
                     {(this.props.userDidSomeWork || this.props.userActivities) &&
                         <div className="plan-message">
@@ -132,7 +132,8 @@ function mapStateToProps(state) {
         arrOfDays: state.arrOfDays,
         showAddingWarningButton: state.showAddingWarningButton,
         userDidSomeWork: state.userDidSomeWork,
-        userActivities: state.userActivities
+        userActivities: state.userActivities,
+        coord: state.coord
     };
 }
 

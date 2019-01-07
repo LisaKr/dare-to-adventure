@@ -224,7 +224,6 @@ module.exports.getWeather = promisify(function getWeather(city, cb) {
 
     };
 
-
     let callback = resp => {
         if (resp.statusCode != 200) {
             cb(resp.statusCode);
@@ -251,4 +250,46 @@ module.exports.getWeather = promisify(function getWeather(city, cb) {
     const req = https.request(options, callback);
 
     req.end();
+});
+
+module.exports.getCoord = promisify(function getCoord(place, cb) {
+    place = place.replace(/\s/g, '+');
+    place = place.replace(/,/g, '%2C');
+    place = place.replace(/ä/g, 'ae');
+    place = place.replace(/ö/g, 'oe');
+    place = place.replace(/ü/g, 'ue');
+    place = place.replace(/ß/g, 'ss');
+
+    console.log("place", place);
+
+
+    let options = {
+        method: "GET",
+        host: "api.opencagedata.com",
+        path: `/geocode/v1/json?q=${place}&key=${secrets.geo_key}`
+
+    };
+
+    let callback = resp => {
+        if (resp.statusCode != 200) {
+            cb(resp.statusCode);
+            return;
+        }
+        let body = "";
+        resp.on("data", chunk => {
+            body += chunk;
+        });
+        resp.on("end", () => {
+            let parsedBody = JSON.parse(body);
+            let coord = parsedBody.results[0].bounds.northeast;
+            cb(null, coord);
+        });
+    };
+
+    const req = https.request(options, callback);
+    req.end();
+
+
+
+
 });

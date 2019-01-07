@@ -2,6 +2,8 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import axios from "./axios";
+
 import { getSearchResults,
     changeBackground,
     hideResults,
@@ -14,7 +16,8 @@ import { getSearchResults,
     showAddButtonAtFirst,
     addCityCount,
     getPopularCities,
-    currentPopularCity
+    currentPopularCity,
+    setCoordinates
 } from "./actions.js";
 import { Link } from 'react-router-dom';
 
@@ -22,8 +25,10 @@ import { Link } from 'react-router-dom';
 class Search extends React.Component {
     constructor() {
         super();
+        this.state = {};
         this.handleDayChange = this.handleDayChange.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
+        this.handleInput = this.handleInput.bind(this);
     }
 
 
@@ -62,6 +67,12 @@ class Search extends React.Component {
         } else {
             this.props.dispatch(hideError());
         }
+    }
+
+    handleInput(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
 
@@ -124,10 +135,24 @@ class Search extends React.Component {
                         <option value="10">10</option>
                     </select>
                 </div>
+
+                <div className="address-selection">
+                    <p>Address/neighbourhood of your stay (optional)</p>
+                    <input
+                        name = "address"
+                        type="text"
+                        placeholder="Your location"
+                        onChange={this.handleInput}
+                    />
+                </div>
                 <br/>
                 <br/>
                 {this.props.error && <div className="error">{this.props.error}</div>}
-                {(!this.props.error && this.props.numOfDays && !document.querySelector('.searchbar').value == "") && <Link to="/working-area"><button> Submit </button></Link>}
+                {(!this.props.error && this.props.numOfDays && !document.querySelector('.searchbar').value == "")
+                && <Link to="/working-area">
+                    <button onClick={ async () => {
+                        this.props.dispatch(setCoordinates(this.state.address));
+                    }}> Submit </button></Link>}
             </div>
         );
     }
@@ -141,7 +166,8 @@ function mapStateToProps(state) {
         numOfDays: state.numOfDays,
         backgroundUrl: state.backgroundUrl,
         popularCities: state.popularCities,
-        currentPopularCity: state.currentPopularCity
+        currentPopularCity: state.currentPopularCity,
+        coord: state.coord
     };
 }
 
