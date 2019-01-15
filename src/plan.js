@@ -128,7 +128,7 @@ class Plan extends React.Component {
 
                                                         await this.props.dispatch(showAddButtonAtFirst());
 
-                                                    }}>&nbsp;|| DELETE </div>
+                                                    }}>&nbsp;DELETE </div>
                                                     <br/><br/>
                                                 </div>
                                             );
