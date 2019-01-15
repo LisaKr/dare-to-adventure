@@ -27,6 +27,8 @@ import VenueDetails from "./venueDetails";
 import Weather from "./weather";
 import AddedActivity from "./addedActivity";
 import Logout from "./logout";
+import Footer from "./footer";
+
 
 
 class WorkingArea extends React.Component {
@@ -105,20 +107,7 @@ class WorkingArea extends React.Component {
                 {/*AFTER WE SUCCESSFULLY ADD AN ACTIVITY WE DISPLAY A SUCCESS POP-UP*/}
                 {this.props.addedActivity && <AddedActivity/>}
 
-                <div className="footer-wa">
-                    <h4>Background images are provided by <a href="https://www.pexels.com/" className="no-underline" taget="_blank">Pexels API</a></h4>
-
-                    {/*DISPLAYING WEATHER*/}
-                    <Weather/>
-
-                    {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
-                    {(this.props.userDidSomeWork || this.props.userActivities) &&
-                        <div className="plan-message">
-                            <Link to="/plan" className="no-underline"> View your travel plan! </Link>
-                        </div>}
-
-                    <div className="logout-wa"><Logout/></div>
-                </div>
+                <Footer/>
             </div>
         );
     }
