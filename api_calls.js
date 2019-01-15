@@ -41,10 +41,6 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 
 module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(lat, lng, city, intent, offset, cb) {
 
-    //city = city.replace(/\s/g, '+');
-
-    console.log("arguments", arguments);
-
     let options;
 
     if (arguments[0] == "null" || arguments[1] == "null") {
@@ -64,16 +60,6 @@ module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(la
             }&client_secret=${secrets.secret}&v=20190110`
         };
     }
-
-    // let options = {
-    //     method: "GET",
-    //     host: "api.foursquare.com",
-    //     path: `/v2/search/recommendations?intent=${intent}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
-    //         secrets.id
-    //     }&client_secret=${secrets.secret}&v=20190110`
-    // };
-
-    console.log("options", options);
 
     let callback = resp => {
         if (resp.statusCode != 200) {
@@ -110,7 +96,6 @@ module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(la
 
 module.exports.getVenuesExploreEndpoint = promisify(function getVenues(lat, lng, city, category, offset, cb) {
 
-    //city = city.replace(/\s/g, '+');
     let options;
 
     if (arguments[0] == "null" || arguments[1] == "null") {
@@ -130,17 +115,6 @@ module.exports.getVenuesExploreEndpoint = promisify(function getVenues(lat, lng,
             }&client_secret=${secrets.secret}&v=20190110`
         };
     }
-
-    // let options = {
-    //     method: "GET",
-    //     host: "api.foursquare.com",
-    //     path: `/v2/venues/explore?categoryId=${category}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
-    //         secrets.id
-    //     }&client_secret=${secrets.secret}&v=20190110`
-    // };
-
-    console.log("exlore options", options);
-
 
     let callback = resp => {
         if (resp.statusCode != 200) {
@@ -340,8 +314,4 @@ module.exports.getCoord = promisify(function getCoord(place, cb) {
 
     const req = https.request(options, callback);
     req.end();
-
-
-
-
 });
