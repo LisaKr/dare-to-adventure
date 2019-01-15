@@ -43,18 +43,26 @@ class subCategories extends React.Component {
     }
 
     render() {
+        let lat, lng;
+        if (this.props.coord) {
+            lat = this.props.coord.lat;
+            lng = this.props.coord.lng;
+        } else {
+            lat = null;
+            lng = null;
+        }
+
         return(
             <div className="subcategories-container">
                 {this.props.subcategoryToShow=="FOOD" &&
                 <div>
                     <div className="subcategory black"
-                        onClick={ (e) => {
-                            e.preventDefault();
+                        onClick={ () => {
                             this.changeBackground(0);
                             this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("breakfast"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "breakfast", 0, "recEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "breakfast", 0, "recEndpoint"));
                         }}>
                     Breakfast
                     </div>
@@ -65,7 +73,7 @@ class subCategories extends React.Component {
                             this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("lunch"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "lunch", 0, "recEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "lunch", 0, "recEndpoint"));
                         }}>
                     Lunch
                     </div>
@@ -90,7 +98,7 @@ class subCategories extends React.Component {
                             this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("coffee"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "coffee", 0, "recEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "coffee", 0, "recEndpoint"));
                         }}>
                     Coffee & Cake
                     </div>
@@ -103,7 +111,7 @@ class subCategories extends React.Component {
                     onClick={ () => {
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d110941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
-                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d110941735", 0, "exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d110941735", 0, "exploreEndpoint"));
                     }}>
                 Italian
                 </div>
@@ -112,7 +120,7 @@ class subCategories extends React.Component {
                     onClick={ () => {
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d142941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
-                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d142941735", 0, "exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d142941735", 0, "exploreEndpoint"));
                     }}>
                 Asian
                 </div>
@@ -121,7 +129,7 @@ class subCategories extends React.Component {
                     onClick={ () => {
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d10d941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
-                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d10d941735", 0, "exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d10d941735", 0, "exploreEndpoint"));
                     }} >
                 German
                 </div>
@@ -130,7 +138,7 @@ class subCategories extends React.Component {
                     onClick={ () => {
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d16c941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
-                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d16c941735", 0, "exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d16c941735", 0, "exploreEndpoint"));
                     }}>
                 Burgers
                 </div>
@@ -139,7 +147,7 @@ class subCategories extends React.Component {
                     onClick={ () => {
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d1c1941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
-                        this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d1c1941735", 0, "exploreEndpoint"));
+                        this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1c1941735", 0, "exploreEndpoint"));
                     }}>
                 Mexican
                 </div>
@@ -153,7 +161,8 @@ class subCategories extends React.Component {
                             this.changeBackground(0);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d181941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d181941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d181941735", 0, "exploreEndpoint"));
+
                         }}>
                         Museum
                     </div>
@@ -163,7 +172,7 @@ class subCategories extends React.Component {
                             this.changeBackground(1);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d1e2931735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d1e2931735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1e2931735", 0, "exploreEndpoint"));
                         }}>
                         Gallery
                     </div>
@@ -173,7 +182,7 @@ class subCategories extends React.Component {
                             this.changeBackground(2);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d137941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d137941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d137941735", 0, "exploreEndpoint"));
                         }}>
                         Theater
                     </div>
@@ -183,7 +192,7 @@ class subCategories extends React.Component {
                             this.changeBackground(3);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d17f941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d17f941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d17f941735", 0, "exploreEndpoint"));
                         }}>
                         Cinema
                     </div>
@@ -193,7 +202,7 @@ class subCategories extends React.Component {
                             this.changeBackground(4);
                             this.props.dispatch(setCategoryToState("5032792091d4c4b30a586d5c"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "5032792091d4c4b30a586d5c", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "5032792091d4c4b30a586d5c", 0, "exploreEndpoint"));
                         }}>
                         Music
                     </div>
@@ -206,7 +215,7 @@ class subCategories extends React.Component {
                             this.changeBackground(0);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d1e2941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d1e2941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1e2941735", 0, "exploreEndpoint"));
                         }}>
                     Beach
                     </div>
@@ -216,7 +225,7 @@ class subCategories extends React.Component {
                             this.changeBackground(1);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d163941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d163941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d163941735", 0, "exploreEndpoint"));
                         }}>
                     Park
                     </div>
@@ -226,7 +235,7 @@ class subCategories extends React.Component {
                             this.changeBackground(2);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d161941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d161941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d161941735", 0, "exploreEndpoint"));
                         }}>
                     Lake
                     </div>
@@ -236,7 +245,7 @@ class subCategories extends React.Component {
                             this.changeBackground(3);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d159941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d159941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d159941735", 0, "exploreEndpoint"));
                         }}>
                     Hiking
                     </div>
@@ -250,7 +259,7 @@ class subCategories extends React.Component {
                             this.changeBackground(0);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d11b941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d11b941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d11b941735", 0, "exploreEndpoint"));
                         }}>
                         Pub
                     </div>
@@ -260,7 +269,7 @@ class subCategories extends React.Component {
                             this.changeBackground(1);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d11e941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d11e941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d11e941735", 0, "exploreEndpoint"));
                         }}>
                         Cocktail Bar
                     </div>
@@ -270,7 +279,7 @@ class subCategories extends React.Component {
                             this.changeBackground(2);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d1d8941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d1d8941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1d8941735", 0, "exploreEndpoint"));
                         }}>
                         Queer Bar
                     </div>
@@ -280,7 +289,7 @@ class subCategories extends React.Component {
                             this.changeBackground(3);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d11f941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d11f941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d11f941735", 0, "exploreEndpoint"));
                         }}>
                         Clubbing
                     </div>
@@ -290,7 +299,7 @@ class subCategories extends React.Component {
                             this.changeBackground(4);
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d123941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
-                            this.props.dispatch(getCategoryResults(this.props.city, "4bf58dd8d48988d123941735", 0, "exploreEndpoint"));
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d123941735", 0, "exploreEndpoint"));
                         }}>
                         Wine bar
                     </div>
@@ -304,7 +313,8 @@ function mapStateToProps(state) {
     return {
         city: state.city,
         subcategoryToShow: state.subcategoryToShow,
-        dinnerShown: state.dinnerShown
+        dinnerShown: state.dinnerShown,
+        coord: state.coord
     };
 }
 

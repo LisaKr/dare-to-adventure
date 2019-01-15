@@ -111,6 +111,15 @@ app.get("/logout", function(req, res) {
 //////////////////////////////////END USER//////////////////////////////////////////////////
 
 
+//////PUTTING SETUP OPTIONS IN OPTIONS DB///////
+app.post("/insert-options/:city/:numofdays/:lat/:lng", async (req,res) => {
+    console.log("inserting");
+    //deleting previos options
+    await db.rewritePreviousOptions(req.session.userID);
+    await db.putOptionsInDB(req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng);
+    res.json({great: true});
+});
+
 ///////////////////CHECKING IF THE USER HAS ALREADY STARTED THE PLANNING PROCESS IN ORDER TO REDIRECT CORRECTLY///////////////
 app.get("/check-user-history", async (req,res) => {
     try {
@@ -131,6 +140,16 @@ app.get("/current-city", async (req,res) => {
         res.json(resp.rows[0].city);
     } catch(err) {
         console.log("ERROR IN GETTING CURRENT CITY", err);
+    }
+});
+
+app.get("/current-coord", async (req,res) => {
+    try {
+        let resp = await db.getCurrentCoord(req.session.userID);
+        // console.log("current coord", resp.rows[0]);
+        res.json(resp.rows[0]);
+    } catch(err) {
+        console.log("ERROR IN GETTING CURRENT COORD", err);
     }
 });
 
@@ -167,15 +186,17 @@ app.get("/search/:request", async (req,res) => {
 
 
 ///////////////////GETTING CATEGORIES RESULTS/////////////////////
-app.get("/venues/:city/:categoryOrIntent/:offset/:option", async (req, res) => {
+app.get("/venues/:lat/:lng/:city/:categoryOrIntent/:offset/:option", async (req, res) => {
     try {
         if (req.params.option == "recEndpoint") {
-            let resp = await getVenuesRecommendationEndpoint(req.params.city, req.params.categoryOrIntent, req.params.offset);
+            console.log("action running");
+            let resp = await getVenuesRecommendationEndpoint(req.params.lat, req.params.lng, req.params.city, req.params.categoryOrIntent, req.params.offset);
+            console.log("action running", resp);
             res.json(resp);
         }
 
         if (req.params.option == "exploreEndpoint") {
-            let resp = await getVenuesExploreEndpoint(req.params.city, req.params.categoryOrIntent, req.params.offset);
+            let resp = await getVenuesExploreEndpoint(req.params.lat, req.params.lng, req.params.city, req.params.categoryOrIntent, req.params.offset);
             res.json(resp);
         }
     } catch(err) {
@@ -295,7 +316,7 @@ app.get("/get-activity/:activityname/:city/:day", async (req, res) => {
     res.json(resp.rows);
 });
 
-///test
+///GETTING COORDINATES FOR A LOCATION
 app.get("/coord/:address", async (req,res) => {
     try {
         let resp = await getCoord(req.params.address);
@@ -305,6 +326,7 @@ app.get("/coord/:address", async (req,res) => {
         console.log("error in test", err);
     }
 });
+
 
 ///////////////////DEFAULT STAR ROUTE/////////////////////
 app.get('*', function(req, res) {

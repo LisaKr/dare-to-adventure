@@ -17,7 +17,7 @@ import { getSearchResults,
     addCityCount,
     getPopularCities,
     currentPopularCity,
-    setCoordinates
+    setCoordinatesAndPutOptionsIntoDB
 } from "./actions.js";
 import { Link } from 'react-router-dom';
 
@@ -150,8 +150,8 @@ class Search extends React.Component {
                 {this.props.error && <div className="error">{this.props.error}</div>}
                 {(!this.props.error && this.props.numOfDays && !document.querySelector('.searchbar').value == "")
                 && <Link to="/working-area">
-                    <button onClick={ async () => {
-                        this.props.dispatch(setCoordinates(this.state.address));
+                    <button onClick={ () => {
+                        this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.address, this.props.city, this.props.numOfDays)); 
                     }}> Submit </button></Link>}
             </div>
         );
@@ -167,7 +167,8 @@ function mapStateToProps(state) {
         backgroundUrl: state.backgroundUrl,
         popularCities: state.popularCities,
         currentPopularCity: state.currentPopularCity,
-        coord: state.coord
+        coord: state.coord,
+        city: state.city
     };
 }
 

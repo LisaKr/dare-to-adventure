@@ -39,23 +39,48 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 
 ////////////////////////////////GETTING CATEGORY RESULTS////////////////////////////////////
 
-module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(city, intent, offset, cb) {
+module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(lat, lng, city, intent, offset, cb) {
 
-    city = city.replace(/\s/g, '+');
+    //city = city.replace(/\s/g, '+');
 
-    let options = {
-        method: "GET",
-        host: "api.foursquare.com",
-        path: `/v2/search/recommendations?intent=${intent}&near=${city}&offset=${offset}&limit=10&client_id=${
-            secrets.id
-        }&client_secret=${secrets.secret}&v=20181214`
-    };
+    console.log("arguments", arguments);
+
+    let options;
+
+    if (arguments[0] == "null" || arguments[1] == "null") {
+        options = {
+            method: "GET",
+            host: "api.foursquare.com",
+            path: `/v2/search/recommendations?intent=${intent}&near=${city}&offset=${offset}&limit=10&client_id=${
+                secrets.id
+            }&client_secret=${secrets.secret}&v=20190110`
+        };
+    } else {
+        options = {
+            method: "GET",
+            host: "api.foursquare.com",
+            path: `/v2/search/recommendations?intent=${intent}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
+                secrets.id
+            }&client_secret=${secrets.secret}&v=20190110`
+        };
+    }
+
+    // let options = {
+    //     method: "GET",
+    //     host: "api.foursquare.com",
+    //     path: `/v2/search/recommendations?intent=${intent}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
+    //         secrets.id
+    //     }&client_secret=${secrets.secret}&v=20190110`
+    // };
+
+    console.log("options", options);
 
     let callback = resp => {
         if (resp.statusCode != 200) {
             cb(resp.statusCode);
             return;
         }
+
         let body = "";
         resp.on("data", chunk => {
             body += chunk;
@@ -66,6 +91,7 @@ module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(ci
             ////////////this is for recommendations endpoint////////
             let venueObj = [];
             for (var i=0; i<parsedBody.response.group.results.length; i++) {
+                // console.log("test in the api for loop", parsedBody.response.group.results[i].venue.name);
                 venueObj.push({
                     id: parsedBody.response.group.results[i].venue.id,
                     name: parsedBody.response.group.results[i].venue.name,
@@ -82,17 +108,38 @@ module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(ci
     req.end();
 });
 
-module.exports.getVenuesExploreEndpoint = promisify(function getVenues(city, category, offset, cb) {
+module.exports.getVenuesExploreEndpoint = promisify(function getVenues(lat, lng, city, category, offset, cb) {
 
-    city = city.replace(/\s/g, '+');
+    //city = city.replace(/\s/g, '+');
+    let options;
 
-    let options = {
-        method: "GET",
-        host: "api.foursquare.com",
-        path: `/v2/venues/explore?categoryId=${category}&near=${city}&offset=${offset}&limit=10&client_id=${
-            secrets.id
-        }&client_secret=${secrets.secret}&v=20181214`
-    };
+    if (arguments[0] == "null" || arguments[1] == "null") {
+        options = {
+            method: "GET",
+            host: "api.foursquare.com",
+            path: `/v2/venues/explore?categoryId=${category}&near=${city}&offset=${offset}&limit=10&client_id=${
+                secrets.id
+            }&client_secret=${secrets.secret}&v=20190110`
+        };
+    } else {
+        options = {
+            method: "GET",
+            host: "api.foursquare.com",
+            path: `/v2/venues/explore?categoryId=${category}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
+                secrets.id
+            }&client_secret=${secrets.secret}&v=20190110`
+        };
+    }
+
+    // let options = {
+    //     method: "GET",
+    //     host: "api.foursquare.com",
+    //     path: `/v2/venues/explore?categoryId=${category}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
+    //         secrets.id
+    //     }&client_secret=${secrets.secret}&v=20190110`
+    // };
+
+    console.log("exlore options", options);
 
 
     let callback = resp => {
@@ -281,8 +328,13 @@ module.exports.getCoord = promisify(function getCoord(place, cb) {
         });
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
-            let coord = parsedBody.results[0].bounds.northeast;
-            cb(null, coord);
+            if (parsedBody.results.length!=0) {
+                let coord = parsedBody.results[0].bounds.northeast;
+                cb(null, coord);
+            } else {
+                cb(null, null);
+            }
+
         });
     };
 

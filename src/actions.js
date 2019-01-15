@@ -147,13 +147,37 @@ export async function createArrayOfDaysInState(arrOfDays) {
     };
 }
 
-export async function setCoordinates(address) {
-    var resp = await axios.get("/coord/" + address);
+//////setting coordinates in the state
+export async function setCoordinatesAndPutOptionsIntoDB(address, city, numOfDays) {
+    //first getting coordinates
+    var coord = await axios.get("/coord/" + address);
+    // console.log("coord resp in action", coord.data);
+
+    let lat, lng;
+    if (coord.data == null) {
+        lat = null;
+        lng = null;
+    } else {
+        lat = coord.data.lat;
+        lng = coord.data.lng;
+    }
+
+    //then inserting all the options into db
+    await axios.post("/insert-options/" + city + "/" + numOfDays + "/" + lat +"/" + lng);
+
     return {
         type: "SET_COORDINATES",
-        coord: resp.data
+        coord: coord.data
     };
 }
+
+export async function putCoordinatesIntoState(coord) {
+    return {
+        type: "SET_COORDINATES",
+        coord: coord
+    };
+}
+
 
 //Setting the error in case the user did not select both city and days
 export async function showError() {
@@ -195,10 +219,10 @@ export async function groupActivitiesForPlanPage() {
 }
 
 //the offset is zero on the first click on the category, in the subsequent requests it is replaced with the state offset
-export async function getCategoryResults(city, categoryOrIntent, offset, option){
+export async function getCategoryResults(lat, lng, city, categoryOrIntent, offset, option){
 
     try {
-        let resp = await axios.get("/venues/" + city + "/" + categoryOrIntent + "/" + offset + "/" + option);
+        let resp = await axios.get("/venues/" + lat + "/" + lng + "/" + city + "/" + categoryOrIntent + "/" + offset + "/" + option);
 
         //if it's the first request to get category results the next request will have an offset of 10
         if (offset == 0) {

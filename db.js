@@ -29,6 +29,24 @@ exports.getUserByMail = function getUserByMail(email) {
     );
 };
 
+////////PUTTING SELECTED OPTIONS INTO THE "OPTIONS" DB///////////
+
+exports.rewritePreviousOptions = function rewritePreviousOptions(user_id) {
+    return db.query(
+        `DELETE
+        FROM options
+        WHERE user_id = $1`, [user_id]
+    );
+};
+
+exports.putOptionsInDB = function putOptionsInDB(user_id, city, numofdays, lat, lng) {
+    return db.query(
+        `INSERT INTO options (user_id, city, numOfDays, lat, lng)
+        VALUES ($1, $2, $3, $4, $5)`,
+        [user_id, city, numofdays, lat, lng]
+    );
+};
+
 /////////////////////CHECKING IF USER HAS HAD ACTIVITY INSERTED INTO ACTIVITIES TABLE ALREADY/////////////////////////////////
 exports.checkUserHistory = function checkUserHistory(id) {
     return db.query(`
@@ -42,6 +60,14 @@ exports.getCurrentCity = function getCurrentCity(id) {
     return db.query(`
         SELECT CITY
         FROM activities
+        WHERE user_id=$1
+        LIMIT 1`, [id]);
+};
+
+exports.getCurrentCoord = function getCurrentCoord(id) {
+    return db.query(`
+        SELECT lat, lng
+        FROM options
         WHERE user_id=$1
         LIMIT 1`, [id]);
 };

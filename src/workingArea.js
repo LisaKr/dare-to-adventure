@@ -17,7 +17,7 @@ import {
     showAddButtonAtFirst,
     putActivitiesInState,
     groupActivitiesForPlanPage,
-    setCoordinates
+    putCoordinatesIntoState
 } from "./actions.js";
 
 
@@ -35,6 +35,7 @@ class WorkingArea extends React.Component {
     }
 
     async componentDidMount() {
+        console.log("wa mounted");
         let arrOfDays = [];
 
         this.props.dispatch(showAddButtonAtFirst());
@@ -45,6 +46,11 @@ class WorkingArea extends React.Component {
         if (userDidSomeWork.data == "" && !this.props.city) {
             this.props.history.push('/setup');
         }
+
+        //if the user has done some work, we are loading the selected options
+        let coord = await axios.get("/current-coord");
+        console.log(coord.data);
+        this.props.dispatch(putCoordinatesIntoState(coord.data));
 
         let resp = await axios.get("/current-city");
         let city = resp.data.replace(/\+/g, " ");
