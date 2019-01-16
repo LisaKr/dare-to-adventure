@@ -149,21 +149,26 @@ export async function createArrayOfDaysInState(arrOfDays) {
 
 //////setting coordinates in the state
 export async function setCoordinatesAndPutOptionsIntoDB(address, city, numOfDays) {
-    //first getting coordinates
-    var coord = await axios.get("/coord/" + address);
-    // console.log("coord resp in action", coord.data);
+    try {
+        //first getting coordinates
+        var coord = await axios.get("/coord/" + address);
+        console.log("coord resp in action", coord.data);
 
-    let lat, lng;
-    if (coord.data == null) {
-        lat = null;
-        lng = null;
-    } else {
-        lat = coord.data.lat;
-        lng = coord.data.lng;
+        let lat, lng;
+        if (coord.data == null) {
+            lat = null;
+            lng = null;
+        } else {
+            lat = coord.data.lat;
+            lng = coord.data.lng;
+        }
+
+        //then inserting all the options into db
+        await axios.post("/insert-options/" + city + "/" + numOfDays + "/" + lat +"/" + lng);
+    } catch(err) {
+        console.log("ERROR IN ACTION OF SETTING COORDINATES", err);
     }
 
-    //then inserting all the options into db
-    await axios.post("/insert-options/" + city + "/" + numOfDays + "/" + lat +"/" + lng);
 
     return {
         type: "SET_COORDINATES",

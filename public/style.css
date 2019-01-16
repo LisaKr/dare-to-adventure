@@ -519,13 +519,14 @@ select {
 
 .changing-location-popup {
     width: 30%;
-    height: 150px;
+    height: 200px;
     position: absolute;
     z-index: 99999;
     top: -200%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background: rgba(0,0,0, 0.9);
+    color: white;
     text-align: center;
 }
 
@@ -547,11 +548,11 @@ select {
 }
 
 .changing-location-popup > .centered {
-    margin: 0 auto;
+    margin: 1em auto;
     float: none;
 
 }
-/*//////////////////////////////////////*/ */
+/*//////////////////////////////////////*/
 
 /*/////////SHOWING CATEGORY RESULTS//////////*/
 .category-results-container {

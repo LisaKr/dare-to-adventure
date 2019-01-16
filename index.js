@@ -113,7 +113,7 @@ app.get("/logout", function(req, res) {
 
 //////PUTTING SETUP OPTIONS IN OPTIONS DB///////
 app.post("/insert-options/:city/:numofdays/:lat/:lng", async (req,res) => {
-    console.log("inserting");
+    console.log("inserting", req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng);
     //deleting previos options
     await db.rewritePreviousOptions(req.session.userID);
     await db.putOptionsInDB(req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng);
@@ -146,7 +146,7 @@ app.get("/current-city", async (req,res) => {
 app.get("/current-coord", async (req,res) => {
     try {
         let resp = await db.getCurrentCoord(req.session.userID);
-        // console.log("current coord", resp.rows[0]);
+        console.log("current coord", resp.rows[0]);
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN GETTING CURRENT COORD", err);

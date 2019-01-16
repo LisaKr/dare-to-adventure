@@ -5,13 +5,16 @@ import { Link } from 'react-router-dom';
 import Weather from "./weather";
 import Logout from "./logout";
 
-// import {showChangingLocation} from "./actions.js";
+import {setCoordinatesAndPutOptionsIntoDB} from "./actions.js";
 
 
 class Footer extends React.Component {
     constructor() {
         super();
         this.state = {changingLocationVisible: false};
+        this.showChangingLocation = this.showChangingLocation.bind(this);
+        this.hideChangingLocation = this.hideChangingLocation.bind(this);
+        this.handleInput = this.handleInput.bind(this);
     }
 
     showChangingLocation() {
@@ -25,6 +28,13 @@ class Footer extends React.Component {
             changingLocationVisible: false
         });
     }
+
+    handleInput(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        }, () => {console.log("state", this.state);});
+    }
+
 
     render() {
         return (
@@ -62,13 +72,20 @@ class Footer extends React.Component {
                             name = "location"
                             type="text"
                             placeholder="New location"
+                            onChange={this.handleInput}
                         />
                         <div className="addButton"
                             onClick={()=> {
-
+                                this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.location, this.props.city, this.props.numOfDays));
+                                this.hideChangingLocation();
                             }}>
                             Update </div> <br/><br/>
-                        <div className="addButton centered"> Delete location and search whole city instead</div>
+                        <div className="addButton centered"
+                            onClick = {()=>{
+                                this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(undefined, this.props.city, this.props.numOfDays));
+                                this.hideChangingLocation();
+                            }}>
+                            Delete location and search whole city instead</div>
                     </div>}
             </div>
         );
@@ -78,7 +95,9 @@ class Footer extends React.Component {
 function mapStateToProps(state) {
     return {
         userDidSomeWork: state.userDidSomeWork,
-        userActivities: state.userActivities
+        userActivities: state.userActivities,
+        city: state.city,
+        numOfDays: state.numOfDays
         // showChangingLocation: state.showChangingLocation
     };
 }
