@@ -531,14 +531,27 @@ select {
 
 .changing-location-popup > .closingButton {
     margin: 0;
-    left: 92%;
+    left: 95%;
+    font-size: 20px;
 }
 
 .changing-location-popup > input {
     height: 20px;
     width: 60%;
 }
-/*//////////////////////////////////////*/
+
+
+.changing-location-popup > .addButton {
+    margin-left: 1em;
+    float: none;
+}
+
+.changing-location-popup > .centered {
+    margin: 0 auto;
+    float: none;
+
+}
+/*//////////////////////////////////////*/ */
 
 /*/////////SHOWING CATEGORY RESULTS//////////*/
 .category-results-container {
@@ -794,8 +807,6 @@ break {
     font-size: 0.8em;
     float: none;
     margin-left: 1em;
-    padding: 6px 12px;
-
 }
 
 .plan-day {

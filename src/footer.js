@@ -65,10 +65,10 @@ class Footer extends React.Component {
                         />
                         <div className="addButton"
                             onClick={()=> {
-                                
+
                             }}>
                             Update </div> <br/><br/>
-                        <div className="addButton"> Remove current location </div>
+                        <div className="addButton centered"> Delete location and search whole city instead</div>
                     </div>}
             </div>
         );
