@@ -2,7 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import axios from "./axios";
+// import axios from "./axios";
 
 import { getSearchResults,
     changeBackground,
@@ -151,7 +151,7 @@ class Search extends React.Component {
                 {(!this.props.error && this.props.numOfDays && !document.querySelector('.searchbar').value == "")
                 && <Link to="/working-area">
                     <button onClick={ () => {
-                        this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.address, this.props.city, this.props.numOfDays)); 
+                        this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.address, this.props.city, this.props.numOfDays));
                     }}> Submit </button></Link>}
             </div>
         );

@@ -7,22 +7,7 @@ import { getCategoryResults, setCategoryToState, setOptionToState, hideDinnerOpt
 class subCategories extends React.Component {
     constructor() {
         super();
-        // this.state = {showDinner: false};
-        // this.showDinnerOptions = this.showDinnerOptions.bind(this);
-        // this.hideDinnerOptions = this.hideDinnerOptions.bind(this);
     }
-
-    // showDinnerOptions() {
-    //     this.setState({
-    //         showDinner: true
-    //     });
-    // }
-    //
-    // hideDinnerOptions() {
-    //     this.setState({
-    //         showDinner: false
-    //     });
-    // }
 
     changeBackground(i) {
         let categories = document.querySelectorAll(".subcategory");

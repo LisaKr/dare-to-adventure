@@ -88,8 +88,15 @@ class CategoryResults extends React.Component {
 
                     <div className="moreButton"
                         onClick={ () => {
-                            console.log("more is clicked", this.props.category, this.props.option);
-                            this.props.dispatch(getCategoryResults(this.props.city, this.props.category, this.props.offset, this.props.option));
+                            let lat, lng;
+                            if (this.props.coord) {
+                                lat = this.props.coord.lat;
+                                lng = this.props.coord.lng;
+                            } else {
+                                lat = null;
+                                lng = null;
+                            }
+                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, this.props.category, this.props.offset, this.props.option));
                         }}>
                         <button>MORE</button>
                     </div>
@@ -115,7 +122,8 @@ function mapStateToProps(state) {
         showAddingWarningButton: state.showAddingWarningButton,
         showDeleteButton: state.showDeleteButton,
         userActivities: state.userActivities,
-        option: state.option
+        option: state.option,
+        coord: state.coord
     };
 }
 
