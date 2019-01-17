@@ -343,8 +343,10 @@ select {
 
 .subcategories-container {
     z-index: 999999;
-    width: 200px;
+    width: 300px;
     color:white;
+    border-radius: 10px;
+    text-align: center;
     border-radius: 10px;
 }
 
@@ -352,11 +354,21 @@ select {
     background: rgba(0,0,0, 0.6);
 }
 
-.subcategory {
+.subcategory, .distance {
     color:white;
     padding: 1em;
     cursor: pointer;
 }
+
+.distance {
+    background: rgba(0,0,0, 0.8);
+}
+
+.distance > input {
+    margin-left: 1em;
+}
+
+input[type='radio'] { transform: scale(1.5); }
 
 .subcategory:hover {
     font-weight: 800;
@@ -393,7 +405,7 @@ select {
     position: absolute;
     z-index: 999999;
     top: 60%;
-    left: 95%;
+    left: 100%;
     background: rgba(0,0,0, 0.8);
     width: 200px;
 }
