@@ -156,8 +156,8 @@ export async function setCoordinatesAndPutOptionsIntoDB(address, city, numOfDays
 
         let lat, lng;
         if (coord.data == null) {
-            lat = null;
-            lng = null;
+            lat = undefined;
+            lng = undefined;
         } else {
             lat = coord.data.lat;
             lng = coord.data.lng;
@@ -180,6 +180,13 @@ export async function putCoordinatesIntoState(coord) {
     return {
         type: "SET_COORDINATES",
         coord: coord
+    };
+}
+
+export async function setDistanceToState(distance) {
+    return {
+        type: "SET_DISTANCE",
+        distance: distance
     };
 }
 
@@ -224,11 +231,18 @@ export async function groupActivitiesForPlanPage() {
 }
 
 //the offset is zero on the first click on the category, in the subsequent requests it is replaced with the state offset
-export async function getCategoryResults(lat, lng, city, categoryOrIntent, offset, option){
+export async function getCategoryResults(lat, lng, city, categoryOrIntent, offset, option, distance){
 
     try {
-        let resp = await axios.get("/venues/" + lat + "/" + lng + "/" + city + "/" + categoryOrIntent + "/" + offset + "/" + option);
+        let resp = await axios.get("/venues/" + lat + "/" + lng + "/" + city + "/" + categoryOrIntent + "/" + offset + "/" + option + "/" + distance);
 
+        if (resp.data.length == 0) {
+            return {
+                type: "SHOW_CATEGORY_RESULTS",
+                categoryResults: [],
+                offset: 0
+            };
+        }
         //if it's the first request to get category results the next request will have an offset of 10
         if (offset == 0) {
             return {

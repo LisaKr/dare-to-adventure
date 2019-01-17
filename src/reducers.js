@@ -51,6 +51,13 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "SET_DISTANCE") {
+        return {
+            ...state,
+            distance: action.distance
+        };
+    }
+
     if (action.type == "SET_DAYS") {
         return {
             ...state,
