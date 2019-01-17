@@ -3,7 +3,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getCategoryResults, setCategoryToState, showFoodSubCategories, setOptionToState, hideSubCategories, hideDinnerOptions } from "./actions.js";
+import { showFoodSubCategories, hideDinnerOptions, setDistanceToState } from "./actions.js";
 
 import SubCategories from "./subCategories";
 
@@ -73,6 +73,7 @@ class Categories extends React.Component {
                                 this.props.dispatch(hideDinnerOptions());
                                 this.props.dispatch(showFoodSubCategories(null));
                                 this.changeBackgroundBackToBlack();
+                                this.props.dispatch(setDistanceToState(null));
                             } else {
                                 this.changeBackground(0);
                                 this.props.dispatch(showFoodSubCategories("FOOD"));
@@ -92,6 +93,7 @@ class Categories extends React.Component {
                                 this.props.dispatch(hideDinnerOptions());
                                 this.props.dispatch(showFoodSubCategories(null));
                                 this.changeBackgroundBackToBlack();
+                                this.props.dispatch(setDistanceToState(null));
                             } else {
                                 this.props.dispatch(hideDinnerOptions());
                                 this.changeBackground(1);
@@ -109,6 +111,7 @@ class Categories extends React.Component {
                             if (this.props.subcategoryToShow == "NATURE") {
                                 this.props.dispatch(showFoodSubCategories(null));
                                 this.changeBackgroundBackToBlack();
+                                this.props.dispatch(setDistanceToState(null));
                             } else {
                                 this.props.dispatch(hideDinnerOptions());
                                 this.changeBackground(2);
@@ -126,6 +129,7 @@ class Categories extends React.Component {
                             if (this.props.subcategoryToShow == "NIGHTLIFE") {
                                 this.props.dispatch(showFoodSubCategories(null));
                                 this.changeBackgroundBackToBlack();
+                                this.props.dispatch(setDistanceToState(null));
                             } else {
                                 this.props.dispatch(hideDinnerOptions());
                                 this.changeBackground(3);
