@@ -1,9 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import {setDistanceToState} from "./actions.js";
 
 
-export default class Distance extends React.Component {
+class Distance extends React.Component {
     constructor() {
         super();
     }
@@ -27,3 +28,11 @@ export default class Distance extends React.Component {
         );
     }
 }
+
+// function mapStateToProps(state) {
+//     return {
+// //
+//     };
+// }
+
+export default connect(null)(Distance);
