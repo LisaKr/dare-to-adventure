@@ -146,7 +146,7 @@ app.get("/current-city", async (req,res) => {
 app.get("/current-coord", async (req,res) => {
     try {
         let resp = await db.getCurrentCoord(req.session.userID);
-        console.log("current coord", resp.rows[0]);
+        // console.log("current coord", resp.rows[0]);
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN GETTING CURRENT COORD", err);
