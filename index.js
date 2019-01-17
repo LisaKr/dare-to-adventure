@@ -186,17 +186,18 @@ app.get("/search/:request", async (req,res) => {
 
 
 ///////////////////GETTING CATEGORIES RESULTS/////////////////////
-app.get("/venues/:lat/:lng/:city/:categoryOrIntent/:offset/:option", async (req, res) => {
+app.get("/venues/:lat/:lng/:city/:categoryOrIntent/:offset/:option/:distance", async (req, res) => {
     try {
+        console.log("distanxe", req.params.distance);
         if (req.params.option == "recEndpoint") {
-            console.log("action running");
-            let resp = await getVenuesRecommendationEndpoint(req.params.lat, req.params.lng, req.params.city, req.params.categoryOrIntent, req.params.offset);
-            console.log("action running", resp);
+            // console.log("action running");
+            let resp = await getVenuesRecommendationEndpoint(req.params.lat, req.params.lng, req.params.city, req.params.categoryOrIntent, req.params.offset, req.params.distance);
+            // console.log("action running", resp);
             res.json(resp);
         }
 
         if (req.params.option == "exploreEndpoint") {
-            let resp = await getVenuesExploreEndpoint(req.params.lat, req.params.lng, req.params.city, req.params.categoryOrIntent, req.params.offset);
+            let resp = await getVenuesExploreEndpoint(req.params.lat, req.params.lng, req.params.city, req.params.categoryOrIntent, req.params.offset, req.params.distance);
             res.json(resp);
         }
     } catch(err) {
