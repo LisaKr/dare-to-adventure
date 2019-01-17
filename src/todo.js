@@ -8,16 +8,17 @@ export default function Todo() {
         <div className="todo-container">
             <h1> Future features </h1>
             <ul>
-                <li> Make it responsive 📱 </li>
-                <li> Add event integration from eventbrite API (find events for that city for specific dates) 📅</li>
-                <li> Fix the background image problem for PDF export 📖</li>
+                <li> Restructure tables so that the options are coming from the options table and not from the activities one</li>
+                <li> Modify *change your location* so it has a default value -- pull it from the fixed options table</li>
+                <li> Fix design: adjust adding button width, make incremental search more presentable, adjust input fields</li>
                 <li> On getting API category results loop through them to adjust add/delete buttons</li>
-                <li> Combine delete and on mount functions (because the sequence of actions is the same)</li>
-                <li>Add opening times</li>
+                <li> Add event integration from eventbrite API (find events for that city for specific dates) 📅</li>
+                <li> Make it responsive 📱 </li>
+                <li> DRY out the code -- get rid of DOM manipulation? Add clicking on the document to close subcategories?</li>
+                <li> Allow users to choose options such as opening times, wifi etc</li>
                 <li> Loading screen: show the element when the axios request goes to the server and hide it when the results come in from the back</li>
-                <li> Add filtering by location </li>
-                <li> Redo subcategories look </li>
-
+                <li> Make the PDF export look acceptable 📖</li>
+                <li> Finf a way to hide the more button if the results are divisible by 10, but there is nothing coming up </li>
             </ul>
         </div>
     );
