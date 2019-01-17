@@ -45,15 +45,16 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
 
 ////////////////////////////////GETTING CATEGORY RESULTS////////////////////////////////////
 
-module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(lat, lng, city, intent, offset, cb) {
+module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(lat, lng, city, intent, offset, distance, cb) {
 
     let options;
 
-    if (arguments[0] == "null" || arguments[1] == "null") {
+
+    if (arguments[0] == "undefined" || arguments[1] == "undefined") {
         options = {
             method: "GET",
             host: "api.foursquare.com",
-            path: `/v2/search/recommendations?intent=${intent}&near=${city}&offset=${offset}&limit=10&client_id=${
+            path: `/v2/search/recommendations?intent=${intent}&near=${city}&offset=${offset}&radius=${distance}&limit=10&client_id=${
                 secrets.id
             }&client_secret=${secrets.secret}&v=20190110`
         };
@@ -61,7 +62,7 @@ module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(la
         options = {
             method: "GET",
             host: "api.foursquare.com",
-            path: `/v2/search/recommendations?intent=${intent}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
+            path: `/v2/search/recommendations?intent=${intent}&ll=${lat},${lng}&offset=${offset}&radius=${distance}&limit=10&client_id=${
                 secrets.id
             }&client_secret=${secrets.secret}&v=20190110`
         };
@@ -100,15 +101,16 @@ module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(la
     req.end();
 });
 
-module.exports.getVenuesExploreEndpoint = promisify(function getVenues(lat, lng, city, category, offset, cb) {
+module.exports.getVenuesExploreEndpoint = promisify(function getVenues(lat, lng, city, category, offset, distance, cb) {
 
     let options;
 
-    if (arguments[0] == "null" || arguments[1] == "null") {
+
+    if (arguments[0] == "undefined" || arguments[1] == "undefined") {
         options = {
             method: "GET",
             host: "api.foursquare.com",
-            path: `/v2/venues/explore?categoryId=${category}&near=${city}&offset=${offset}&limit=10&client_id=${
+            path: `/v2/venues/explore?categoryId=${category}&near=${city}&offset=${offset}&radius=${distance}&limit=10&client_id=${
                 secrets.id
             }&client_secret=${secrets.secret}&v=20190110`
         };
@@ -116,7 +118,7 @@ module.exports.getVenuesExploreEndpoint = promisify(function getVenues(lat, lng,
         options = {
             method: "GET",
             host: "api.foursquare.com",
-            path: `/v2/venues/explore?categoryId=${category}&ll=${lat},${lng}&offset=${offset}&limit=10&client_id=${
+            path: `/v2/venues/explore?categoryId=${category}&ll=${lat},${lng}&offset=${offset}&radius=${distance}&limit=10&client_id=${
                 secrets.id
             }&client_secret=${secrets.secret}&v=20190110`
         };
