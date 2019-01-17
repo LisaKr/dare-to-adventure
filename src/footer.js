@@ -72,6 +72,7 @@ class Footer extends React.Component {
                             name = "location"
                             type="text"
                             placeholder="New location"
+                            defaultValue={this.props.bio}
                             onChange={this.handleInput}
                         />
                         <div className="addButton"
