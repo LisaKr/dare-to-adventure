@@ -51,7 +51,7 @@ class WorkingArea extends React.Component {
 
         //if the user has done some work, we are loading the selected options
         let coord = await axios.get("/current-coord");
-        console.log("coord on loading of wa: ", coord.data);
+        // console.log("coord on loading of wa: ", coord.data);
         this.props.dispatch(putCoordinatesIntoState(coord.data));
 
         let resp = await axios.get("/current-city");

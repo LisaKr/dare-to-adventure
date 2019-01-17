@@ -172,7 +172,8 @@ export async function setCoordinatesAndPutOptionsIntoDB(address, city, numOfDays
 
     return {
         type: "SET_COORDINATES",
-        coord: coord.data
+        coord: coord.data,
+        address: address
     };
 }
 

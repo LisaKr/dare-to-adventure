@@ -68,7 +68,8 @@ export default function(state = {}, action) {
     if (action.type == "SET_COORDINATES") {
         return {
             ...state,
-            coord: action.coord
+            coord: action.coord,
+            address: action.address
         };
     }
 
