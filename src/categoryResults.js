@@ -85,21 +85,33 @@ class CategoryResults extends React.Component {
                             );
                         }
                     )}
+                    {/*first attempt to hide more button if there are no more results --> if the amount of
+                    results at any run is less then 10,20,30 etc, don't show the button. also don't show if there are no results at all.
+                    so far it will show it if there exactly 10,20,30 etc but no more*/}
+                    {(this.props.categoryResults.length % 10 == 0 && this.props.categoryResults.length!= 0) &&
+                        <div className="moreButton"
+                            onClick={ () => {
+                                let lat, lng, distance;
+                                if (this.props.coord) {
+                                    lat = this.props.coord.lat;
+                                    lng = this.props.coord.lng;
+                                } else {
+                                    lat = undefined;
+                                    lng = undefined;
+                                }
+                                //if there are no coordinates we take a default radius of 15km
+                                if (this.props.distance) {
+                                    distance = this.props.distance;
+                                } else {
+                                    distance = "15000";
+                                }
+                                this.props.dispatch(getCategoryResults(lat, lng, this.props.city, this.props.category, this.props.offset, this.props.option, distance));
+                            }}>
+                            <button>MORE</button>
+                        </div>}
 
-                    <div className="moreButton"
-                        onClick={ () => {
-                            let lat, lng;
-                            if (this.props.coord) {
-                                lat = this.props.coord.lat;
-                                lng = this.props.coord.lng;
-                            } else {
-                                lat = null;
-                                lng = null;
-                            }
-                            this.props.dispatch(getCategoryResults(lat, lng, this.props.city, this.props.category, this.props.offset, this.props.option));
-                        }}>
-                        <button>MORE</button>
-                    </div>
+                    {this.props.categoryResults.length == 0 &&
+                        <p> Sorry, there seems to be nothing here! Consider expanding your search radius.</p>}
                 </div>
                 {/*SHOWING THE MENU WITH DAYS WHEN YOU'RE ADDING AN ACTIVITY*/}
                 {this.props.showMenu &&  <AddingMenu/>}
@@ -123,7 +135,8 @@ function mapStateToProps(state) {
         showDeleteButton: state.showDeleteButton,
         userActivities: state.userActivities,
         option: state.option,
-        coord: state.coord
+        coord: state.coord,
+        distance: state.distance
     };
 }
 
