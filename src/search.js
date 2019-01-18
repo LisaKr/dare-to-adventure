@@ -80,6 +80,7 @@ class Search extends React.Component {
     render() {
         return(
             <div className="search-container">
+                <p>Select your next adventure!</p>
                 <input
                     className = "searchbar"
                     type="text"
@@ -116,9 +117,8 @@ class Search extends React.Component {
                                 </div>
                             );
                         })}
-                </div>
-                <br/>
-                <br/>
+                </div> <br/>
+
                 <div className="day-selector">
                     <p>Select how many days you are staying</p>
                     <select onChange={this.handleDayChange}>
