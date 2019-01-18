@@ -7,6 +7,5 @@ CREATE TABLE activities(
     activityname  VARCHAR(255) NOT NULL,
     activitylocation VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
-    day  VARCHAR(255) NOT NULL,
-    numOfDays INT
+    day  VARCHAR(255) NOT NULL
 );
