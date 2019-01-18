@@ -47,20 +47,23 @@ class AddingMenu extends React.Component {
                                                 this.props.selectedActivityName,
                                                 this.props.selectedActivityLocation,
                                                 this.props.category,
-                                                day,
-                                                this.props.numOfDays);
+                                                day);
 
                                             this.props.dispatch(promise);
 
                                             //after addVenue promise is fullfilled
                                             promise.then(() => {
+                                                console.log("AFTER VENUE IS ADDED!!");
                                                 //checking for activities in the day we just added the activity to to see if it's now full
                                                 const promise1 = this.props.dispatch(checkingActivitiesInDays(day));
                                                 //and also resetting the list of activities in state to now include the newly added activity
                                                 const promise2 = this.props.dispatch(putActivitiesInState(this.props.city));
                                                 //after it is done we group activities by days for the plan page
                                                 Promise.all([promise1, promise2]).then(()=> {
+                                                    console.log("PROMISE OF PUTTING ACTIVITIES INTO STATE FULFILLED!!");
                                                     this.props.dispatch(groupActivitiesForPlanPage());
+                                                    console.log("AND NOW GROUPING THINGS!!");
+
                                                 });
                                             });
                                             //after the venue is added and activities are put in state we are going through all the displayed
