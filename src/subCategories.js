@@ -30,7 +30,7 @@ class subCategories extends React.Component {
 
     render() {
         let lat, lng, distance;
-        if (this.props.coord) {
+        if (this.props.coord != null) {
             lat = this.props.coord.lat;
             lng = this.props.coord.lng;
         } else {
@@ -49,7 +49,7 @@ class subCategories extends React.Component {
             <div className="subcategories-container">
                 {this.props.subcategoryToShow=="FOOD" &&
                 <div>
-                    {(this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
+                    {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
                     <div className="subcategory black"
                         onClick={ () => {
                             this.changeBackground(0);
@@ -150,7 +150,7 @@ class subCategories extends React.Component {
 
                 {this.props.subcategoryToShow=="CULTURE" &&
                     <div>
-                        {(this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
+                        {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
                         <div className="subcategory black"
                             onClick={ () => {
                                 this.changeBackground(0);
@@ -204,7 +204,7 @@ class subCategories extends React.Component {
 
                 {this.props.subcategoryToShow=="NATURE" &&
                 <div>
-                    {(this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
+                    {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
                     <div className="subcategory black"
                         onClick={ () => {
                             this.changeBackground(0);
@@ -249,7 +249,7 @@ class subCategories extends React.Component {
 
                 {this.props.subcategoryToShow=="NIGHTLIFE" &&
                     <div>
-                        {(this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
+                        {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
                         <div className="subcategory black"
                             onClick={ () => {
                                 this.changeBackground(0);
