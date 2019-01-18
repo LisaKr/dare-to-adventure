@@ -9,7 +9,7 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
     let options = {
         method: "GET",
         host: "api.pexels.com",
-        path: encodeURI("/v1/search?query=" + city + "&per_page=2&page=1"),
+        path: encodeURI("/v1/search?query=" + city + "&per_page=1&page=1"),
         headers: {
             Authorization: `${secrets.pexels_api}`
         }
@@ -27,13 +27,13 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
         resp.on("end", () => {
             let parsedBody = JSON.parse(body);
             //just to adjust to Pexels switching the order of Berlin search results
-            if (city == "Berlin") {
-                let imgurl = parsedBody.photos[1].src.original;
-                cb(null, imgurl);
-            } else {
+            // if (city == "Berlin") {
+            //     let imgurl = parsedBody.photos[1].src.original;
+            //     cb(null, imgurl);
+            // } else {
                 let imgurl = parsedBody.photos[0].src.original;
                 cb(null, imgurl);
-            }
+            // }
         });
     };
 
