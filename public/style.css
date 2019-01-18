@@ -178,17 +178,16 @@ button:hover:after, .addButton:hover, .addButton:hover:after, .deleteButton:hove
     font-size: 45px;
 }
 
-.searchbar {
+.searchbar, .address-selection > input {
     font-size: 16px;
 }
 
-.day-selector > p {
+.day-selector > p, .address-selection > p, .search-container > p {
     font-size: 20px;
 }
 
 select {
     font-size: 16px;
-    margin-top: 1em;
 }
 
 .setup-sidebar {
@@ -801,6 +800,7 @@ break {
 /*days themselves*/
 .grouped-day {
     background: rgba(0,0,0, 0.8);
+    height: 45%;
     z-index: 99;
     position: relative;
     margin: 2em;
@@ -816,7 +816,6 @@ break {
 }
 
 .user-activities .deleteButton {
-    color: white;
     font-size: 0.8em;
     float: none;
     margin-left: 1em;
