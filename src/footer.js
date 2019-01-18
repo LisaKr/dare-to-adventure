@@ -32,7 +32,7 @@ class Footer extends React.Component {
     handleInput(e) {
         this.setState({
             [e.target.name]: e.target.value
-        }, () => {console.log("state", this.state);});
+        });
     }
 
 
@@ -45,7 +45,7 @@ class Footer extends React.Component {
                 <Weather/>
 
                 {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
-                {(this.props.userDidSomeWork || this.props.userActivities) &&
+                {(this.props.userDidSomeWork || (this.props.userActivities && this.props.userActivities.length != 0)) &&
                     <div className="plan-message">
                         <Link to="/plan" className="no-underline"> View your travel plan </Link>
                     </div>}
@@ -69,15 +69,15 @@ class Footer extends React.Component {
                         }}> X </div>
                         <p>Enter your new location</p>
                         <input
-                            name = "location"
+                            name = "address"
                             type="text"
                             placeholder="New location"
-                            defaultValue={this.props.bio}
+                            defaultValue={this.props.address}
                             onChange={this.handleInput}
                         />
                         <div className="addButton"
                             onClick={()=> {
-                                this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.location, this.props.city, this.props.numOfDays));
+                                this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.address, this.props.city, this.props.numOfDays));
                                 this.hideChangingLocation();
                             }}>
                             Update </div> <br/><br/>
@@ -98,8 +98,8 @@ function mapStateToProps(state) {
         userDidSomeWork: state.userDidSomeWork,
         userActivities: state.userActivities,
         city: state.city,
-        numOfDays: state.numOfDays
-        // showChangingLocation: state.showChangingLocation
+        numOfDays: state.numOfDays,
+        address: state.address
     };
 }
 

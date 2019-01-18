@@ -112,11 +112,11 @@ app.get("/logout", function(req, res) {
 
 
 //////PUTTING SETUP OPTIONS IN OPTIONS DB///////
-app.post("/insert-options/:city/:numofdays/:lat/:lng", async (req,res) => {
-    console.log("inserting", req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng);
+app.post("/insert-options/:city/:numofdays/:lat/:lng/:address", async (req,res) => {
+    console.log("inserting", req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng, req.params.address);
     //deleting previos options
     await db.rewritePreviousOptions(req.session.userID);
-    await db.putOptionsInDB(req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng);
+    await db.putOptionsInDB(req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng, req.params.address);
     res.json({great: true});
 });
 
@@ -146,7 +146,15 @@ app.get("/current-city", async (req,res) => {
 app.get("/current-coord", async (req,res) => {
     try {
         let resp = await db.getCurrentCoord(req.session.userID);
-        // console.log("current coord", resp.rows[0]);
+        res.json(resp.rows[0]);
+    } catch(err) {
+        console.log("ERROR IN GETTING CURRENT COORD", err);
+    }
+});
+
+app.get("/current-address", async (req,res) => {
+    try {
+        let resp = await db.getCurrentAddress(req.session.userID);
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN GETTING CURRENT COORD", err);
@@ -227,7 +235,7 @@ app.get("/weather/:city", async (req,res) => {
 });
 
 ///////////////ADDING VENUE TO THE ACTIVITIES TABLE////////////////
-app.get("/add-venue/:city/:activityName/:activityLocation/:category/:day/:numofdays", async (req,res) => {
+app.get("/add-venue/:city/:activityName/:activityLocation/:category/:day", async (req,res) => {
     try {
         let category = req.params.category.charAt(0).toUpperCase() + req.params.category.substr(1);
         let resp = await db.addVenue(
@@ -236,8 +244,7 @@ app.get("/add-venue/:city/:activityName/:activityLocation/:category/:day/:numofd
             req.params.activityName,
             req.params.activityLocation,
             category,
-            req.params.day,
-            req.params.numofdays);
+            req.params.day);
         res.json(resp.rows[0]);
     } catch(err) {
         console.log("ERROR IN ADDING VENUE", err);

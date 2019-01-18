@@ -65,10 +65,24 @@ export default function(state = {}, action) {
         };
     }
 
-    if (action.type == "SET_COORDINATES") {
+    if (action.type == "SET_COORDINATES_AND_ADDRESS") {
         return {
             ...state,
             coord: action.coord,
+            address: action.address
+        };
+    }
+
+    if (action.type == "SET_COORDINATES") {
+        return {
+            ...state,
+            coord: action.coord
+        };
+    }
+
+    if (action.type == "SET_ADDRESS") {
+        return {
+            ...state,
             address: action.address
         };
     }

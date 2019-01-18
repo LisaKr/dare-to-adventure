@@ -39,11 +39,11 @@ exports.rewritePreviousOptions = function rewritePreviousOptions(user_id) {
     );
 };
 
-exports.putOptionsInDB = function putOptionsInDB(user_id, city, numofdays, lat, lng) {
+exports.putOptionsInDB = function putOptionsInDB(user_id, city, numofdays, lat, lng, address) {
     return db.query(
-        `INSERT INTO options (user_id, city, numOfDays, lat, lng)
-        VALUES ($1, $2, $3, $4, $5)`,
-        [user_id, city, numofdays, lat, lng]
+        `INSERT INTO options (user_id, city, numOfDays, lat, lng, address)
+        VALUES ($1, $2, $3, $4, $5, $6)`,
+        [user_id, city, numofdays, lat, lng, address]
     );
 };
 
@@ -59,7 +59,7 @@ exports.checkUserHistory = function checkUserHistory(id) {
 exports.getCurrentCity = function getCurrentCity(id) {
     return db.query(`
         SELECT CITY
-        FROM activities
+        FROM options
         WHERE user_id=$1
         LIMIT 1`, [id]);
 };
@@ -72,10 +72,18 @@ exports.getCurrentCoord = function getCurrentCoord(id) {
         LIMIT 1`, [id]);
 };
 
+exports.getCurrentAddress = function getAddressCoord(id) {
+    return db.query(`
+        SELECT address
+        FROM options
+        WHERE user_id=$1
+        LIMIT 1`, [id]);
+};
+
 exports.getNumOfDays = function getNumOfDays(id) {
     return db.query(`
-        SELECT numofdays
-        FROM activities
+        SELECT numOfDays
+        FROM options
         WHERE user_id=$1
         LIMIT 1`, [id]);
 };
@@ -89,11 +97,11 @@ exports.search = function search(request) {
 };
 
 /////////////////////////ADDING VENUE TO ACTIVITES/////////////////////////
-exports.addVenue = function addVenue(user_id, city, activityName, activityLocation, category, day, numOfDays) {
+exports.addVenue = function addVenue(user_id, city, activityName, activityLocation, category, day) {
     return db.query(`
-        INSERT INTO activities (user_id, city, activityname, activitylocation, category, day, numofdays)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING *`, [user_id, city, activityName, activityLocation, category, day, numOfDays]);
+        INSERT INTO activities (user_id, city, activityname, activitylocation, category, day)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *`, [user_id, city, activityName, activityLocation, category, day]);
 };
 
 //////////////////CHECKING HOW MANY ACTIVITIES A DAY HAS///////////////////////////

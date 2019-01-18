@@ -17,19 +17,16 @@ import {
     showAddButtonAtFirst,
     putActivitiesInState,
     groupActivitiesForPlanPage,
-    putCoordinatesIntoState
+    putCoordinatesIntoState,
+    putAddressIntoState
 } from "./actions.js";
 
 
 import Categories from "./categories";
 import CategoryResults from "./categoryResults";
 import VenueDetails from "./venueDetails";
-import Weather from "./weather";
 import AddedActivity from "./addedActivity";
-import Logout from "./logout";
 import Footer from "./footer";
-
-
 
 class WorkingArea extends React.Component {
     constructor() {
@@ -38,6 +35,7 @@ class WorkingArea extends React.Component {
 
     async componentDidMount() {
         console.log("wa mounted");
+
         let arrOfDays = [];
 
         this.props.dispatch(showAddButtonAtFirst());
@@ -50,9 +48,14 @@ class WorkingArea extends React.Component {
         }
 
         //if the user has done some work, we are loading the selected options
+
+        //getting coordinates from the options table
         let coord = await axios.get("/current-coord");
-        // console.log("coord on loading of wa: ", coord.data);
         this.props.dispatch(putCoordinatesIntoState(coord.data));
+
+        //getting address from the options table
+        let address = await axios.get("/current-address");
+        this.props.dispatch(putAddressIntoState(address.data.address));
 
         let resp = await axios.get("/current-city");
         let city = resp.data.replace(/\+/g, " ");
@@ -128,7 +131,8 @@ function mapStateToProps(state) {
         showAddingWarningButton: state.showAddingWarningButton,
         userDidSomeWork: state.userDidSomeWork,
         userActivities: state.userActivities,
-        coord: state.coord
+        coord: state.coord,
+        address: state.address
     };
 }
 

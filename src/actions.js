@@ -148,39 +148,54 @@ export async function createArrayOfDaysInState(arrOfDays) {
 }
 
 //////setting coordinates in the state
-export async function setCoordinatesAndPutOptionsIntoDB(address, city, numOfDays) {
+export async function setCoordinatesAndPutOptionsIntoDB(location, city, numOfDays) {
     try {
-        //first getting coordinates
-        var coord = await axios.get("/coord/" + address);
-        console.log("coord resp in action", coord.data);
+        //first getting coordinates for the provided address
+        var coord = await axios.get("/coord/" + location);
+        console.log("coord resp in action", coord.data, location);
 
-        let lat, lng;
+        //if the API response for the provided address is null, i.e. if address is invalid
+        let lat, lng, address;
         if (coord.data == null) {
             lat = undefined;
             lng = undefined;
+            address = undefined;
+        //otherwise take the response and continue using provided address/location
         } else {
             lat = coord.data.lat;
             lng = coord.data.lng;
+            address = location;
         }
 
+        console.log("address in double action", address);
+
         //then inserting all the options into db
-        await axios.post("/insert-options/" + city + "/" + numOfDays + "/" + lat +"/" + lng);
+        await axios.post("/insert-options/" + city + "/" + numOfDays + "/" + lat +"/" + lng + "/" + address);
+
+        //here we put both things into state at once
+        return {
+            type: "SET_COORDINATES_AND_ADDRESS",
+            coord: coord.data,
+            address: address
+        };
+
     } catch(err) {
         console.log("ERROR IN ACTION OF SETTING COORDINATES", err);
     }
-
-
-    return {
-        type: "SET_COORDINATES",
-        coord: coord.data,
-        address: address
-    };
 }
 
+//on the load of working area we put things in state separately
 export async function putCoordinatesIntoState(coord) {
     return {
         type: "SET_COORDINATES",
         coord: coord
+    };
+}
+
+export async function putAddressIntoState(address) {
+    return {
+        type: "SET_ADDRESS",
+        address: address
     };
 }
 
@@ -395,7 +410,7 @@ export async function hideAddingError() {
 }
 
 //adding activity to the db
-export async function addVenue(city, activityName, activityLocation, category, day, numOfDays) {
+export async function addVenue(city, activityName, activityLocation, category, day) {
     try {
 
         //categories need to be translated into names. sad but has to be done
@@ -447,10 +462,12 @@ export async function addVenue(city, activityName, activityLocation, category, d
             category="Hiking";
         }
 
+        console.log("action adding options", city, activityName, activityLocation, category, day);
+
         //to prevent slashes in addresses in names so that it is not read as a part of the path
         activityName = activityName.replace(/\//g, " ");
 
-        await axios.get("/add-venue/" + encodeURIComponent(city) + "/" + encodeURIComponent(activityName) + "/" + encodeURIComponent(activityLocation) + "/" + encodeURIComponent(category) + "/" + encodeURIComponent(day) + "/" + encodeURIComponent(numOfDays));
+        await axios.get("/add-venue/" + encodeURIComponent(city) + "/" + encodeURIComponent(activityName) + "/" + encodeURIComponent(activityLocation) + "/" + encodeURIComponent(category) + "/" + encodeURIComponent(day));
         //just so that it doesn't complain about async actions. actually no real action needed here
         return {
             type: "SHOW_ADDING_ERROR",
