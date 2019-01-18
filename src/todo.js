@@ -8,8 +8,6 @@ export default function Todo() {
         <div className="todo-container">
             <h1> Future features </h1>
             <ul>
-                <li> Restructure tables so that the options are coming from the options table and not from the activities one</li>
-                <li> Modify *change your location* so it has a default value -- pull it from the fixed options table</li>
                 <li> Fix design: adjust adding button width, make incremental search more presentable, adjust input fields</li>
                 <li> On getting API category results loop through them to adjust add/delete buttons</li>
                 <li> Add event integration from eventbrite API (find events for that city for specific dates) 📅</li>
