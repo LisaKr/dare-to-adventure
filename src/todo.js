@@ -16,7 +16,7 @@ export default function Todo() {
                 <li> Allow users to choose options such as opening times, wifi etc</li>
                 <li> Loading screen: show the element when the axios request goes to the server and hide it when the results come in from the back</li>
                 <li> Make the PDF export look acceptable 📖</li>
-                <li> Finf a way to hide the more button if the results are divisible by 10, but there is nothing coming up </li>
+                <li> Find a way to hide the more button if the results are divisible by 10, but there is nothing coming up </li>
             </ul>
         </div>
     );
