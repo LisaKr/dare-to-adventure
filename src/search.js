@@ -8,8 +8,6 @@ import { getSearchResults,
     changeBackground,
     hideResults,
     setDays,
-    showError,
-    hideError,
     putCityInState,
     getWeather,
     createArrayOfDaysInState,
@@ -25,7 +23,7 @@ import { Link } from 'react-router-dom';
 class Search extends React.Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {daysFilled: false, cityFilled: false};
         this.handleDayChange = this.handleDayChange.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -33,49 +31,61 @@ class Search extends React.Component {
 
 
     //this happens when i select a day.
-    //I check whether the user selected a valid field (if yes I set the state of days)
-    //and I also check whether the city is selected. if it's not the error urging the user to select both fields is shown
     handleDayChange(e) {
-        //if i selected a valid day
-        if (e.target.value != "null") {
-            this.props.dispatch(setDays(e.target.value));
-            //if i selected some valid number of days AND the city is not empty
-            if (!document.querySelector('.searchbar').value == "") {
-                this.props.dispatch(hideError());
-            } else {
-                //if the day is selected but the city is not, i don't hide the error
-                this.props.dispatch(showError());
-            }
-            //to put the whole array into the state
-            let arrOfDays = [];
 
-            for (let i = 0; i<e.target.value; i++) {
-                arrOfDays.push(i+1);
-            }
-            this.props.dispatch(createArrayOfDaysInState(arrOfDays));
-        }
-        //if i didnt select the valid day
-        else {
-            this.props.dispatch(showError());
-        }
-    }
-
-    //here i check whether to hide error or not depending whether the days are also selected (after the city is selected)
-    handleCityChange() {
-        if (!this.props.numOfDays) {
-            this.props.dispatch(showError());
+        if (e.target.value == "null") {
+            console.log("it is null now");
+            this.setState({
+                daysFilled: false
+            }, () => {console.log(this.state);});
         } else {
-            this.props.dispatch(hideError());
+            this.setState({
+                daysFilled: true
+            });
         }
+
+
+        this.props.dispatch(setDays(e.target.value));
+
+        let arrOfDays = [];
+
+        for (let i = 0; i<e.target.value; i++) {
+            arrOfDays.push(i+1);
+        }
+        this.props.dispatch(createArrayOfDaysInState(arrOfDays));
     }
 
+
+    //for location/address
     handleInput(e) {
         this.setState({
             [e.target.name]: e.target.value
         });
     }
 
+    //when you delete the city you previously put in
+    handleSearchChange() {
+        if (document.querySelector('.searchbar').value.length == 0) {
+            this.setState({
+                cityFilled: false
+            });
+        }
+    }
 
+    //when you select a city
+    handleCityChange() {
+        this.setState({
+            cityFilled: true
+        });
+    }
+
+    getClass() {
+        if (!this.state.cityFilled || !this.state.daysFilled) {
+            return "greyed";
+        } else {
+            return;
+        }
+    }
 
     render() {
         return(
@@ -89,6 +99,7 @@ class Search extends React.Component {
                     onChange={e => {
                         this.props.dispatch(getSearchResults(e.target.value));
                         this.props.dispatch(currentPopularCity());
+                        this.handleSearchChange();
                     }
                     }/>
                 {/*this is only shown if we have looked for something and put the search results into state*/}
@@ -145,16 +156,12 @@ class Search extends React.Component {
                         <option value="10">10</option>
                     </select>
                 </div>
-
-
                 <br/>
                 <br/>
-                {this.props.error && <div className="error">{this.props.error}</div>}
-                {(!this.props.error && this.props.numOfDays && !document.querySelector('.searchbar').value == "")
-                && <Link to="/working-area">
-                    <button onClick={ () => {
+                <Link to="/working-area">
+                    <button className={this.getClass()} disabled={(!this.state.cityFilled || !this.state.daysFilled)} onClick={ () => {
                         this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.address, this.props.city, this.props.numOfDays));
-                    }}> Submit </button></Link>}
+                    }}> Submit </button></Link>
             </div>
         );
     }
