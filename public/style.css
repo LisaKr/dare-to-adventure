@@ -9,6 +9,8 @@ html, body, main, .page, .frontpage-container, .app-wrapper, .setup-container, .
     height: 100%;
 }
 
+
+
 input:focus, button:focus, select:focus {
     outline: none;
 }
@@ -178,8 +180,30 @@ button:hover:after, .addButton:hover, .addButton:hover:after, .deleteButton:hove
     font-size: 45px;
 }
 
+.searchResults {
+    width: 202px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    background: rgba(0,0,0,0.9);
+    margin-left: -2px;
+}
+
+.results-container {
+    width: 203px;
+    border-bottom: 1px solid white;
+}
+
+.results-container:hover {
+    font-weight: 800;
+}
+
+
 .searchbar, .address-selection > input {
     font-size: 16px;
+    width: 200px;
+    border:0;
+    padding: 2px;
 }
 
 .day-selector > p, .address-selection > p, .search-container > p {
