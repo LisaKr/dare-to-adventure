@@ -80,7 +80,7 @@ class Search extends React.Component {
     render() {
         return(
             <div className="search-container">
-                <p>Select your next adventure!</p>
+                <p>Select your next destination!</p>
                 <input
                     className = "searchbar"
                     type="text"
@@ -119,6 +119,16 @@ class Search extends React.Component {
                         })}
                 </div> <br/>
 
+                <div className="address-selection">
+                    <p>Address/neighbourhood of your stay (optional)</p>
+                    <input
+                        name = "address"
+                        type="text"
+                        placeholder="Your location"
+                        onChange={this.handleInput}
+                    />
+                </div>
+
                 <div className="day-selector">
                     <p>Select how many days you are staying</p>
                     <select onChange={this.handleDayChange}>
@@ -136,15 +146,7 @@ class Search extends React.Component {
                     </select>
                 </div>
 
-                <div className="address-selection">
-                    <p>Address/neighbourhood of your stay (optional)</p>
-                    <input
-                        name = "address"
-                        type="text"
-                        placeholder="Your location"
-                        onChange={this.handleInput}
-                    />
-                </div>
+
                 <br/>
                 <br/>
                 {this.props.error && <div className="error">{this.props.error}</div>}
