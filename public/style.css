@@ -838,17 +838,16 @@ break {
     color: white;
     padding: 1.5em;
     text-align: center;
+    border-radius: 10px;
 }
 
 .deleteButton {
     cursor: pointer;
-    display: inline-block;
-    font-weight: 400;
 }
+
 
 .user-activities .deleteButton {
     font-size: 0.8em;
-    float: none;
     margin-left: 1em;
 }
 
