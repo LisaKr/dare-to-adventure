@@ -753,6 +753,18 @@ input[type='radio'] { transform: scale(1.5); }
     padding: 0.2em;
 }
 
+.day:hover {
+    animation-name: pulse;
+    animation-duration: 1s;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  to { transform: scale(1); }
+}
+
+
 /*////////POP-UP WHEN YOU SUCCESSFULLY ADD AN ACTIVITY TO YOUR LIST////////*/
 .added-activity-container {
     position: absolute;
