@@ -14,7 +14,8 @@ class addedActivity extends React.Component {
         return (
             <div className="added-activity-container">
                 <div className="closingButton" onClick={ () => {this.props.dispatch(hideAddedActivity());}}> X </div>
-                {this.props.addedActivity} was added to your list!
+                <img className="icon" src="check.png"/> <br/>
+                <p>{this.props.addedActivity} was added to your list!</p>
             </div>
         );
     }
