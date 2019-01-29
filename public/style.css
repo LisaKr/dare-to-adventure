@@ -536,7 +536,6 @@ input[type='radio'] { transform: scale(1.5); }
     text-align: center;
     width: 15%;
     height: 100%;
-    border: 3px solid white;
     font-size: 1.1em;
     margin-top: 0.5em;
     margin-bottom: 1em;
