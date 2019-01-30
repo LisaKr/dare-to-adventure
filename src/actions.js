@@ -304,7 +304,7 @@ export async function setOptionToState(option) {
     };
 }
 //SHOW RESULTS OF SUB CATEGORIES
-export async function showFoodSubCategories(category) {
+export async function showSubCategories(category) {
     return {
         type: `SHOW_SUB_CATEGORY`,
         category: category

@@ -3,101 +3,91 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { showFoodSubCategories, hideDinnerOptions, setDistanceToState } from "./actions.js";
+import { showSubCategories, hideDinnerOptions, setDistanceToState } from "./actions.js";
 
 import SubCategories from "./subCategories";
 
 class Categories extends React.Component {
     constructor() {
         super();
-        // this.state = {blackBackground: true, changed: false};
-        // this.changeBackgroundOfOthers = this.changeBackgroundOfOthers.bind(this);
-        // this.changeBackgroundOfCurrent = this.changeBackgroundOfCurrent.bind(this);
-        // this.getClass = this.getClass.bind(this);
-        this.changeBackground = this.changeBackground.bind(this);
+        this.state = {selected: false};
+        this.getClass = this.getClass.bind(this);
+        this.handleCategoryClick = this.handleCategoryClick.bind(this);
     }
 
-    // changeBackgroundOfOthers() {
-    //     this.setState({
-    //         blackBackground: false
-    //     });
-    // }
-    //
-    // changeBackgroundOfCurrent() {
-    //     let currentCat = document.querySelectorAll(".category")[0];
-    //     currentCat.classList.remove('white');
-    //     console.log(currentCat);
-    //     currentCat.classList.add('black');
-    //     this.setState({
-    //         changed: true
-    //     });
-    // }
-    //
-    // getClass() {
-    //     if(this.state.blackBackground === true)
-    //         return "category black";
-    //     else
-    //         return "category white";
-    // }
 
-    changeBackground(i) {
-        let categories = document.querySelectorAll(".category");
-        categories.forEach(cat => {
-            cat.classList.remove("black");
-            cat.classList.add("white");
-        });
-        document.querySelectorAll(".category")[i].classList.remove("white");
-        document.querySelectorAll(".category")[i].classList.add("black");
+    handleCategoryClick(category) {
+        //rememebering the selected category or setting it to null if you click on it the second time just to close it
+        if (this.state.currentCategory == category) {
+            this.setState({
+                currentCategory: null
+            });
+        } else {
+            this.setState({
+                currentCategory: category
+            });
+        }
+        //toggling the selected property
+        if (this.state.selected) {
+            this.setState({
+                selected: false
+            });
+        } else {
+            this.setState({
+                selected: true
+            });
+        }
     }
 
-    changeBackgroundBackToBlack() {
-        let categories = document.querySelectorAll(".category");
-        categories.forEach(cat => {
-            cat.classList.remove("white");
-            cat.classList.add("black");
-        });
+    getClass(category) {
+        if (this.state.currentCategory == null) {
+            return "category black";
+        }
+        //if the category for which the class is evaluated is not the currently clicked and the selected toggle is on true, it's white
+        if(this.state.currentCategory != category && this.state.selected) {
+            return "category white";
+        }
+        else {
+            return "category black";
+        }
     }
+
 
     render() {
-        // var catClass = this.getClass();
-
         return (
             <div className="categories-container">
                 <div className="category-container">
-                    <div className="category black"
-                        onClick={ (e) => {
-                            e.preventDefault();
+                    <div className={this.getClass("FOOD")}
+                        onClick={ () => {
                             {/*we need category for the later db inserton of the selected activity and for the handling of the "more" button*/}
-                            // this.props.dispatch(setCategoryToState("4d4b7105d754a06374d81259"));
+                            //if we click on food for the second time when it's already selected
                             if (this.props.subcategoryToShow == "FOOD") {
                                 this.props.dispatch(hideDinnerOptions());
-                                this.props.dispatch(showFoodSubCategories(null));
-                                this.changeBackgroundBackToBlack();
+                                this.props.dispatch(showSubCategories(null));
                                 this.props.dispatch(setDistanceToState(null));
+                                this.handleCategoryClick("FOOD");
+                            //if we click on food and it is not selected yet
                             } else {
-                                this.changeBackground(0);
-                                this.props.dispatch(showFoodSubCategories("FOOD"));
+                                this.handleCategoryClick("FOOD");
+                                this.props.dispatch(showSubCategories("FOOD"));
                             }
-
-                        // this.changeBackgroundOfOthers();
-                        // this.changeBackgroundOfCurrent();
                         }}>
                         <img className="icon" src="/burger.png"/>
                     </div>
                     {this.props.subcategoryToShow == "FOOD" && <SubCategories/>}
                 </div>
                 <div className="category-container">
-                    <div className="category black"
+                    <div className={this.getClass("CULTURE")}
                         onClick={ () => {
                             if (this.props.subcategoryToShow == "CULTURE") {
                                 this.props.dispatch(hideDinnerOptions());
-                                this.props.dispatch(showFoodSubCategories(null));
-                                this.changeBackgroundBackToBlack();
+                                this.props.dispatch(showSubCategories(null));
                                 this.props.dispatch(setDistanceToState(null));
+                                this.handleCategoryClick("CULTURE");
                             } else {
                                 this.props.dispatch(hideDinnerOptions());
-                                this.changeBackground(1);
-                                this.props.dispatch(showFoodSubCategories("CULTURE"));
+                                this.props.dispatch(showSubCategories("CULTURE"));
+                                this.handleCategoryClick("CULTURE");
                             }
                         }}>
                         <img className="icon" src="/culture.png"/>
@@ -106,16 +96,16 @@ class Categories extends React.Component {
                 </div>
 
                 <div className="category-container">
-                    <div className="category black"
+                    <div className={this.getClass("NATURE")}
                         onClick={ () => {
                             if (this.props.subcategoryToShow == "NATURE") {
-                                this.props.dispatch(showFoodSubCategories(null));
-                                this.changeBackgroundBackToBlack();
+                                this.props.dispatch(showSubCategories(null));
                                 this.props.dispatch(setDistanceToState(null));
+                                this.handleCategoryClick("NATURE");
                             } else {
                                 this.props.dispatch(hideDinnerOptions());
-                                this.changeBackground(2);
-                                this.props.dispatch(showFoodSubCategories("NATURE"));
+                                this.handleCategoryClick("NATURE");
+                                this.props.dispatch(showSubCategories("NATURE"));
                             }
                         }}
                     > <img className="icon" src="/nature.png"/>
@@ -124,19 +114,17 @@ class Categories extends React.Component {
                 </div>
 
                 <div className="category-container">
-                    <div className="category black"
+                    <div className={this.getClass("NIGHTLIFE")}
                         onClick={ () => {
                             if (this.props.subcategoryToShow == "NIGHTLIFE") {
-                                this.props.dispatch(showFoodSubCategories(null));
-                                this.changeBackgroundBackToBlack();
+                                this.props.dispatch(showSubCategories(null));
+                                this.handleCategoryClick("NIGHTLIFE");
                                 this.props.dispatch(setDistanceToState(null));
                             } else {
                                 this.props.dispatch(hideDinnerOptions());
-                                this.changeBackground(3);
-                                this.props.dispatch(showFoodSubCategories("NIGHTLIFE"));
+                                this.handleCategoryClick("NIGHTLIFE");
+                                this.props.dispatch(showSubCategories("NIGHTLIFE"));
                             }
-                        // this.props.dispatch(getCategoryResults(this.props.city, "4d4b7105d754a06376d81259", 0));
-                        // this.props.dispatch(setCategoryToState("4d4b7105d754a06376d81259"));
                         }}>
                         <img className="icon" src="/nightlife.png"/>
                     </div>
