@@ -3,6 +3,7 @@
 body {
     margin: 0;
     font-family: "Helvetica Neue";
+    overflow: scroll;
 }
 
 html, body, main, .page, .frontpage-container, .app-wrapper, .setup-container, .working-area-container, .background-container, .plan-container {
@@ -753,6 +754,7 @@ input[type='radio'] { transform: scale(1.5); }
     height: 60px;
     width: 60px;
     padding: 0.2em;
+    margin: 0.2em;
 }
 
 .day:hover {
@@ -857,6 +859,8 @@ break {
 .grouped-day {
     background: rgba(0,0,0, 0.8);
     height: 45%;
+    min-width: 25%;
+    max-width: 40%;
     z-index: 99;
     position: relative;
     margin: 2em;

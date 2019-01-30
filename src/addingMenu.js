@@ -29,7 +29,7 @@ class AddingMenu extends React.Component {
                 <br/>
                 <div className="days">
                     {/*for every day which is available in the arrOfDays (meaning which is still not completely full)*/}
-                    {this.props.arrOfDays && this.props.arrOfDays.sort().map(
+                    {this.props.arrOfDays && this.props.arrOfDays.sort((a,b) => { return a-b;}).map(
                         day => {
                             return(
                                 <div key={day} className="day"
