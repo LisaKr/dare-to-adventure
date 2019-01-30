@@ -13,16 +13,9 @@ class subCategories extends React.Component {
     }
 
     handleSubCategoryClick(subCategory) {
-        //rememebering the selected subcategory or setting it to null if you click on it the second time just to close it
-        // if (this.state.currentSubCategory == subCategory) {
-        //     this.setState({
-        //         currentSubCategory: null
-        //     });
-        // } else {
         this.setState({
             currentSubCategory: subCategory
         });
-        // }
     }
 
     getClass(subCategory) {
