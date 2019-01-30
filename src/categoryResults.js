@@ -23,20 +23,12 @@ class CategoryResults extends React.Component {
         super();
     }
 
-    changeBackgroundBackToBlack() {
-        let categories = document.querySelectorAll(".subcategory");
-        categories.forEach(cat => {
-            cat.classList.remove("white");
-            cat.classList.add("black");
-        });
-    }
 
     render() {
         return(
             <div className="category-results-container">
                 <div className="closingButton" onClick={ () => {
                     this.props.dispatch(hideCategoryResults());
-                    this.changeBackgroundBackToBlack();
                 }}> X </div>
                 <div className="all-results">
                     {this.props.categoryResults && this.props.categoryResults.map(

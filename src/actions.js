@@ -284,7 +284,8 @@ export async function hideCategoryResults(){
     return {
         type: "HIDE_CATEGORY_RESULTS",
         categoryResults: null,
-        showMenu: false
+        showMenu: false,
+        allBlack: true
     };
 }
 
@@ -566,4 +567,11 @@ export async function deleteActivity(activityName) {
     } catch(err) {
         console.log("error in deleting activity", err);
     }
+}
+
+export async function setAllBlackToFalse() {
+    return {
+        type: "SET_ALL_BLACK_TO_FALSE",
+        allBlack: false
+    };
 }

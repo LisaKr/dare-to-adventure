@@ -1,31 +1,41 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getCategoryResults, setCategoryToState, setOptionToState, hideDinnerOptions, showDinnerOptions, setDistanceToState } from "./actions.js";
+import { getCategoryResults, setCategoryToState, setOptionToState, hideDinnerOptions, showDinnerOptions, setAllBlackToFalse } from "./actions.js";
 
 import Distance from "./distance";
 
 class subCategories extends React.Component {
     constructor() {
         super();
+        this.state = {};
+        this.handleSubCategoryClick = this.handleSubCategoryClick.bind(this);
     }
 
-    changeBackground(i) {
-        let categories = document.querySelectorAll(".subcategory");
-        categories.forEach(cat => {
-            cat.classList.remove("black");
-            cat.classList.add("white");
+    handleSubCategoryClick(subCategory) {
+        //rememebering the selected subcategory or setting it to null if you click on it the second time just to close it
+        // if (this.state.currentSubCategory == subCategory) {
+        //     this.setState({
+        //         currentSubCategory: null
+        //     });
+        // } else {
+        this.setState({
+            currentSubCategory: subCategory
         });
-        document.querySelectorAll(".subcategory")[i].classList.remove("white");
-        document.querySelectorAll(".subcategory")[i].classList.add("black");
+        // }
     }
 
-    changeBackgroundBackToBlack() {
-        let categories = document.querySelectorAll(".subcategory");
-        categories.forEach(cat => {
-            cat.classList.remove("white");
-            cat.classList.add("black");
-        });
+    getClass(subCategory) {
+        if (this.state.currentSubCategory == null || this.props.allBlack) {
+            return "subcategory black";
+        }
+        //if the category for which the class is evaluated is not the currently clicked it's white
+        if (this.state.currentSubCategory != subCategory) {
+            return "subcategory white";
+        }
+        else {
+            return "subcategory black";
+        }
     }
 
     render() {
@@ -50,9 +60,10 @@ class subCategories extends React.Component {
                 {this.props.subcategoryToShow=="FOOD" &&
                 <div>
                     {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
-                    <div className="subcategory black"
+                    <div className={this.getClass("breakfast")}
                         onClick={ () => {
-                            this.changeBackground(0);
+                            this.props.dispatch(setAllBlackToFalse());
+                            this.handleSubCategoryClick("breakfast");
                             this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("breakfast"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
@@ -61,9 +72,10 @@ class subCategories extends React.Component {
                     Breakfast
                     </div>
 
-                    <div className="subcategory black"
+                    <div className={this.getClass("lunch")}
                         onClick={ () => {
-                            this.changeBackground(1);
+                            this.props.dispatch(setAllBlackToFalse());
+                            this.handleSubCategoryClick("lunch");
                             this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("lunch"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
@@ -72,23 +84,26 @@ class subCategories extends React.Component {
                     Lunch
                     </div>
 
-                    <div className="subcategory black dinner"
+                    <div className={this.getClass("dinner")}
                         onClick={ () => {
                             if (this.props.dinnerShown == false || this.props.dinnerShown == null) {
-                                this.changeBackground(2);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("dinner");
                                 this.props.dispatch(showDinnerOptions());
                             } else {
+                                this.handleSubCategoryClick("dinner");
                                 this.props.dispatch(hideDinnerOptions());
-                                this.changeBackgroundBackToBlack();
+                                // this.changeBackgroundBackToBlack();
                             }
 
                         }}>
                     Dinner
                     </div>
 
-                    <div className="subcategory black"
+                    <div className={this.getClass("coffee")}
                         onClick={ () => {
-                            this.changeBackground(3);
+                            this.props.dispatch(setAllBlackToFalse());
+                            this.handleSubCategoryClick("coffee");
                             this.props.dispatch(hideDinnerOptions());
                             this.props.dispatch(setCategoryToState("coffee"));
                             this.props.dispatch(setOptionToState("recEndpoint"));
@@ -151,9 +166,10 @@ class subCategories extends React.Component {
                 {this.props.subcategoryToShow=="CULTURE" &&
                     <div>
                         {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
-                        <div className="subcategory black"
+                        <div className={this.getClass("museum")}
                             onClick={ () => {
-                                this.changeBackground(0);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("museum");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d181941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d181941735", 0, "exploreEndpoint", distance));
@@ -161,9 +177,10 @@ class subCategories extends React.Component {
                         Museum
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("gallery")}
                             onClick={ () => {
-                                this.changeBackground(1);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("gallery");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d1e2931735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1e2931735", 0, "exploreEndpoint", distance));
@@ -171,9 +188,10 @@ class subCategories extends React.Component {
                         Gallery
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("theater")}
                             onClick={ () => {
-                                this.changeBackground(2);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("theater");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d137941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d137941735", 0, "exploreEndpoint", distance));
@@ -181,9 +199,10 @@ class subCategories extends React.Component {
                         Theater
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("cinema")}
                             onClick={ () => {
-                                this.changeBackground(3);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("cinema");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d17f941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d17f941735", 0, "exploreEndpoint", distance));
@@ -191,9 +210,10 @@ class subCategories extends React.Component {
                         Cinema
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("music")}
                             onClick={ () => {
-                                this.changeBackground(4);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("music");
                                 this.props.dispatch(setCategoryToState("5032792091d4c4b30a586d5c"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "5032792091d4c4b30a586d5c", 0, "exploreEndpoint", distance));
@@ -205,9 +225,10 @@ class subCategories extends React.Component {
                 {this.props.subcategoryToShow=="NATURE" &&
                 <div>
                     {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
-                    <div className="subcategory black"
+                    <div className={this.getClass("beach")}
                         onClick={ () => {
-                            this.changeBackground(0);
+                            this.props.dispatch(setAllBlackToFalse());
+                            this.handleSubCategoryClick("beach");
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d1e2941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
                             this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1e2941735", 0, "exploreEndpoint", distance));
@@ -215,9 +236,10 @@ class subCategories extends React.Component {
                     Beach
                     </div>
 
-                    <div className="subcategory black"
+                    <div className={this.getClass("park")}
                         onClick={ () => {
-                            this.changeBackground(1);
+                            this.props.dispatch(setAllBlackToFalse());
+                            this.handleSubCategoryClick("park");
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d163941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
                             this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d163941735", 0, "exploreEndpoint", distance));
@@ -225,9 +247,10 @@ class subCategories extends React.Component {
                     Park
                     </div>
 
-                    <div className="subcategory black"
+                    <div className={this.getClass("lake")}
                         onClick={ () => {
-                            this.changeBackground(2);
+                            this.props.dispatch(setAllBlackToFalse());
+                            this.handleSubCategoryClick("lake");
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d161941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
                             this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d161941735", 0, "exploreEndpoint", distance));
@@ -235,9 +258,10 @@ class subCategories extends React.Component {
                     Lake
                     </div>
 
-                    <div className="subcategory black"
+                    <div className={this.getClass("hiking")}
                         onClick={ () => {
-                            this.changeBackground(3);
+                            this.props.dispatch(setAllBlackToFalse());
+                            this.handleSubCategoryClick("hiking");
                             this.props.dispatch(setCategoryToState("4bf58dd8d48988d159941735"));
                             this.props.dispatch(setOptionToState("exploreEndpoint"));
                             this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d159941735", 0, "exploreEndpoint", distance));
@@ -250,9 +274,10 @@ class subCategories extends React.Component {
                 {this.props.subcategoryToShow=="NIGHTLIFE" &&
                     <div>
                         {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
-                        <div className="subcategory black"
+                        <div className={this.getClass("pub")}
                             onClick={ () => {
-                                this.changeBackground(0);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("pub");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d11b941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d11b941735", 0, "exploreEndpoint", distance));
@@ -260,9 +285,10 @@ class subCategories extends React.Component {
                         Pub
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("cocktail")}
                             onClick={ () => {
-                                this.changeBackground(1);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("cocktail");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d11e941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d11e941735", 0, "exploreEndpoint", distance));
@@ -270,9 +296,10 @@ class subCategories extends React.Component {
                             Cocktail Bar
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("queer")}
                             onClick={ () => {
-                                this.changeBackground(2);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("queer");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d1d8941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1d8941735", 0, "exploreEndpoint", distance));
@@ -280,9 +307,10 @@ class subCategories extends React.Component {
                         Queer Bar
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("clubbing")}
                             onClick={ () => {
-                                this.changeBackground(3);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("clubbing");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d11f941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d11f941735", 0, "exploreEndpoint", distance));
@@ -290,9 +318,10 @@ class subCategories extends React.Component {
                         Clubbing
                         </div>
 
-                        <div className="subcategory black"
+                        <div className={this.getClass("wine")}
                             onClick={ () => {
-                                this.changeBackground(4);
+                                this.props.dispatch(setAllBlackToFalse());
+                                this.handleSubCategoryClick("wine");
                                 this.props.dispatch(setCategoryToState("4bf58dd8d48988d123941735"));
                                 this.props.dispatch(setOptionToState("exploreEndpoint"));
                                 this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d123941735", 0, "exploreEndpoint", distance));
@@ -311,7 +340,8 @@ function mapStateToProps(state) {
         subcategoryToShow: state.subcategoryToShow,
         dinnerShown: state.dinnerShown,
         coord: state.coord,
-        distance: state.distance
+        distance: state.distance,
+        allBlack: state.allBlack
     };
 }
 

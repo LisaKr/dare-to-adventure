@@ -173,7 +173,8 @@ export default function(state = {}, action) {
         return {
             ...state,
             categoryResults: action.categoryResults,
-            showMenu: action.showMenu
+            showMenu: action.showMenu,
+            allBlack: action.allBlack
         };
     }
 
@@ -314,6 +315,13 @@ export default function(state = {}, action) {
         return {
             ...state,
             subcategoryToShow: action.subcategoryToShow
+        };
+    }
+
+    if (action.type == "SET_ALL_BLACK_TO_FALSE") {
+        return {
+            ...state,
+            allBlack: action.allBlack
         };
     }
 
