@@ -10,7 +10,7 @@ import SubCategories from "./subCategories";
 class Categories extends React.Component {
     constructor() {
         super();
-        this.state = {selected: false};
+        this.state = {};
         this.getClass = this.getClass.bind(this);
         this.handleCategoryClick = this.handleCategoryClick.bind(this);
     }
@@ -28,15 +28,15 @@ class Categories extends React.Component {
             });
         }
         //toggling the selected property
-        if (this.state.selected) {
-            this.setState({
-                selected: false
-            });
-        } else {
-            this.setState({
-                selected: true
-            });
-        }
+        // if (this.state.selected) {
+        //     this.setState({
+        //         selected: false
+        //     }, () => {console.log(this.state);});
+        // } else {
+        //     this.setState({
+        //         selected: true
+        //     }, () => {console.log(this.state);});
+        // }
     }
 
     getClass(category) {
@@ -44,7 +44,8 @@ class Categories extends React.Component {
             return "category black";
         }
         //if the category for which the class is evaluated is not the currently clicked and the selected toggle is on true, it's white
-        if(this.state.currentCategory != category && this.state.selected) {
+        //&& this.state.selected
+        if(this.state.currentCategory != category ) {
             return "category white";
         }
         else {
@@ -85,9 +86,9 @@ class Categories extends React.Component {
                                 this.props.dispatch(setDistanceToState(null));
                                 this.handleCategoryClick("CULTURE");
                             } else {
+                                this.handleCategoryClick("CULTURE");
                                 this.props.dispatch(hideDinnerOptions());
                                 this.props.dispatch(showSubCategories("CULTURE"));
-                                this.handleCategoryClick("CULTURE");
                             }
                         }}>
                         <img className="icon" src="/culture.png"/>
