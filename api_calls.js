@@ -31,8 +31,8 @@ module.exports.getCityPicsPexels = promisify(function getCityPicsPexels(city, cb
             //     let imgurl = parsedBody.photos[1].src.original;
             //     cb(null, imgurl);
             // } else {
-                let imgurl = parsedBody.photos[0].src.original;
-                cb(null, imgurl);
+            let imgurl = parsedBody.photos[0].src.original;
+            cb(null, imgurl);
             // }
         });
     };
