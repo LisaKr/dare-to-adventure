@@ -380,11 +380,14 @@ select {
     color:white;
     border-radius: 10px;
     text-align: center;
-    border-radius: 10px;
 }
 
 .subcategories-container > .black {
     background: rgba(0,0,0, 0.6);
+}
+
+.subcategory:first-child {
+    border-radius: 10px 10px 0px 0px;
 }
 
 .subcategory:last-child {
