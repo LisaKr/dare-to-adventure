@@ -575,3 +575,13 @@ export async function setAllBlackToFalse() {
         allBlack: false
     };
 }
+
+export async function deleteOptionsFromTable() {
+    await axios.get("/delete-options");
+
+    return {
+        type: "SET_COORDINATES_AND_ADDRESS",
+        coord: null,
+        address: null
+    };
+}
