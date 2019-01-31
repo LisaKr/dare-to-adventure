@@ -84,13 +84,12 @@ class Plan extends React.Component {
                 const pdf = new jsPDF('l', 'mm');
                 pdf.addImage(imgData, 'JPEG', 5, 10);
                 pdf.save("myTravelPlan.pdf");
-            })
-        ;
+            });
     }
 
     render() {
         return(
-            <div className="plan-container">
+            <div className="plan-container" id="capture">
                 <img src={this.props.backgroundUrl} className="background"/>
 
                 <h1> your trip to {this.props.city}</h1>
