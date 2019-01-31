@@ -8,6 +8,7 @@ export default function Todo() {
         <div className="todo-container">
             <h1> Future features </h1>
             <ul>
+                <li> See whether and how to hide subcategory when you close the results</li>
                 <li> On getting API category results loop through them to adjust add/delete buttons</li>
                 <li> Add event integration from eventbrite API (find events for that city for specific dates) 📅</li>
                 <li> Make it responsive 📱 </li>
