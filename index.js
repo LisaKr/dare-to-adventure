@@ -113,16 +113,22 @@ app.get("/logout", function(req, res) {
 
 //////PUTTING SETUP OPTIONS IN OPTIONS DB///////
 app.post("/insert-options/:city/:numofdays/:lat/:lng/:address", async (req,res) => {
-    console.log("inserting", req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng, req.params.address);
     //deleting previos options
     await db.rewritePreviousOptions(req.session.userID);
     await db.putOptionsInDB(req.session.userID, req.params.city, req.params.numofdays, req.params.lat, req.params.lng, req.params.address);
     res.json({great: true});
 });
 
+////////////DELETING OPTIONS FROM DB (E.G. WHEN USER DELETED ALL ACTIVITIES AND RELOADED///////////
+app.get("/delete-options", async (req,res) => {
+    await db.rewritePreviousOptions(req.session.userID);
+    res.json({great: true});
+});
+
 ///////////////////CHECKING IF THE USER HAS ALREADY STARTED THE PLANNING PROCESS IN ORDER TO REDIRECT CORRECTLY///////////////
 app.get("/check-user-history", async (req,res) => {
     try {
+        console.log("USER ID", req.session.userID);
         let resp = await db.checkUserHistory(req.session.userID);
         res.json(resp.rows[0]);
     } catch(err) {
@@ -196,11 +202,8 @@ app.get("/search/:request", async (req,res) => {
 ///////////////////GETTING CATEGORIES RESULTS/////////////////////
 app.get("/venues/:lat/:lng/:city/:categoryOrIntent/:offset/:option/:distance", async (req, res) => {
     try {
-        console.log("distanxe", req.params.distance);
         if (req.params.option == "recEndpoint") {
-            // console.log("action running");
             let resp = await getVenuesRecommendationEndpoint(req.params.lat, req.params.lng, req.params.city, req.params.categoryOrIntent, req.params.offset, req.params.distance);
-            // console.log("action running", resp);
             res.json(resp);
         }
 
@@ -328,7 +331,6 @@ app.get("/get-activity/:activityname/:city/:day", async (req, res) => {
 app.get("/coord/:address", async (req,res) => {
     try {
         let resp = await getCoord(req.params.address);
-        console.log("resp", resp);
         res.json(resp);
     } catch(err) {
         console.log("error in test", err);
