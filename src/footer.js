@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Weather from "./weather";
 import Logout from "./logout";
 
-import {setCoordinatesAndPutOptionsIntoDB} from "./actions.js";
+import {setCoordinatesAndPutOptionsIntoDB, hideCategoryResults, showSubCategories} from "./actions.js";
 
 
 class Footer extends React.Component {
@@ -46,7 +46,11 @@ class Footer extends React.Component {
 
                 {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
                 {(this.props.userDidSomeWork || (this.props.userActivities && this.props.userActivities.length != 0)) &&
-                    <div className="plan-message">
+                    <div className="plan-message"
+                        onClick={ () => {
+                            this.props.dispatch(hideCategoryResults());
+                            this.props.dispatch(showSubCategories(null));
+                        }}>
                         <Link to="/plan" className="no-underline"> View your travel plan </Link>
                     </div>}
 
