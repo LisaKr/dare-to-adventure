@@ -15,11 +15,12 @@ class subCategories extends React.Component {
     handleSubCategoryClick(subCategory) {
         this.setState({
             currentSubCategory: subCategory
-        });
+        }, ()=> {console.log("handle subCategory", this.state);});
     }
 
     getClass(subCategory) {
-        if (this.state.currentSubCategory == null || this.props.allBlack) {
+        //if either nothing is selected or allblack is true AND nothing is selected
+        if (this.state.currentSubCategory == null || (this.state.currentSubCategory == null && this.props.allBlack)) {
             return "subcategory black";
         }
         //if the category for which the class is evaluated is not the currently clicked it's white
@@ -28,6 +29,25 @@ class subCategories extends React.Component {
         }
         else {
             return "subcategory black";
+        }
+    }
+
+    handleDinnerSelection(cuisine) {
+        this.setState({
+            currentCuisine: cuisine
+        }, ()=> {console.log("handle dinner", this.state);});
+    }
+
+    getDinnerClass(cuisine) {
+        if (this.state.currentCuisine == null || this.props.allBlack) {
+            return "dinner-subcat black";
+        }
+        //if the category for which the class is evaluated is not the currently clicked it's white
+        if (this.state.currentCuisine != cuisine) {
+            return "dinner-subcat white";
+        }
+        else {
+            return "dinner-subcat black";
         }
     }
 
@@ -109,8 +129,10 @@ class subCategories extends React.Component {
 
                 {this.props.dinnerShown &&
             <div className="dinner-options-container">
-                <div className="dinner-subcat"
+                <div className={this.getDinnerClass("italian")}
                     onClick={ () => {
+                        this.props.dispatch(setAllBlackToFalse());
+                        this.handleDinnerSelection("italian");
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d110941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
                         this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d110941735", 0, "exploreEndpoint", distance));
@@ -118,8 +140,10 @@ class subCategories extends React.Component {
                 Italian
                 </div>
 
-                <div className="dinner-subcat"
+                <div className={this.getDinnerClass("asian")}
                     onClick={ () => {
+                        this.props.dispatch(setAllBlackToFalse());
+                        this.handleDinnerSelection("asian");
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d142941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
                         this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d142941735", 0, "exploreEndpoint", distance));
@@ -127,8 +151,10 @@ class subCategories extends React.Component {
                 Asian
                 </div>
 
-                <div className="dinner-subcat"
+                <div className={this.getDinnerClass("german")}
                     onClick={ () => {
+                        this.props.dispatch(setAllBlackToFalse());
+                        this.handleDinnerSelection("german");
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d10d941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
                         this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d10d941735", 0, "exploreEndpoint", distance));
@@ -136,8 +162,10 @@ class subCategories extends React.Component {
                 German
                 </div>
 
-                <div className="dinner-subcat"
+                <div className={this.getDinnerClass("burgers")}
                     onClick={ () => {
+                        this.props.dispatch(setAllBlackToFalse());
+                        this.handleDinnerSelection("burgers");
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d16c941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
                         this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d16c941735", 0, "exploreEndpoint", distance));
@@ -145,8 +173,10 @@ class subCategories extends React.Component {
                 Burgers
                 </div>
 
-                <div className="dinner-subcat"
+                <div className={this.getDinnerClass("mexican")}
                     onClick={ () => {
+                        this.props.dispatch(setAllBlackToFalse());
+                        this.handleDinnerSelection("mexican");
                         this.props.dispatch(setCategoryToState("4bf58dd8d48988d1c1941735"));
                         this.props.dispatch(setOptionToState("exploreEndpoint"));
                         this.props.dispatch(getCategoryResults(lat, lng, this.props.city, "4bf58dd8d48988d1c1941735", 0, "exploreEndpoint", distance));
