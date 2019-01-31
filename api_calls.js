@@ -49,8 +49,10 @@ module.exports.getVenuesRecommendationEndpoint = promisify(function getVenues(la
 
     let options;
 
+    city = city.replace(/ /g, '+');
 
     if (arguments[0] == "undefined" || arguments[1] == "undefined") {
+        console.log("lat and lng are undefined");
         options = {
             method: "GET",
             host: "api.foursquare.com",
@@ -105,6 +107,7 @@ module.exports.getVenuesExploreEndpoint = promisify(function getVenues(lat, lng,
 
     let options;
 
+    city = city.replace(/ /g, '+');
 
     if (arguments[0] == "undefined" || arguments[1] == "undefined") {
         options = {
