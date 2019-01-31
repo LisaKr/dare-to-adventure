@@ -16,6 +16,8 @@ import {
     hideAddingError
 } from "./actions.js";
 
+import AddingError from "./addingError.js";
+
 
 class AddingMenu extends React.Component {
     constructor() {
@@ -90,7 +92,7 @@ class AddingMenu extends React.Component {
                 }}> Cancel </button>
 
                 {/*this is only shown if this activity is already added to this day*/}
-                {this.props.showAddingError && <div className="adding-error"> Oops! Seems you already added it to that day!</div>}
+                {this.props.showAddingError && <AddingError/>}
             </div>
         );
     }
