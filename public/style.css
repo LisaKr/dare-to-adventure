@@ -1,9 +1,11 @@
 /*/////////////////////////////////////////GENERAL LOOK/////////////////////////////////////////////////*/
-
+html {
+    scroll-behavior: smooth;
+    overflow: scroll;
+}
 body {
     margin: 0;
     font-family: "Helvetica Neue";
-    overflow: scroll;
 }
 
 html, body, main, .page, .frontpage-container, .app-wrapper, .setup-container, .working-area-container, .background-container, .plan-container {
@@ -573,6 +575,7 @@ input[type='radio'] { transform: scale(1.5); }
     background: rgba(0,0,0, 0.9);
     color: white;
     text-align: center;
+    border-radius: 10px;
 }
 
 .changing-location-popup > .closingButton {
@@ -764,7 +767,7 @@ input[type='radio'] { transform: scale(1.5); }
 
 @keyframes pulse {
   from { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50% { transform: scale(1.3); }
   to { transform: scale(1); }
 }
 
@@ -858,9 +861,8 @@ break {
 /*days themselves*/
 .grouped-day {
     background: rgba(0,0,0, 0.8);
-    height: 45%;
-    min-width: 25%;
-    max-width: 40%;
+    /* height: 45%; */
+    width: 40%;
     z-index: 99;
     position: relative;
     margin: 2em;
@@ -887,15 +889,36 @@ break {
 
 .adding-error {
     position: absolute;
-    top:15%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     z-index: 999999999;
-    background: tomato;
-    padding: 2em;
-    width: 70%;
+    padding: 3em;
 }
 
+.adding-error .addButton {
+    float: none;
+}
+
+.upper-part {
+    background: #E94F37;
+    padding: 1em;
+    border-radius: 10px 10px 0 0;
+}
+
+.lower-part {
+    background: white;
+    padding: 1em;
+    border-radius: 0 0 10px 10px;
+}
+
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
 
 /*/////////////////TO_DO PART/////////////*/
 
