@@ -17,15 +17,15 @@ import { getSearchResults,
     currentPopularCity,
     setCoordinatesAndPutOptionsIntoDB
 } from "./actions.js";
+
 import { Link } from 'react-router-dom';
 
 
 class Search extends React.Component {
     constructor() {
         super();
-        this.state = {daysFilled: false, cityFilled: false};
+        this.state = {daysFilled: false};
         this.handleDayChange = this.handleDayChange.bind(this);
-        this.handleCityChange = this.handleCityChange.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
@@ -63,24 +63,16 @@ class Search extends React.Component {
         });
     }
 
-    //when you delete the city you previously put in
-    handleSearchChange() {
-        if (document.querySelector('.searchbar').value.length == 0) {
-            this.setState({
-                cityFilled: false
-            });
+    //when you delete the city you previously put in, city gets set to null, so that the button will be greyed out again
+    handleSearchChange(searchValue) {
+        if (searchValue.length == 0) {
+            console.log("search field is empty");
+            this.props.dispatch(putCityInState(null));
         }
     }
 
-    //when you select a city
-    handleCityChange() {
-        this.setState({
-            cityFilled: true
-        });
-    }
-
     getClass() {
-        if (!this.state.cityFilled || !this.state.daysFilled) {
+        if ((!this.props.city) || !this.state.daysFilled) {
             return "greyed";
         } else {
             return;
@@ -98,8 +90,8 @@ class Search extends React.Component {
                     //either the popular city the user selected or null
                     onChange={e => {
                         this.props.dispatch(getSearchResults(e.target.value));
-                        this.props.dispatch(currentPopularCity());
-                        this.handleSearchChange();
+                        // this.props.dispatch(currentPopularCity());
+                        this.handleSearchChange(e.target.value);
                     }
                     }/>
                 {/*this is only shown if we have looked for something and put the search results into state*/}
@@ -119,7 +111,7 @@ class Search extends React.Component {
                                             prom.then(()=>{
                                                 this.props.dispatch(getPopularCities());
                                             });
-                                            this.handleCityChange();
+                                            // this.handleCityChange();
                                             this.props.dispatch(showAddButtonAtFirst());
                                         }}>
                                         {r.city}
@@ -159,7 +151,7 @@ class Search extends React.Component {
                 <br/>
                 <br/>
                 <Link to="/working-area">
-                    <button className={this.getClass()} disabled={(!this.state.cityFilled || !this.state.daysFilled)} onClick={ () => {
+                    <button className={this.getClass()} disabled={(!this.props.city || !this.state.daysFilled)} onClick={ () => {
                         this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.address, this.props.city, this.props.numOfDays));
                     }}> Submit </button></Link>
             </div>

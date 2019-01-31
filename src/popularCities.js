@@ -33,7 +33,6 @@ class PopularCities extends React.Component {
                                 prom.then(()=>{
                                     this.props.dispatch(getPopularCities());
                                 });
-                                this.handleCityChange();
                                 this.props.dispatch(showAddButtonAtFirst());
                             }}>
                                 {city.city}
