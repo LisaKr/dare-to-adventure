@@ -18,7 +18,8 @@ import {
     getWeather,
     showAddButtonAtFirst,
     deleteActivity,
-    groupActivitiesForPlanPage
+    groupActivitiesForPlanPage,
+    deleteOptionsFromTable
 } from "./actions.js";
 
 
@@ -32,44 +33,49 @@ class Plan extends React.Component {
         //in this case the user is redirected back to setup
         let userDidSomeWork = await axios.get("/check-user-history");
         if (userDidSomeWork.data == "" && !this.props.city) {
+            console.log("user did not do any work");
+            this.props.dispatch(deleteOptionsFromTable());
             this.props.history.push('/setup');
-        }
-        // on reload putting city and activities in state
-        let arrOfDays = [];
+        } else {
+            console.log("beginning of when user did some work in plan");
+            // on reload putting city and activities in state
+            let arrOfDays = [];
 
-        let resp = await axios.get("/current-city");
-        let city = resp.data.replace(/\+/g, " ");
+            let resp = await axios.get("/current-city");
+            let city = resp.data.replace(/\+/g, " ");
 
-        let promise1 = this.props.dispatch(putCityInState(city));
-        let promise2 = this.props.dispatch(changeBackground(city));
-        let promise3 = this.props.dispatch(getWeather(city));
-        let promise4 = this.props.dispatch(putActivitiesInState(city));
+            let promise1 = this.props.dispatch(putCityInState(city));
+            let promise2 = this.props.dispatch(changeBackground(city));
+            let promise3 = this.props.dispatch(getWeather(city));
+            let promise4 = this.props.dispatch(putActivitiesInState(city));
 
-        Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
-            this.props.dispatch(groupActivitiesForPlanPage());
-        });
-
-
-        let response = await axios.get("/numofdays");
-
-        this.props.dispatch(setDays(response.data));
-
-        for (let i = 0; i<response.data; i++) {
-            arrOfDays.push(i+1);
-        }
-        //to put the whole array into the state
-        this.props.dispatch(createArrayOfDaysInState(arrOfDays));
-
-        //adjusting the arrofdays is important because of the possibility of going back to main and
-        //arr of days will be taken there as state
-        for (let i = 1; i<arrOfDays.length+1; i++) {
-            this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
-                if (this.props.arrOfDays == []) {
-                    this.props.dispatch(hideAddButton());
-                } else {
-                    this.props.dispatch(showAddButtonAtFirst());
-                }
+            Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
+                this.props.dispatch(groupActivitiesForPlanPage());
             });
+
+
+            let response = await axios.get("/numofdays");
+
+            this.props.dispatch(setDays(response.data));
+
+            for (let i = 0; i<response.data; i++) {
+                arrOfDays.push(i+1);
+            }
+            //to put the whole array into the state
+            this.props.dispatch(createArrayOfDaysInState(arrOfDays));
+
+            //adjusting the arrofdays is important because of the possibility of going back to main and
+            //arr of days will be taken there as state
+            for (let i = 1; i<arrOfDays.length+1; i++) {
+                this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
+                    if (this.props.arrOfDays == []) {
+                        this.props.dispatch(hideAddButton());
+                    } else {
+                        this.props.dispatch(showAddButtonAtFirst());
+                    }
+                });
+            }
+            console.log("end of wa when user did some work", city, arrOfDays);
         }
     }
 

@@ -3,8 +3,6 @@
 import React from "react";
 import axios from "./axios";
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
-
 
 import {
     changeBackground,
@@ -18,7 +16,8 @@ import {
     putActivitiesInState,
     groupActivitiesForPlanPage,
     putCoordinatesIntoState,
-    putAddressIntoState
+    putAddressIntoState,
+    deleteOptionsFromTable
 } from "./actions.js";
 
 
@@ -40,50 +39,58 @@ class WorkingArea extends React.Component {
 
         this.props.dispatch(showAddButtonAtFirst());
 
-        //only in case the user is reloading the page right after setup and before choosing any activities
+        //in case the user is reloading the page right after setup and before choosing any activities
         //in this case the user is redirected back to setup
+        //also if the user deleted all their activities for the city and reload the page, they are
+        //redirected to setup and their options are deleted from the options table
         let userDidSomeWork = await axios.get("/check-user-history");
         if (userDidSomeWork.data == "" && !this.props.city) {
+            console.log("user did not do any work");
+            this.props.dispatch(deleteOptionsFromTable());
             this.props.history.push('/setup');
-        }
+        } else {
+            console.log("beginning of when user did some work");
+            //if the user has done some work, we are loading the selected options
 
-        //if the user has done some work, we are loading the selected options
+            //getting coordinates from the options table
+            let coord = await axios.get("/current-coord");
+            this.props.dispatch(putCoordinatesIntoState(coord.data));
 
-        //getting coordinates from the options table
-        let coord = await axios.get("/current-coord");
-        this.props.dispatch(putCoordinatesIntoState(coord.data));
+            //getting address from the options table
+            let address = await axios.get("/current-address");
+            this.props.dispatch(putAddressIntoState(address.data.address));
 
-        //getting address from the options table
-        let address = await axios.get("/current-address");
-        this.props.dispatch(putAddressIntoState(address.data.address));
+            let resp = await axios.get("/current-city");
+            let city = resp.data.replace(/\+/g, " ");
 
-        let resp = await axios.get("/current-city");
-        let city = resp.data.replace(/\+/g, " ");
+            let promise1 = this.props.dispatch(putCityInState(city));
+            let promise2 = this.props.dispatch(changeBackground(resp.data));
+            let promise3 = this.props.dispatch(getWeather(city));
+            let promise4 = this.props.dispatch(putActivitiesInState(city));
+            Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
+                this.props.dispatch(groupActivitiesForPlanPage());
+            }).catch(err => {console.log(err);});
 
-        let promise1 = this.props.dispatch(putCityInState(city));
-        let promise2 = this.props.dispatch(changeBackground(resp.data));
-        let promise3 = this.props.dispatch(getWeather(city));
-        let promise4 = this.props.dispatch(putActivitiesInState(city));
-        Promise.all([promise1, promise2, promise3, promise4]).then(()=>{
-            this.props.dispatch(groupActivitiesForPlanPage());
-        }).catch(err => {console.log(err);});
+            let response = await axios.get("/numofdays");
+            this.props.dispatch(setDays(response.data));
 
-        let response = await axios.get("/numofdays");
-        this.props.dispatch(setDays(response.data));
+            for (let i = 0; i<response.data; i++) {
+                arrOfDays.push(i+1);
+            }
+            //to put the whole array into the state
+            this.props.dispatch(createArrayOfDaysInState(arrOfDays));
 
-        for (let i = 0; i<response.data; i++) {
-            arrOfDays.push(i+1);
-        }
-        //to put the whole array into the state
-        this.props.dispatch(createArrayOfDaysInState(arrOfDays));
+            //do the checking for full days before re-setting the arrOfDays
+            for (let i = 1; i<arrOfDays.length+1; i++) {
+                this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
+                    if (this.props.arrOfDays == []) {
+                        this.props.dispatch(hideAddButton());
+                    }
+                });
+            }
 
-        //do the checking for full days before re-setting the arrOfDays
-        for (let i = 1; i<arrOfDays.length+1; i++) {
-            this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
-                if (this.props.arrOfDays == []) {
-                    this.props.dispatch(hideAddButton());
-                }
-            });
+            console.log("end of wa when user did some work", city, arrOfDays);
+
         }
     }
 
