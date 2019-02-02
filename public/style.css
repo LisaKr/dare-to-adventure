@@ -696,7 +696,7 @@ input[type='radio'] { transform: scale(1.5); }
     background: rgba(0, 0, 0, 0.9);
     color: white;
     transform: translate(-50%, -50%);
-    width: 60%;
+    width: 65%;
     border: 1px solid black;
     border-radius: 12px;
     overflow: scroll;
@@ -704,7 +704,7 @@ input[type='radio'] { transform: scale(1.5); }
 
 .venue-details {
     margin: 0 auto;
-    width: 60%;
+    width: 70%;
     text-align: center;
     padding: 1em;
 }
@@ -715,11 +715,12 @@ input[type='radio'] { transform: scale(1.5); }
 
 .venue-details > a {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .venue {
     margin: 2em;
+    text-align: center;
 }
 
 .venue > p > span, .venue >span {
@@ -817,10 +818,11 @@ input[type='radio'] { transform: scale(1.5); }
     position:absolute;
     top:0;
     width: 100%;
-    background: red;
+    background: #E94F37;
     z-index: 999;
     padding: 1em;
     text-align: center;
+    color: white;
 }
 
 .no-underline {
