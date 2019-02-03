@@ -786,7 +786,7 @@ input[type='radio'] { transform: scale(1.5); }
 }
 
 /*////////POP-UP WHEN YOU SUCCESSFULLY ADD AN ACTIVITY TO YOUR LIST////////*/
-.added-activity-container {
+/* .added-activity-container {
     position: absolute;
     z-index: 9999;
     top: 35%;
@@ -796,7 +796,7 @@ input[type='radio'] { transform: scale(1.5); }
     padding: 2em;
     text-align: center;
     border-radius: 10px;
-}
+} */
 
 .added-activity-container .closingButton {
     width: 0;
@@ -901,20 +901,20 @@ break {
 }
 
 
-.adding-error {
+/* .adding-error {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 999999999;
     padding: 3em;
-}
+} */
 
-.adding-error .addButton {
+/* .adding-error .addButton {
     float: none;
-}
+} */
 
-.upper-part {
+/* .upper-part {
     background: #E94F37;
     padding: 1em;
     border-radius: 10px 10px 0 0;
@@ -924,15 +924,7 @@ break {
     background: white;
     padding: 1em;
     border-radius: 0 0 10px 10px;
-}
-
-.visible {
-    display: block;
-}
-
-.hidden {
-    display: none;
-}
+} */
 
 /*/////////////////TO_DO PART/////////////*/
 
