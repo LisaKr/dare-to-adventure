@@ -769,7 +769,7 @@ input[type='radio'] { transform: scale(1.5); }
 
 .day {
     display: flex;
-    background: rgba(0,0,0, 0.7);
+    background: #A0A0A0;
     color: white;
     justify-content: center;
     align-items: center;
@@ -782,16 +782,8 @@ input[type='radio'] { transform: scale(1.5); }
 }
 
 .day:hover {
-    animation-name: pulse;
-    animation-duration: 1s;
+    background: #707070;
 }
-
-@keyframes pulse {
-  from { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  to { transform: scale(1); }
-}
-
 
 /*////////POP-UP WHEN YOU SUCCESSFULLY ADD AN ACTIVITY TO YOUR LIST////////*/
 .added-activity-container {
