@@ -13,7 +13,9 @@ import {
     showAddButtonAtFirst,
     deleteActivity,
     setDeletablePropertyToFalse,
-    groupActivitiesForPlanPage
+    groupActivitiesForPlanPage,
+    showSubCategories,
+    hideDinnerOptions
 } from "./actions.js";
 
 import AddingMenu from "./AddingMenu";
@@ -29,6 +31,8 @@ class CategoryResults extends React.Component {
             <div className="category-results-container">
                 <div className="closingButton" onClick={ () => {
                     this.props.dispatch(hideCategoryResults());
+                    // this.props.dispatch(hideDinnerOptions());
+                    // this.props.dispatch(showSubCategories(null));
                 }}> X </div>
                 <div className="all-results">
                     {this.props.categoryResults && this.props.categoryResults.map(

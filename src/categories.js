@@ -3,7 +3,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { showSubCategories, hideDinnerOptions, setDistanceToState } from "./actions.js";
+import { showSubCategories, hideDinnerOptions, setDistanceToState, setAllBlackToFalse } from "./actions.js";
 
 import SubCategories from "./subCategories";
 
@@ -27,29 +27,18 @@ class Categories extends React.Component {
                 currentCategory: category
             });
         }
-        //toggling the selected property
-        // if (this.state.selected) {
-        //     this.setState({
-        //         selected: false
-        //     }, () => {console.log(this.state);});
-        // } else {
-        //     this.setState({
-        //         selected: true
-        //     }, () => {console.log(this.state);});
-        // }
     }
 
     getClass(category) {
-        if (this.state.currentCategory == null) {
+        //if you click on the same category twice, then it's null and everything is black
+        // OR if you closed category results and allBlack was dispatched, then all categories and subcategories automatically become black
+        //OR if the category is the one currently selected
+        if (this.state.currentCategory == null || ( this.state.currentCategory == null && this.props.allBlack) || this.state.currentCategory == category) {
             return "category black";
         }
         //if the category for which the class is evaluated is not the currently clicked and the selected toggle is on true, it's white
-        //&& this.state.selected
         if(this.state.currentCategory != category ) {
             return "category white";
-        }
-        else {
-            return "category black";
         }
     }
 
@@ -69,6 +58,7 @@ class Categories extends React.Component {
                                 this.handleCategoryClick("FOOD");
                             //if we click on food and it is not selected yet
                             } else {
+                                this.props.dispatch(setAllBlackToFalse());
                                 this.handleCategoryClick("FOOD");
                                 this.props.dispatch(showSubCategories("FOOD"));
                             }
@@ -86,6 +76,7 @@ class Categories extends React.Component {
                                 this.props.dispatch(setDistanceToState(null));
                                 this.handleCategoryClick("CULTURE");
                             } else {
+                                this.props.dispatch(setAllBlackToFalse());
                                 this.handleCategoryClick("CULTURE");
                                 this.props.dispatch(hideDinnerOptions());
                                 this.props.dispatch(showSubCategories("CULTURE"));
@@ -104,6 +95,7 @@ class Categories extends React.Component {
                                 this.props.dispatch(setDistanceToState(null));
                                 this.handleCategoryClick("NATURE");
                             } else {
+                                this.props.dispatch(setAllBlackToFalse());
                                 this.props.dispatch(hideDinnerOptions());
                                 this.handleCategoryClick("NATURE");
                                 this.props.dispatch(showSubCategories("NATURE"));
@@ -122,6 +114,7 @@ class Categories extends React.Component {
                                 this.handleCategoryClick("NIGHTLIFE");
                                 this.props.dispatch(setDistanceToState(null));
                             } else {
+                                this.props.dispatch(setAllBlackToFalse());
                                 this.props.dispatch(hideDinnerOptions());
                                 this.handleCategoryClick("NIGHTLIFE");
                                 this.props.dispatch(showSubCategories("NIGHTLIFE"));
@@ -140,7 +133,8 @@ function mapStateToProps(state) {
     return {
         city: state.city,
         subcategoryToShow: state.subcategoryToShow,
-        dinnerShown: state.dinnerShown
+        dinnerShown: state.dinnerShown,
+        allBlack: state.allBlack
     };
 }
 

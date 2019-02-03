@@ -13,22 +13,30 @@ class subCategories extends React.Component {
     }
 
     handleSubCategoryClick(subCategory) {
-        this.setState({
-            currentSubCategory: subCategory
-        }, ()=> {console.log("handle subCategory", this.state);});
+        //if you click double on dinner, not only is cuisine menu hidden, the other subcategories return to black
+        if (this.state.currentSubCategory == "dinner" && subCategory == "dinner") {
+            this.setState({
+                currentSubCategory: null
+            }, ()=> {console.log("setting stuff to null when clicking on dinner again", this.state);});
+        } else {
+            this.setState({
+                currentSubCategory: subCategory,
+                currentCuisine: null
+            }, ()=> {console.log("handle subCategory", this.state);});
+        }
+
     }
 
     getClass(subCategory) {
-        //if either nothing is selected or allblack is true AND nothing is selected
-        if (this.state.currentSubCategory == null || (this.state.currentSubCategory == null && this.props.allBlack)) {
+        //if initially no subcategory is selected
+        //OR allblack is true (after closing the category results) while there is no dinner selection --> otherwise dinner should be the only one selected and the cuisine menu should be all black
+        //OR if it is the selected subcategory
+        if (this.state.currentSubCategory == null || (this.props.allBlack && !this.props.dinnerShown)  || this.state.currentSubCategory == subCategory) {
             return "subcategory black";
         }
         //if the category for which the class is evaluated is not the currently clicked it's white
         if (this.state.currentSubCategory != subCategory) {
             return "subcategory white";
-        }
-        else {
-            return "subcategory black";
         }
     }
 
@@ -39,15 +47,12 @@ class subCategories extends React.Component {
     }
 
     getDinnerClass(cuisine) {
-        if (this.state.currentCuisine == null || this.props.allBlack) {
+        if (this.state.currentCuisine == null || this.props.allBlack || this.state.currentCuisine == cuisine) {
             return "dinner-subcat black";
         }
         //if the category for which the class is evaluated is not the currently clicked it's white
         if (this.state.currentCuisine != cuisine) {
             return "dinner-subcat white";
-        }
-        else {
-            return "dinner-subcat black";
         }
     }
 
