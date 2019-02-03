@@ -76,7 +76,7 @@ class subCategories extends React.Component {
         return(
             <div className="subcategories-container">
                 {this.props.subcategoryToShow=="FOOD" &&
-                <div>
+                <div ref={node => { this.node = node; }}>
                     {(this.props.coord && this.props.coord.lat != "null" && this.props.coord.lat != "undefined") && <Distance/>}
                     <div className={this.getClass("breakfast")}
                         onClick={ () => {
@@ -377,6 +377,6 @@ export default connect(mapStateToProps)(subCategories);
 
 // document.addEventListener('click', function () {
 //     console.log("document click runs");
-//     document.querySelector(".dinner-options-container").style.display = 'none';
+//     document.querySelector(".dinner-options-container").style.visibility = 'none';
 //     document.querySelector(".subcategories-container").style.display = 'none';
 // });
