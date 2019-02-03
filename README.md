@@ -72,11 +72,18 @@ If an existing user logs in their working area will be loaded (including city, a
 
 Future Features
 --------
--  Make it responsive 📱 
+####Immediated fixes:
+- Make modal close by clicking outside of it
+- Fix all outstanding design bugs
+- Make it responsive 📱 
+- clean the code up a bit
+
+####Later nice-to-haves:
+- Add caroussel view when viewing details of a venue (next/prev)
+- Add PDF export 📖
 - Add event integration from eventbrite API (find events for that city for specific dates) 📅
 - Adjust add/delete buttons to Foursquare category results on load (so that the user sees right away which venues have already been added if they open the category again)
-- DRY the code
+- DRY the code!
 - Add loading screen while waiting for API results
-- Fix PDF export 📖
 
 
