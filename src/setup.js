@@ -1,4 +1,4 @@
-//component presented to new users and registered users who haven't created any plans 
+//component presented to new users and registered users who haven't created any plans
 
 import React from "react";
 import {connect} from "react-redux";
@@ -7,9 +7,16 @@ import Logout from "./logout";
 import Search from "./search";
 import PopularCities from "./popularCities";
 
+import {deleteOptionsFromTable} from "./actions.js";
+
 class Setup extends React.Component {
     constructor() {
         super();
+    }
+
+    //a safeguard for the edge case that user deletes everything and then manually goes to setup --> so that there is no doubling
+    componentDidMount() {
+        this.props.dispatch(deleteOptionsFromTable());
     }
 
     render() {

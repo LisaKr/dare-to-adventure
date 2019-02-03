@@ -14,7 +14,6 @@ import { getSearchResults,
     showAddButtonAtFirst,
     addCityCount,
     getPopularCities,
-    currentPopularCity,
     setCoordinatesAndPutOptionsIntoDB
 } from "./actions.js";
 
