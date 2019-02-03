@@ -18,6 +18,7 @@ input:focus, button:focus, select:focus {
 
 input {
     border-radius: 10px;
+    text-align: center;
 }
 
 
@@ -54,7 +55,7 @@ animation: blink 1s linear infinite;
     text-align: center;
     background: rgba(255, 255, 255, 0.2);
     padding: 0.5em;
-    border-radius: 4px;
+    border-radius: 10px;
 }
 
 @keyframes fadein{
@@ -306,14 +307,16 @@ select {
 .categories-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 /*includes category boxes and the subcategory list*/
 .category-container {
     z-index: 99;
     position: relative;
-    margin: 1em;
+    margin-top: 1em;
+    margin-left: 3em;
+    margin-right: 3em;
     margin-bottom: 0;
     color: white;
     display: flex;
