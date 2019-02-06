@@ -1,9 +1,8 @@
 //showing the four main categories and handling clicks on them
-
 import React from "react";
 import { connect } from "react-redux";
 
-import { showSubCategories, hideDinnerOptions, setDistanceToState, setAllBlackToFalse } from "./actions.js";
+import { showSubCategories, hideDinnerOptions, setDistanceToState, setAllBlackToFalse, hideSubCategories } from "./actions.js";
 
 import SubCategories from "./subCategories";
 
@@ -15,29 +14,25 @@ class Categories extends React.Component {
         this.handleCategoryClick = this.handleCategoryClick.bind(this);
     }
 
-
+    //this function handles hiding and showing subcategories when clicking on the same or other categories
     handleCategoryClick(category) {
         //rememebering the selected category or setting it to null if you click on it the second time just to close it
-        if (this.state.currentCategory == category) {
-            this.setState({
-                currentCategory: null
-            });
+        if (this.props.subCategoryToShow == category) {
+            this.props.dispatch(hideSubCategories());
         } else {
-            this.setState({
-                currentCategory: category
-            });
+            this.props.dispatch(showSubCategories(category));
         }
     }
 
     getClass(category) {
         //if you click on the same category twice, then it's null and everything is black
-        // OR if you closed category results and allBlack was dispatched, then all categories and subcategories automatically become black
+        // OR if you closed list of venues and subcategorytoshow is null
         //OR if the category is the one currently selected
-        if (this.state.currentCategory == null || ( this.state.currentCategory == null && this.props.allBlack) || this.state.currentCategory == category) {
+        if (this.props.subCategoryToShow == null || this.props.subCategoryToShow == category) {
             return "category black";
         }
         //if the category for which the class is evaluated is not the currently clicked and the selected toggle is on true, it's white
-        if(this.state.currentCategory != category ) {
+        if(this.props.subCategoryToShow != category ) {
             return "category white";
         }
     }
@@ -49,80 +44,72 @@ class Categories extends React.Component {
                 <div className="category-container">
                     <div className={this.getClass("FOOD")}
                         onClick={ () => {
-                            {/*we need category for the later db inserton of the selected activity and for the handling of the "more" button*/}
-                            //if we click on food for the second time when it's already selected
-                            if (this.props.subcategoryToShow == "FOOD") {
+                            {/*on a category click we check whether it is the second click and the same category was selected before
+                            if it is the case, we set everything to null and black, ultimately closing all selections and restrong status quo
+                            hide dinner options is necessary in case we jump from active food+dinner to another category*/}
+                            if (this.props.subCategoryToShow === "FOOD") {
                                 this.props.dispatch(hideDinnerOptions());
-                                this.props.dispatch(showSubCategories(null));
                                 this.props.dispatch(setDistanceToState(null));
                                 this.handleCategoryClick("FOOD");
-                            //if we click on food and it is not selected yet
+                                {/*if it is not the case and the category is newly selected, we put the respective subcategory in state*/}
                             } else {
                                 this.props.dispatch(setAllBlackToFalse());
                                 this.handleCategoryClick("FOOD");
-                                this.props.dispatch(showSubCategories("FOOD"));
                             }
                         }}>
-                        <img className="icon" src="/burger.png"/>
+                        <img className="icon" id="FOOD" src="/burger.png"/>
                     </div>
-                    {this.props.subcategoryToShow == "FOOD" && <SubCategories/>}
+                    {this.props.subCategoryToShow == "FOOD" && <SubCategories/>}
                 </div>
                 <div className="category-container">
                     <div className={this.getClass("CULTURE")}
                         onClick={ () => {
-                            if (this.props.subcategoryToShow == "CULTURE") {
-                                this.props.dispatch(hideDinnerOptions());
-                                this.props.dispatch(showSubCategories(null));
+                            if (this.props.subCategoryToShow == "CULTURE") {
                                 this.props.dispatch(setDistanceToState(null));
                                 this.handleCategoryClick("CULTURE");
                             } else {
                                 this.props.dispatch(setAllBlackToFalse());
                                 this.handleCategoryClick("CULTURE");
                                 this.props.dispatch(hideDinnerOptions());
-                                this.props.dispatch(showSubCategories("CULTURE"));
                             }
                         }}>
-                        <img className="icon" src="/culture.png"/>
+                        <img className="icon" id="CULTURE" src="/culture.png"/>
                     </div>
-                    {this.props.subcategoryToShow == "CULTURE" && <SubCategories/>}
+                    {this.props.subCategoryToShow == "CULTURE" && <SubCategories/>}
                 </div>
 
                 <div className="category-container">
                     <div className={this.getClass("NATURE")}
                         onClick={ () => {
-                            if (this.props.subcategoryToShow == "NATURE") {
-                                this.props.dispatch(showSubCategories(null));
+                            if (this.props.subCategoryToShow == "NATURE") {
                                 this.props.dispatch(setDistanceToState(null));
                                 this.handleCategoryClick("NATURE");
                             } else {
                                 this.props.dispatch(setAllBlackToFalse());
                                 this.props.dispatch(hideDinnerOptions());
                                 this.handleCategoryClick("NATURE");
-                                this.props.dispatch(showSubCategories("NATURE"));
                             }
                         }}
-                    > <img className="icon" src="/nature.png"/>
+                    > <img className="icon" id="NATURE" src="/nature.png"/>
                     </div>
-                    {this.props.subcategoryToShow == "NATURE" && <SubCategories/>}
+                    {this.props.subCategoryToShow == "NATURE" && <SubCategories/>}
                 </div>
 
                 <div className="category-container">
                     <div className={this.getClass("NIGHTLIFE")}
                         onClick={ () => {
-                            if (this.props.subcategoryToShow == "NIGHTLIFE") {
-                                this.props.dispatch(showSubCategories(null));
+                            if (this.props.subCategoryToShow == "NIGHTLIFE") {
                                 this.handleCategoryClick("NIGHTLIFE");
                                 this.props.dispatch(setDistanceToState(null));
                             } else {
                                 this.props.dispatch(setAllBlackToFalse());
                                 this.props.dispatch(hideDinnerOptions());
                                 this.handleCategoryClick("NIGHTLIFE");
-                                this.props.dispatch(showSubCategories("NIGHTLIFE"));
                             }
                         }}>
-                        <img className="icon" src="/nightlife.png"/>
+                        <img className="icon" id="NIGHTLIFE" src="/nightlife.png"/>
                     </div>
-                    {this.props.subcategoryToShow == "NIGHTLIFE" && <SubCategories/>}
+                    {this.props.subCategoryToShow == "NIGHTLIFE" && <SubCategories/>}
                 </div>
             </div>
         );
@@ -132,7 +119,7 @@ class Categories extends React.Component {
 function mapStateToProps(state) {
     return {
         city: state.city,
-        subcategoryToShow: state.subcategoryToShow,
+        subCategoryToShow: state.subCategoryToShow,
         dinnerShown: state.dinnerShown,
         allBlack: state.allBlack
     };

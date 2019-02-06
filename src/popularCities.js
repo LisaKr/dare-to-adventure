@@ -1,17 +1,11 @@
-//shows the current top 3 popular cities and puts the currently clicked popular city in state
-
+//shows the current top 3 popular cities. basically doing the same as selecting a city from search
 import React from "react";
 import {connect} from "react-redux";
 
 import { getPopularCities, hideResults, changeBackground, putCityInState, getWeather, addCityCount, showAddButtonAtFirst} from "./actions.js";
 
 class PopularCities extends React.Component {
-
-    constructor() {
-        super();
-    }
-
-    async componentDidMount() {
+    componentDidMount() {
         this.props.dispatch(getPopularCities());
     }
 
@@ -23,7 +17,6 @@ class PopularCities extends React.Component {
                     city => {
                         return (
                             <div className = "popular-city" key = {city.city} onClick={() => {
-                                // this.props.dispatch(currentPopularCity(city.city));
                                 document.querySelector('.searchbar').value = city.city;
                                 this.props.dispatch(hideResults());
                                 this.props.dispatch(changeBackground(city.city.replace(/\s+/g, '+')));

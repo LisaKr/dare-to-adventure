@@ -28,22 +28,17 @@ import AddedActivity from "./addedActivity";
 import Footer from "./footer";
 
 class WorkingArea extends React.Component {
-    constructor() {
-        super();
-    }
-
     async componentDidMount() {
         console.log("wa mounted");
 
         let arrOfDays = [];
-
         this.props.dispatch(showAddButtonAtFirst());
 
         //in case the user is reloading the page right after setup and before choosing any activities
-        //in this case the user is redirected back to setup
-        //also if the user deleted all their activities for the city and reload the page, they are
+        //or the user deleted all their activities for the city and reload the page, they are
         //redirected to setup and their options are deleted from the options table
         let userDidSomeWork = await axios.get("/check-user-history");
+
         if (userDidSomeWork.data == "" && !this.props.city) {
             console.log("user did not do any work");
             this.props.dispatch(deleteOptionsFromTable());
@@ -52,17 +47,17 @@ class WorkingArea extends React.Component {
             console.log("beginning of when user did some work");
             //if the user has done some work, we are loading the selected options
 
-            //getting coordinates from the options table
+            //getting coordinates from the options table and putting them in state
             let coord = await axios.get("/current-coord");
             this.props.dispatch(putCoordinatesIntoState(coord.data));
 
-            //getting address from the options table
+            //getting address from the options table and putting it in state
             let address = await axios.get("/current-address");
             this.props.dispatch(putAddressIntoState(address.data.address));
-
+            //same with the city
             let resp = await axios.get("/current-city");
             let city = resp.data.replace(/\+/g, " ");
-
+            //waiting on all the putting in state to complete before grouping activities for the plan page
             let promise1 = this.props.dispatch(putCityInState(city));
             let promise2 = this.props.dispatch(changeBackground(resp.data));
             let promise3 = this.props.dispatch(getWeather(city));
@@ -71,6 +66,7 @@ class WorkingArea extends React.Component {
                 this.props.dispatch(groupActivitiesForPlanPage());
             }).catch(err => {console.log(err);});
 
+            //getting current number of days and putting it in state
             let response = await axios.get("/numofdays");
             this.props.dispatch(setDays(response.data));
 
@@ -80,7 +76,7 @@ class WorkingArea extends React.Component {
             //to put the whole array into the state
             this.props.dispatch(createArrayOfDaysInState(arrOfDays));
 
-            //do the checking for full days before re-setting the arrOfDays
+            //do the checking for full days before re-setting the arrOfDays --> to see which days are still available and remove full days
             for (let i = 1; i<arrOfDays.length+1; i++) {
                 this.props.dispatch(checkingActivitiesInDays(i)).then(()=> {
                     if (this.props.arrOfDays == []) {
@@ -88,9 +84,7 @@ class WorkingArea extends React.Component {
                     }
                 });
             }
-
             console.log("end of wa when user did some work", city, arrOfDays);
-
         }
     }
 
