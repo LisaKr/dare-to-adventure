@@ -10,10 +10,6 @@ import PopularCities from "./popularCities";
 import {deleteOptionsFromTable} from "./actions.js";
 
 class Setup extends React.Component {
-    constructor() {
-        super();
-    }
-
     //a safeguard for the edge case that user deletes everything and then manually goes to setup --> so that there is no doubling
     componentDidMount() {
         this.props.dispatch(deleteOptionsFromTable());
@@ -26,7 +22,6 @@ class Setup extends React.Component {
                 <div className="setup-middle-flex">
                     <div className = "setup-middle" >
                         <h1 > Dare to adventure! < /h1>
-
                         <Search />
                     </div>
                 </div>

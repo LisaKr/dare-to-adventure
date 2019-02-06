@@ -7,7 +7,6 @@ export default class Registration extends React.Component {
     constructor() {
         super();
         this.state = {};
-
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }

@@ -2,7 +2,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-// import axios from "./axios";
 
 import { getSearchResults,
     changeBackground,
@@ -28,44 +27,39 @@ class Search extends React.Component {
         this.handleInput = this.handleInput.bind(this);
     }
 
-
     //this happens when i select a day.
     handleDayChange(e) {
-
+        //if the user did not select a valid amount of days
         if (e.target.value == "null") {
-            console.log("it is null now");
             this.setState({
                 daysFilled: false
-            }, () => {console.log(this.state);});
+            });
         } else {
             this.setState({
                 daysFilled: true
             });
         }
-
-
+        //putting the selected number of days in state
         this.props.dispatch(setDays(e.target.value));
 
+        //putting an array from 1 to numOfDays in state too
         let arrOfDays = [];
-
         for (let i = 0; i<e.target.value; i++) {
             arrOfDays.push(i+1);
         }
         this.props.dispatch(createArrayOfDaysInState(arrOfDays));
     }
 
-
-    //for location/address
+    //putting location/address in state
     handleInput(e) {
         this.setState({
             [e.target.name]: e.target.value
         });
     }
 
-    //when you delete the city you previously put in, city gets set to null, so that the button will be greyed out again
+    //when you delete the city you previously put in (from the search field), city gets re-set to null in state, so that the button will be greyed out again
     handleSearchChange(searchValue) {
         if (searchValue.length == 0) {
-            console.log("search field is empty");
             this.props.dispatch(putCityInState(null));
         }
     }
@@ -86,10 +80,9 @@ class Search extends React.Component {
                     className = "searchbar"
                     type="text"
                     placeholder="Choose a city"
-                    //either the popular city the user selected or null
                     onChange={e => {
                         this.props.dispatch(getSearchResults(e.target.value));
-                        // this.props.dispatch(currentPopularCity());
+                        //checking if the searchfield is empty
                         this.handleSearchChange(e.target.value);
                     }
                     }/>
@@ -106,15 +99,17 @@ class Search extends React.Component {
                                             this.props.dispatch(changeBackground(r.city.replace(/\s+/g, '+')));
                                             this.props.dispatch(putCityInState(r.city));
                                             this.props.dispatch(getWeather(r.city.replace(/\s+/g, '+')));
+                                            //updating the three popular cities with respect to the new click
                                             const prom = this.props.dispatch(addCityCount(r.city));
                                             prom.then(()=>{
                                                 this.props.dispatch(getPopularCities());
                                             });
-                                            // this.handleCityChange();
+                                            //setting button for adding activities to true by default
                                             this.props.dispatch(showAddButtonAtFirst());
                                         }}>
                                         {r.city}
                                     </div>
+                                    {/*if an error was sent back from the server*/}
                                     <div className="result-error">{r.error}</div>
                                 </div>
                             );
@@ -127,6 +122,7 @@ class Search extends React.Component {
                         name = "address"
                         type="text"
                         placeholder="Your location"
+                        //putting it in state
                         onChange={this.handleInput}
                     />
                 </div>
@@ -149,6 +145,8 @@ class Search extends React.Component {
                 </div>
                 <br/>
                 <br/>
+                {/*the button is only clickable if both city and days are selected
+                on click it creates an entry in the options table containing city, numofdays and address*/}
                 <Link to="/working-area">
                     <button className={this.getClass()} disabled={(!this.props.city || !this.state.daysFilled)} onClick={ () => {
                         this.props.dispatch(setCoordinatesAndPutOptionsIntoDB(this.state.address, this.props.city, this.props.numOfDays));

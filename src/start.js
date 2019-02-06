@@ -7,9 +7,6 @@ import Welcome from './welcome';
 //logged in experience
 import App from './app';
 
-// import { hideResults } from "./actions.js";
-
-
 //redux
 import reduxPromise from 'redux-promise';
 import { Provider } from 'react-redux';
@@ -42,11 +39,3 @@ ReactDOM.render(
     component,
     document.querySelector('main')
 );
-
-///hiding the search results in the search component on click on outside
-// document.addEventListener("click", function(){
-//     // console.log("document clicked");
-//     // let search = document.querySelector(".searchbar");
-//     // search.value = "";
-//     store.dispatch(hideResults());
-// });
