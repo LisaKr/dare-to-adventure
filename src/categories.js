@@ -46,7 +46,7 @@ class Categories extends React.Component {
                         onClick={ () => {
                             {/*on a category click we check whether it is the second click and the same category was selected before
                             if it is the case, we set everything to null and black, ultimately closing all selections and restrong status quo
-                            hide dinner options is necessary in case we jump from active food+dinner to another category*/}
+                            hidedinneroptions is necessary in case we jump from active food+dinner to another category*/}
                             if (this.props.subCategoryToShow === "FOOD") {
                                 this.props.dispatch(hideDinnerOptions());
                                 this.props.dispatch(setDistanceToState(null));
