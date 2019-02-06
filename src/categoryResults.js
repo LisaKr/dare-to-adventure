@@ -42,8 +42,8 @@ class CategoryResults extends React.Component {
                                     </div>
                                     {/*when there are still free slots in some days AND the activity isn't added yet
                                     (when getting results from the API I add a property deletable to indicate its status later on)*/}
+                                    {/*on click we put activity in state to use later if user decides to add it to their list and open the adding menu*/}
                                     {(this.props.showAddButton && !r.deletable) &&
-                                {/*on click we put activity in state to use later if user decides to add it to their list and open the adding menu*/}
                                 <div className="addButton" onClick={ () => {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu(r.name, r.location));
