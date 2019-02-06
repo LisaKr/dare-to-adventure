@@ -13,42 +13,37 @@ import {
     showAddButtonAtFirst,
     deleteActivity,
     setDeletablePropertyToFalse,
-    groupActivitiesForPlanPage,
-    showSubCategories,
-    hideDinnerOptions
+    groupActivitiesForPlanPage
 } from "./actions.js";
 
 import AddingMenu from "./AddingMenu";
 
 class CategoryResults extends React.Component {
-    constructor() {
-        super();
-    }
-
 
     render() {
         return(
             <div className="category-results-container">
                 <div className="closingButton" onClick={ () => {
                     this.props.dispatch(hideCategoryResults());
-                    // this.props.dispatch(hideDinnerOptions());
-                    // this.props.dispatch(showSubCategories(null));
                 }}> X </div>
+                {/*after category results were put in state this is shown*/}
                 <div className="all-results">
                     {this.props.categoryResults && this.props.categoryResults.map(
                         r => {
                             return (
                                 //the result div contains name, location and add/delete button
                                 <div key={r.id} className="result">
-                                    {/*the result info contains only name and location. click on it results in
+                                    {/*the result-info contains only name and location. click on it results in
                                     showing the venue details (another API request with the respective id)*/}
                                     <div className="result-info" onClick={ () => {
                                         this.props.dispatch(getVenueDetails(r.id));
                                     }}>
                                         {r.name} || {r.location}
                                     </div>
-                                    {/*when there are still free slots in some days AND the activity isn't added yet*/}
+                                    {/*when there are still free slots in some days AND the activity isn't added yet
+                                    (when getting results from the API I add a property deletable to indicate its status later on)*/}
                                     {(this.props.showAddButton && !r.deletable) &&
+                                {/*on click we put activity in state to use later if user decides to add it to their list and open the adding menu*/}
                                 <div className="addButton" onClick={ () => {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu(r.name, r.location));
@@ -59,7 +54,7 @@ class CategoryResults extends React.Component {
                                     {/*if the activity is already added*/}
                                     {r.deletable &&
                                     <div className="deleteButton" onClick = { async () => {
-                                        {/*userActivities get updated in state first and the groupedActivities follow*/}
+                                        {/*userActivities get updated in state first and the groupedActivities follow (needs to be synchronous)*/}
                                         await this.props.dispatch(deleteActivity(r.name));
                                         await this.props.dispatch(groupActivitiesForPlanPage());
                                         {/*check every day in the arrOfDays for freed up spots in order to allow to add activities to that day again*/}
@@ -82,7 +77,7 @@ class CategoryResults extends React.Component {
                         }
                     )}
                     {/*first attempt to hide more button if there are no more results --> if the amount of
-                    results at any run is less then 10,20,30 etc, don't show the button. also don't show if there are no results at all.
+                    results at any run is less then 10,20,30 (divisible by 10) etc, don't show the button. also don't show if there are no results at all.
                     so far it will show it if there exactly 10,20,30 etc but no more*/}
                     {(this.props.categoryResults.length % 10 == 0 && this.props.categoryResults.length!= 0) &&
                         <div className="moreButton"

@@ -140,7 +140,10 @@ class subCategories extends React.Component {
               this.props.coord.lat != "undefined" && <Distance />}
                         {/*on click on subcategory we say that not everything should be black now,
                         put selected category in state, hide dinner and putting options in state to use in an axios
-                        request in the more button in another component*/}
+                        request in the more button in another component.
+                        we also start a request to the server which will act as a client and ask foursquare
+                        server for data with the request options we are sending along. the results are being sent back,
+                        put into state and based on them the respective component is shown*/}
                         <div
                             className={this.getClass("breakfast")}
                             onClick={() => {
