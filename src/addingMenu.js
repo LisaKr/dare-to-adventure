@@ -20,9 +20,6 @@ import AddingError from "./addingError.js";
 
 
 class AddingMenu extends React.Component {
-    constructor() {
-        super();
-    }
 
     render() {
         return (
@@ -44,16 +41,16 @@ class AddingMenu extends React.Component {
                                             if (this.props.activityAlreadyAdded) {
                                                 this.props.dispatch(showAddingError());
                                             } else {
-                                                {/*if the activity was not yet added*/}
+                                                {/*if the activity was not yet added we dispatch an action which inserts the selected activity into database*/}
                                                 const promise = addVenue(this.props.city,
                                                     this.props.selectedActivityName,
                                                     this.props.selectedActivityLocation,
                                                     this.props.category,
                                                     day);
-
+                                                //first dispatching the promise. so we can wait for it to be fulfilled and set a callback on it
                                                 this.props.dispatch(promise);
 
-                                                //after addVenue promise is fullfilled
+                                                //after addVenue promise is dispatched and resolved
                                                 promise.then(() => {
                                                 //checking for activities in the day we just added the activity to to see if it's now full
                                                     const promise1 = this.props.dispatch(checkingActivitiesInDays(day));
@@ -74,7 +71,6 @@ class AddingMenu extends React.Component {
                                                 }
                                                 //showing the pop-up about adding the activity and hiding the menu with the day selection
                                                 this.props.dispatch(hideAddingMenu());
-                                                // this.props.dispatch(hideSubCategories());
                                                 this.props.dispatch(successfullyAdded(this.props.selectedActivityName));
                                             }
                                         });

@@ -1,4 +1,5 @@
 //a pop-up showing the details of the selected venue
+//by click on the venue a new API request goes to another endpoint. when the response gets set in state, this component is shown
 
 import React from "react";
 import { connect } from "react-redux";
@@ -6,10 +7,6 @@ import { connect } from "react-redux";
 import { hideVenue } from "./actions.js";
 
 class VenueDetails extends React.Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return(
             <div className="venue-details-container">

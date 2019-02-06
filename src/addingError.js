@@ -53,10 +53,5 @@ class AddingError extends React.Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     return {
-//         showAddingError: state.showAddingError
-//     };
-// }
 
 export default connect(null)(AddingError);

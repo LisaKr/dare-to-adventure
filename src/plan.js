@@ -24,13 +24,10 @@ import {
 
 
 class Plan extends React.Component {
-    constructor() {
-        super();
-    }
 
     async componentDidMount() {
-        //only in case the user is reloading the page right after setup and before choosing any activities
-        //in this case the user is redirected back to setup
+        //if the user deleted all their activities for the city and reload the page, they are
+        //redirected to setup and their options are deleted from the options table
         let userDidSomeWork = await axios.get("/check-user-history");
         if (userDidSomeWork.data == "" && !this.props.city) {
             console.log("user did not do any work");
@@ -80,7 +77,7 @@ class Plan extends React.Component {
     }
 
 
-
+    //attempt at pdf export
     exportToPdf(e){
         e.preventDefault();
         const input = document.body;
@@ -101,8 +98,8 @@ class Plan extends React.Component {
                 <h1> your trip to {this.props.city}</h1>
 
                 <div className="day-container">
-                    {/*groupedActivities is an object with days as keys and an array of objects (for every activity) as values
-                    we are going through the keys (day) first*/}
+                    {/*groupedActivities is an object with days as keys and an array of objects (for every activity)
+                    as values. we are going through the keys (day) first*/}
                     {this.props.groupedActivities && Object.keys(this.props.groupedActivities).map(
                         day => {
                             return(
