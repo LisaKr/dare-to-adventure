@@ -152,7 +152,6 @@ export async function setCoordinatesAndPutOptionsIntoDB(location, city, numOfDay
     try {
         //first getting coordinates for the provided address
         var coord = await axios.get("/coord/" + location);
-        console.log("coord resp in action", coord.data, location);
 
         //if the API response for the provided address is null, i.e. if address is invalid
         let lat, lng, address;
@@ -166,8 +165,6 @@ export async function setCoordinatesAndPutOptionsIntoDB(location, city, numOfDay
             lng = coord.data.lng;
             address = location;
         }
-
-        console.log("address in double action", address);
 
         //then inserting all the options into db
         await axios.post("/insert-options/" + city + "/" + numOfDays + "/" + lat +"/" + lng + "/" + address);
@@ -305,10 +302,18 @@ export async function setOptionToState(option) {
     };
 }
 //SHOW RESULTS OF SUB CATEGORIES
-export async function showSubCategories(category) {
+export async function showSubCategories(subCategoryToShow) {
     return {
         type: `SHOW_SUB_CATEGORY`,
-        category: category
+        subCategoryToShow: subCategoryToShow
+    };
+}
+
+export async function hideSubCategories(){
+    return {
+        type: "HIDE_SUBCATEGORIES",
+        subCategoryToShow: null,
+        allBlack: true
     };
 }
 
@@ -368,12 +373,6 @@ export async function hideAddingMenu(){
     };
 }
 
-export async function hideSubCategories(){
-    return {
-        type: "HIDE_SUBCATEGORIES",
-        subcategoryToShow: null
-    };
-}
 
 //put the currently selected activity in state (e.g. to check whether this activity was alreaddy added to this particular day and show that it was successfully added to your list)
 export async function setActivityInState(selectedName, selectedLocation) {

@@ -151,7 +151,15 @@ export default function(state = {}, action) {
     if (action.type == "SHOW_SUB_CATEGORY") {
         return {
             ...state,
-            subcategoryToShow: action.category
+            subCategoryToShow: action.subCategoryToShow
+        };
+    }
+
+    if (action.type=="HIDE_SUBCATEGORIES") {
+        return {
+            ...state,
+            subCategoryToShow: action.subCategoryToShow,
+            allBlack: action.allBlack
         };
     }
 
@@ -311,12 +319,7 @@ export default function(state = {}, action) {
         });
     }
 
-    if (action.type=="HIDE_SUBCATEGORIES") {
-        return {
-            ...state,
-            subcategoryToShow: action.subcategoryToShow
-        };
-    }
+
 
     if (action.type == "SET_ALL_BLACK_TO_FALSE") {
         return {
