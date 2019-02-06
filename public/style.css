@@ -307,7 +307,7 @@ select {
 .categories-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 /*includes category boxes and the subcategory list*/
@@ -315,8 +315,6 @@ select {
     z-index: 99;
     position: relative;
     margin-top: 1em;
-    margin-left: 3em;
-    margin-right: 3em;
     margin-bottom: 0;
     color: white;
     display: flex;
@@ -327,8 +325,8 @@ select {
 /*category boxes themselves*/
 .category {
     z-index: 99;
-    height: 200px;
-    width: 200px;
+    height: 220px;
+    width: 220px;
     position: relative;
     margin: 1em;
     margin-bottom: 0;
@@ -379,7 +377,7 @@ select {
 
 .subcategories-container {
     z-index: 999999;
-    width: 300px;
+    width: 240px;
     color:white;
     border-radius: 10px;
     text-align: center;
@@ -400,7 +398,7 @@ select {
 
 .subcategory, .distance {
     color:white;
-    padding: 0.8em;
+    padding: 0.6em;
     cursor: pointer;
 }
 
@@ -410,10 +408,10 @@ select {
 }
 
 .distance > input {
-    margin-left: 1em;
+    margin-left: 0.4em;
 }
 
-input[type='radio'] { transform: scale(1.5); }
+/* input[type='radio'] { transform: scale(1.5); } */
 
 .subcategory:hover {
     font-weight: 800;
@@ -786,7 +784,7 @@ input[type='radio'] { transform: scale(1.5); }
 }
 
 /*////////POP-UP WHEN YOU SUCCESSFULLY ADD AN ACTIVITY TO YOUR LIST////////*/
-/* .added-activity-container {
+.added-activity-container {
     position: absolute;
     z-index: 9999;
     top: 35%;
@@ -796,7 +794,7 @@ input[type='radio'] { transform: scale(1.5); }
     padding: 2em;
     text-align: center;
     border-radius: 10px;
-} */
+}
 
 .added-activity-container .closingButton {
     width: 0;
