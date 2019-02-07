@@ -47,7 +47,7 @@ class Footer extends React.Component {
                 {/*IF THERE IS ANYTHING IN TH DATABASE FOR THIS USER ALREADY*/}
                 {(this.props.userDidSomeWork || (this.props.userActivities && this.props.userActivities.length != 0)) &&
                     <div className="plan-message"
-                    {/*hiding it when changing pages*/}
+                    //hiding it when changing pages
                         onClick={ () => {
                             this.props.dispatch(hideCategoryResults());
                             this.props.dispatch(showSubCategories(null));

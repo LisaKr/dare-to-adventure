@@ -1,11 +1,11 @@
-/*/////////////////////////////////////////GENERAL LOOK/////////////////////////////////////////////////*/
+/*////////////////////////////////////////////GENERAL LOOK/////////////////////////////////////////////////*/
 html {
     scroll-behavior: smooth;
     overflow: scroll;
 }
 body {
     margin: 0;
-    font-family: "Helvetica Neue";
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 html, body, main, .page, .frontpage-container, .app-wrapper, .setup-container, .working-area-container, .background-container, .plan-container {
@@ -411,45 +411,16 @@ select {
     margin-left: 0.4em;
 }
 
-/* input[type='radio'] { transform: scale(1.5); } */
-
 .subcategory:hover {
     font-weight: 800;
 }
 
-/*///////SUB_CATEGORIES FLEXBOX VERSION//////*/
-
-/* .subcategories-container {
-    z-index: 999;
-    height: 100%;
-    width: 100%;
-    margin-top: 2em;
-}
-
-.subcategories-food, .subcategories-culture, .subcategories-nightlife, .subcategories-nature {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-/* .subcategory {
-    height: 150px;
-    width: 150px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 1.3em;
-} */
 
 .dinner-options-container {
     position: absolute;
     z-index: 999999;
-    top: 60%;
-    left: 100%;
-    /* background: rgba(0,0,0, 0.8); */
+    top: 70%;
+    left: 98%;
     width: 200px;
 }
 
@@ -470,30 +441,6 @@ select {
 .dinner-subcat:hover {
     font-weight: 800;
 }
-
-/* ///DINNER SUBCATEGORY AS FLEXBOX VERSION/////
-
-.dinner-options-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 2em;
-    align-items: center;
-}
-
-
-.dinner-subcat {
-    background: rgba(0,0,0, 0.7);
-    height: 80px;
-    width: 10%;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1.3em;
-} */
 
 /*//////////// WORKING AREA FOOTER//////////*/
 .footer-wa {
@@ -585,7 +532,7 @@ select {
     width: 30%;
     height: 200px;
     position: absolute;
-    z-index: 99999;
+    z-index: 999999999;
     top: -200%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -648,7 +595,6 @@ select {
     font-size: 1.2em;
 }
 
-
 .result {
     margin: 1em 2em;
     cursor: pointer;
@@ -684,8 +630,6 @@ select {
     font-size: 24px;
     z-index: 99999;
 }
-
-
 /*///////////*/
 
 /*//////////////DETAILS OF THE VENUE//////////*/
@@ -739,11 +683,6 @@ select {
     margin: 0 auto;
     border: 2px solid white;
 }
-
-/* .black {
-    color:black;
-} */
-/*//////*/
 
 
 /*////MENU WHERE YOU SELECT TO WHICH DAY YOU'RE ADDING////*/
@@ -841,17 +780,20 @@ select {
     word-spacing: 0.5em;
 }
 
-
 .backButton {
     z-index: 9999;
-    position: relative;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
-    width: 100%;
     text-align: center;
     margin-bottom: 2em;
     padding: 1em;
+}
+
+.plan-buttons-container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: space-around;
 }
 
 break {
@@ -865,7 +807,6 @@ break {
 .day-container {
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
     justify-content: space-around;
     overflow: scroll;
 }
@@ -888,7 +829,6 @@ break {
     cursor: pointer;
 }
 
-
 .user-activities .deleteButton {
     font-size: 0.8em;
     margin-left: 1em;
@@ -897,32 +837,6 @@ break {
 .plan-day {
     font-weight: bold;
 }
-
-
-/* .adding-error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999999999;
-    padding: 3em;
-} */
-
-/* .adding-error .addButton {
-    float: none;
-} */
-
-/* .upper-part {
-    background: #E94F37;
-    padding: 1em;
-    border-radius: 10px 10px 0 0;
-}
-
-.lower-part {
-    background: white;
-    padding: 1em;
-    border-radius: 0 0 10px 10px;
-} */
 
 /*/////////////////TO_DO PART/////////////*/
 

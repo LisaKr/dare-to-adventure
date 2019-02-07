@@ -138,13 +138,12 @@ class Plan extends React.Component {
                                 </div>
                             );
                         })}
-                    {/*to force a line break in the flex flow*/}
-                    <break></break>
-
+                </div>
+                <div className="plan-buttons-container">
                     <Link to="/working-area"> <button className="backButton">Back to main </button></Link>
                     {this.props.groupedActivities &&
-                    <span><button onClick={this.exportToPdf} className="backButton small"> Export your travel plan
-                    </button></span>}
+                <span><button onClick={this.exportToPdf} className="backButton small"> Export your travel plan
+                </button></span>}
                 </div>
             </div>
         );
