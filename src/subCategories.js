@@ -233,7 +233,7 @@ class subCategories extends React.Component {
                                 );
                             }}
                         >
-              Coffee & Cake
+              Coffee
                         </div>
                     </div>
                 )}

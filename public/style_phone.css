@@ -1,0 +1,262 @@
+@media screen and (max-width: 480px) {
+    /*//////////////FRONTPAGE, LOGIN, REGISTRATION //////////////////*/
+    .MyTypist {
+        font-size: 30px;
+    }
+
+    .login-registr {
+        width:60%;
+        margin: 17em auto;
+        font-size: 0.7em;
+    }
+
+
+    .login-container {
+        top: 30%;
+    }
+
+    .slider-button > button{
+        font-size: 20px;
+    }
+
+    /*//////////////SETUP //////////////////*/
+    .setup-sidebar {
+        position: absolute;
+        top: auto;
+        left: auto;
+        bottom: 0;
+        padding: 0.8em;
+        width: 100%;
+        height: 60px;
+    }
+
+    .popular-cities {
+        height: auto;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        width: 70%;
+        height: 50%;
+        padding: 0;
+        padding-top: 1em;
+    }
+
+    .popular-city {
+        padding: 0.4em;
+    }
+
+    .logout-setup {
+        width: 15%;
+        bottom: 10%;
+        right: 8%;
+        padding: 0.5em;
+    }
+
+    .setup-middle {
+        width: 80%;
+    }
+
+    .setup-middle > h1 {
+        font-size: 1.5em;
+    }
+
+
+    /*//////////////WORKING AREA//////////////////*/
+    /*CATEGORIES THEMSELVES*/
+    .category-container {
+        width: 20%;
+    }
+
+    .category {
+        width: 80px;
+        height: 80px;
+        margin: 0;
+    }
+
+    .icon {
+        width: 60px;
+    }
+
+    /*CATEGORIY RESULTS*/
+    .category-results-container {
+        top: 45%;
+        width: 90%;
+        height: 70%;
+    }
+
+    .result {
+        margin: 1em;
+    }
+
+    .result-info {
+        font-size: 0.9em;
+        width:80%;
+    }
+    /*SUBCATEGORIES*/
+    .subcategories-container {
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    .distance > span {
+        display: block;
+    }
+
+    .all-results {
+        height:80%;
+        font-size: 0.9em;
+    }
+
+    .addButton, button {
+        padding: 4px 8px;
+        font-size: 0.9em;
+    }
+
+    .closingButton {
+        left:92%;
+        font-size: 20px;
+    }
+
+    /*VENUE DETAILS*/
+    .venue-details-container {
+    height: 70%;
+    top: 45%;
+    width: 90%;
+    font-size: 0.8em;
+    }
+
+    .venue {
+        margin: 1em;
+    }
+
+    .venue-image {
+        height: 25%;
+        width: 70%;
+    }
+
+    .adding-menu {
+        width: 100%;
+    }
+
+    .added-activity-container {
+        width: 100%;
+    }
+
+    .addingWarningButton {
+        font-size: 0.8em;
+    }
+
+    /*////////////////FOOTER//////////////////////////*/
+    .footer-wa {
+        height: 13%;
+    }
+
+    .footer-wa > h4 {
+        font-size: .67em;
+    }
+
+    .plan-message, .changing-location {
+        margin: 0.5em;
+        padding: 0.5em;
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    .logout-wa {
+        margin: 0.5em;
+        padding: 0.5em;
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    .weather-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 3px solid white;
+        border-radius: 10px;
+        height: 30px;
+    }
+
+    .weather {
+        height: 10px;
+    }
+
+    .weather-temp {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        font-size: 0.8em;
+    }
+
+    .weather-container {
+        margin: 0.5em;
+        vertical-align: middle;
+    }
+
+    .weather > img {
+        visibility: hidden;
+    }
+
+    .weather-pic {
+        visibility:hidden;
+    }
+
+    .weather-city {
+        display: none;
+    }
+
+    .changing-location-popup {
+        width: 80%;
+        height: 200px;
+        top: -350%;
+    }
+
+    .changing-location-popup .addButton {
+        display: block;
+        margin: 0 auto;
+        margin-top: 2em;
+        width: 20%;
+    }
+
+    .changing-location-popup .centered {
+        display: block;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1em;
+        margin-top: -1em;
+    }
+
+    /*//////////////PLAN PAGE//////////////////*/
+    .plan-container > h1 {
+        font-size: 1.5em;
+    }
+
+    .user-activities {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-activities .deleteButton {
+    width: 25%;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .grouped-day {
+    width: 70%;
+    margin-top: 1em;
+    font-size: 0.9em;
+    }
+
+    .plan-buttons-container {
+        justify-content: center;
+    }
+
+    .plan-buttons-container .small{
+        display:none;
+    }
+}

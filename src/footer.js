@@ -52,7 +52,7 @@ class Footer extends React.Component {
                             this.props.dispatch(hideCategoryResults());
                             this.props.dispatch(showSubCategories(null));
                         }}>
-                        <Link to="/plan" className="no-underline"> View your travel plan </Link>
+                        <Link to="/plan" className="no-underline"> TRAVEL PLAN </Link>
                     </div>}
 
                 {/*Change location*/}
@@ -60,7 +60,7 @@ class Footer extends React.Component {
                     onClick={() => {
                         this.showChangingLocation();
                     }}>
-                    Change your address/location
+                    CHANGE ADDRESS
                 </div>
 
                 {/*LOGOUT BUTTON*/}

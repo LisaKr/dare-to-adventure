@@ -11,19 +11,19 @@ class Distance extends React.Component {
 
     render() {
         return(
-            <div className="distance"> Distance: <br/><br/>
+            <div className="distance"> <span>Distance:</span> <br/>
                 <input type="radio" value="< 1 km"
                     onClick={()=> {
                         this.props.dispatch(setDistanceToState("1000"));
-                    }}/>&lt;1 km
+                    }}/><span>&lt;1 km</span>
                 <input type="radio" value="< 5 km"
                     onClick={()=> {
                         this.props.dispatch(setDistanceToState("5000"));
-                    }}/>&lt;5 km
+                    }}/><span>&lt;5 km</span>
                 <input type="radio" value="< 10 km"
                     onClick={()=> {
                         this.props.dispatch(setDistanceToState("10000"));
-                    }}/>&lt;10 km
+                    }}/><span>&lt;10 km</span>
             </div>
         );
     }

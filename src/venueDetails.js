@@ -18,8 +18,6 @@ class VenueDetails extends React.Component {
                             <div key={v.id} className="venue">
                                 <img src={v.imgurl} className="venue-image"/>
                                 <div className="venue-details">{v.name}  || {v.category} || {v.likes}  || {v.rating && <p>Rating: {v.rating}</p>} || <a href={v.url} target="_blank" rel="noopener noreferrer">Website</a></div>
-
-                                <br/>
                                 <span>Price range:</span> <br/> {v.price}
                                 <br/><br/>
                                 <span>Description:</span> <br/> {v.description}

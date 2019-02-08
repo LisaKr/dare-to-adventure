@@ -48,7 +48,7 @@ class CategoryResults extends React.Component {
                                     this.props.dispatch(setActivityInState(r.name, r.location));
                                     this.props.dispatch(showAddingMenu(r.name, r.location));
                                 }}>
-                                 Add to list
+                                 Add
                                 </div>}
 
                                     {/*if the activity is already added*/}

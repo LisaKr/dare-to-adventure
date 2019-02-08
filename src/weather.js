@@ -7,10 +7,6 @@ import { setWeatherBackground } from "./actions.js";
 
 
 class Weather extends React.Component {
-    constructor() {
-        super();
-    }
-
     render() {
 
         return(
@@ -22,8 +18,8 @@ class Weather extends React.Component {
                         this.props.dispatch(setWeatherBackground(w.is_day));
                         return (
                             <div key={w.temperature} className="weather">
-                                {this.props.city} <br/>
-                                {w.temperature}° C
+                                <span className="weather-city">{this.props.city} <br/></span>
+                                <span className="weather-temp">{w.temperature}° C</span>
                                 <br/>
                                 <img src={w.iconurl}/>
                             </div>
