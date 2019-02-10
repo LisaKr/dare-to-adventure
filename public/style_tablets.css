@@ -1,0 +1,148 @@
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    /*//////////////FRONTPAGE, LOGIN, REGISTRATION //////////////////*/
+    .MyTypist {
+        font-size: 70px;
+    }
+
+    .login-registr {
+        width:60%;
+    }
+
+    /*//////////////SETUP //////////////////*/
+    .setup-sidebar {
+        position: absolute;
+        top: auto;
+        left: auto;
+        bottom: 0;
+        padding: 0.8em;
+        width: 100%;
+        height: 60px;
+    }
+
+    .popular-cities {
+        height: auto;
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+        margin: 0;
+        width: 70%;
+        height: 50%;
+        padding: 0;
+        padding-top: 1em;
+    }
+
+    .popular-city {
+        padding: 1em;
+    }
+
+    .logout-setup {
+        width: 15%;
+        bottom: 25%;
+        right: 8%;
+        padding: 0.5em;
+    }
+
+    .setup-middle {
+        margin-top: -5em;
+        width: 80%;
+    }
+    /*//////////////WORKING AREA//////////////////*/
+    /*CATEGORIES THEMSELVES*/
+    .category-container {
+        width: 20%;
+        height: 20%;
+    }
+
+    .category {
+        width: 110px;
+        height: 110px;
+        margin: 0;
+    }
+
+    .icon {
+        width: 100px;
+    }
+
+    .subcategories-container {
+        width: auto;
+    }
+
+    .dinner-options-container {
+        width: 150px;
+    }
+
+    .dinner-subcat {
+        width: 150px;
+    }
+
+    .category-results-container {
+        width: 90%;
+    }
+
+    .result-info {
+        width:70%;
+    }
+
+    .result {
+        margin: 1em;
+    }
+
+    .closingButton {
+        left:94%;
+    }
+
+    .venue-details-container {
+        width: 90%;
+        height: 90%;
+    }
+
+    .venue-image {
+        height: 300px;
+        width: 350px;
+    }
+
+    .plan-message, .changing-location {
+        text-align: center;
+    }
+
+    .changing-location-popup {
+        width: 80%;
+        height: 200px;
+        top: -200%;
+    }
+
+    .changing-location-popup .closingButton {
+        left: 97%;
+    }
+
+    .changing-location-popup > input {
+        width: 50%;
+    }
+
+    .dinner-options-container {
+        width: auto;
+    }
+
+    .added-activity-container {
+        width: 85%;
+    }
+
+    /*//////////////PLAN PAGE//////////////////*/
+    .grouped-day {
+        width: 70%;
+        margin-top: 1em;
+        padding: 1em;
+    }
+
+    .user-activities {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1em;
+    }
+
+    .user-activities .deleteButton {
+        padding: 0.5em;
+    }
+
+}

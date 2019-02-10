@@ -53,6 +53,7 @@
     }
 
     .setup-middle {
+        margin-top: -5em;
         width: 80%;
     }
 
@@ -65,6 +66,7 @@
     /*CATEGORIES THEMSELVES*/
     .category-container {
         width: 20%;
+        height: 20%;
     }
 
     .category {
@@ -90,12 +92,20 @@
 
     .result-info {
         font-size: 0.9em;
-        width:80%;
     }
     /*SUBCATEGORIES*/
     .subcategories-container {
         width: 100%;
         font-size: 0.9em;
+    }
+
+    .dinner-options-container {
+        width: 100px;
+    }
+
+    .dinner-subcat {
+        font-size: 0.9em;
+        width: 100px;
     }
 
     .distance > span {
@@ -107,7 +117,7 @@
         font-size: 0.9em;
     }
 
-    .addButton, button {
+    .addButton, button, .deleteButton {
         padding: 4px 8px;
         font-size: 0.9em;
     }
@@ -139,7 +149,7 @@
     }
 
     .added-activity-container {
-        width: 100%;
+        width: 85%;
     }
 
     .addingWarningButton {

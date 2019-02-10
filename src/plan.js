@@ -115,7 +115,7 @@ class Plan extends React.Component {
                                             return (
                                                 //this div contains a list of activities with this day as key
                                                 <div key={activityObject.activityname} className="user-activities">
-                                                    {activityObject.activityname} || {activityObject.activitylocation} || {activityObject.category}
+                                                    <span className="plan-details"> {activityObject.activityname} || {activityObject.activitylocation} || {activityObject.category} </span>
 
                                                     <div className="deleteButton" onClick={ async () => {
                                                         {/*same logic as in the delete button in categoryResults*/}
