@@ -62,7 +62,7 @@
     .icon {
         width: 100px;
     }
-
+    /*SUBCATEGORIES*/
     .subcategories-container {
         width: auto;
     }
@@ -74,7 +74,7 @@
     .dinner-subcat {
         width: 150px;
     }
-
+    /*CATEGORY RESULTS*/
     .category-results-container {
         width: 90%;
     }
@@ -91,6 +91,14 @@
         left:94%;
     }
 
+    .dinner-options-container {
+        width: auto;
+    }
+
+    .added-activity-container {
+        width: 85%;
+    }
+    /*VENUE DETAILS*/
     .venue-details-container {
         width: 90%;
         height: 90%;
@@ -100,7 +108,7 @@
         height: 300px;
         width: 350px;
     }
-
+    /*FOOTER*/
     .plan-message, .changing-location {
         text-align: center;
     }
@@ -118,15 +126,6 @@
     .changing-location-popup > input {
         width: 50%;
     }
-
-    .dinner-options-container {
-        width: auto;
-    }
-
-    .added-activity-container {
-        width: 85%;
-    }
-
     /*//////////////PLAN PAGE//////////////////*/
     .grouped-day {
         width: 70%;
@@ -144,5 +143,4 @@
     .user-activities .deleteButton {
         padding: 0.5em;
     }
-
 }
