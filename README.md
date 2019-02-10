@@ -73,9 +73,7 @@ If an existing user logs in their working area will be loaded (including city, a
 Future Features
 --------
 ####Immediated fixes:
-- Make modal close by clicking outside of it
-- Fix all outstanding design bugs
-- Make it responsive 📱 
+- Add a "loading"-wheel after starting an API request
 - clean the code up a bit
 
 ####Later nice-to-haves:
