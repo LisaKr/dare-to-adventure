@@ -603,10 +603,15 @@ select {
 }
 
 .result-info {
+    height: 1.5em;
     cursor: pointer;
     margin: 0.5em;
     display: inline-block;
     width:80%;
+}
+
+.result-info:hover {
+    font-weight: 500;
 }
 
 .addButton, .deleteButton {
