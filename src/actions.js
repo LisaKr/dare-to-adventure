@@ -159,20 +159,37 @@ export async function setCoordinatesAndPutOptionsIntoDB(location, city, numOfDay
             lat = undefined;
             lng = undefined;
             address = undefined;
-        //otherwise take the response and continue using provided address/location
+        //otherwise take the response and FIRST COMPARE whether it is close enough to the coordinates of the
+        //provided city (to prevent users adding addresses from somewhere completely different)
+        //if yes, then just not put it in the database
+        //if its ok, then continue using provided address/location
         } else {
-            lat = coord.data.lat;
-            lng = coord.data.lng;
-            address = location;
+            const cityCoord = await axios.get("/coord/" + city);
+            if ((Math.abs(cityCoord.data.lng - coord.data.lng) >= 0.2) || (Math.abs(cityCoord.data.lat - coord.data.lat) >= 0.2)) {
+                console.log("entered the loop when there is big difference", coord.data, cityCoord.data);
+                lat = undefined;
+                lng = undefined;
+                address = undefined;
+            } else {
+                lat = coord.data.lat;
+                lng = coord.data.lng;
+                address = location;
+            }
         }
 
         //then inserting all the options into db
         await axios.post("/insert-options/" + city + "/" + numOfDays + "/" + lat +"/" + lng + "/" + address);
 
+        let coordinates = {};
+        coordinates.lat = lat;
+        coordinates.lng = lng;
+
+        console.log("final coordinates to put into state", coordinates);
+
         //here we put both things into state at once
         return {
             type: "SET_COORDINATES_AND_ADDRESS",
-            coord: coord.data,
+            coord: coordinates,
             address: address
         };
 
@@ -463,7 +480,7 @@ export async function addVenue(city, activityName, activityLocation, category, d
             category="Hiking";
         }
 
-        console.log("action adding options", city, activityName, activityLocation, category, day);
+        // console.log("action adding options", city, activityName, activityLocation, category, day);
 
         //to prevent slashes in addresses in names so that it is not read as a part of the path
         activityName = activityName.replace(/\//g, " ");

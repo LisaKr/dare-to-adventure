@@ -127,6 +127,16 @@ class subCategories extends React.Component {
             distance = "15000";
         }
 
+        // function isEmpty(obj) {
+        //     for(var key in obj) {
+        //         if(obj.hasOwnProperty(key))
+        //             console.log("coord is not empty");
+        //         return false;
+        //     }
+        //     console.log("coord is empty");
+        //     return true;
+        // }
+
         return (
             <div className="subcategories-container">
                 {this.props.subCategoryToShow == "FOOD" && (
@@ -135,9 +145,7 @@ class subCategories extends React.Component {
                             this.node = node;
                         }}
                     >
-                        {this.props.coord &&
-              this.props.coord.lat != "null" &&
-              this.props.coord.lat != "undefined" && <Distance />}
+                        {(Object.keys(this.props.coord).length != 0 && this.props.coord.lat != "undefined" && this.props.coord.lat != undefined) && <Distance />}
                         {/*on click on subcategory we say that not everything should be black now,
                         put selected category in state, hide dinner and putting options in state to use in an axios
                         request in the more button in another component.
@@ -376,9 +384,7 @@ class subCategories extends React.Component {
                     <div ref={node => {
                         this.node = node;
                     }}>
-                        {this.props.coord &&
-              this.props.coord.lat != "null" &&
-              this.props.coord.lat != "undefined" && <Distance />}
+                        {(Object.keys(this.props.coord).length != 0 && this.props.coord.lat != "undefined" && this.props.coord.lat != undefined) && <Distance />}
                         <div
                             className={this.getClass("museum")}
                             onClick={() => {
@@ -510,9 +516,7 @@ class subCategories extends React.Component {
                     <div ref={node => {
                         this.node = node;
                     }}>
-                        {this.props.coord &&
-              this.props.coord.lat != "null" &&
-              this.props.coord.lat != "undefined" && <Distance />}
+                        {(Object.keys(this.props.coord).length != 0 && this.props.coord.lat != "undefined" && this.props.coord.lat != undefined) && <Distance />}
                         <div
                             className={this.getClass("beach")}
                             onClick={() => {
@@ -619,9 +623,7 @@ class subCategories extends React.Component {
                     <div ref={node => {
                         this.node = node;
                     }}>
-                        {this.props.coord &&
-              this.props.coord.lat != "null" &&
-              this.props.coord.lat != "undefined" && <Distance />}
+                        {(Object.keys(this.props.coord).length != 0 && this.props.coord.lat != "undefined" && this.props.coord.lat != undefined) && <Distance />}
                         <div
                             className={this.getClass("pub")}
                             onClick={() => {
