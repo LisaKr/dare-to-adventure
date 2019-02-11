@@ -343,7 +343,7 @@ app.get('*', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.listen(8080, () => ca.rainbow("Big brother is listening!"));
+app.listen(process.env.PORT || 8080, () => ca.rainbow("Big brother is listening!"));
 
 
 ////////////////CUSTOM MIDDLEWARE TO FASCILITATE SYNTAX/////////////
