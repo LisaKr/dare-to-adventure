@@ -1,6 +1,13 @@
 const https = require("https");
-const secrets = require("./secrets.json");
 const { promisify } = require("util");
+let secrets;
+
+
+if (process.env.NODE_ENV=="production") {
+    secrets = {id: process.env.ID, secret: process.env.SECRET, pexels_api: process.env.PEXELS_API, apixu_weather_key: process.env.APIXU_WEATHER_KEY, geo_key: process.env.GEO_KEY};
+} else {
+    secrets = require("./secrets.json");
+}
 
 
 /////////////////////////////////GET CITY BACKGROUND FROM PEXELS///////////////////////////////////////////////
