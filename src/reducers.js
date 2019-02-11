@@ -182,7 +182,8 @@ export default function(state = {}, action) {
             ...state,
             categoryResults: action.categoryResults,
             showMenu: action.showMenu,
-            allBlack: action.allBlack
+            allBlack: action.allBlack,
+            category: action.category
         };
     }
 

@@ -22,6 +22,7 @@ import {
     deleteOptionsFromTable
 } from "./actions.js";
 
+import Loader from "./loader";
 
 class Plan extends React.Component {
 
@@ -93,6 +94,7 @@ class Plan extends React.Component {
     render() {
         return(
             <div className="plan-container" id="capture">
+                {!this.props.backgroundUrl && <Loader/>}
                 <img src={this.props.backgroundUrl} className="background"/>
 
                 <h1> your trip to {this.props.city}</h1>

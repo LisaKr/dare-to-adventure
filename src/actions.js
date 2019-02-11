@@ -282,7 +282,8 @@ export async function hideCategoryResults(){
         type: "HIDE_CATEGORY_RESULTS",
         categoryResults: null,
         showMenu: false,
-        allBlack: true
+        allBlack: true,
+        category: null
     };
 }
 

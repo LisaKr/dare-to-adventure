@@ -22,6 +22,7 @@ import {
 
 
 import Categories from "./categories";
+import Loader from "./loader";
 import CategoryResults from "./categoryResults";
 import VenueDetails from "./venueDetails";
 import AddedActivity from "./addedActivity";
@@ -96,6 +97,8 @@ class WorkingArea extends React.Component {
             <div className="working-area-container">
                 <img src={this.props.backgroundUrl} className="background"/>
 
+
+
                 {this.props.showAddingWarningButton &&
                 <div className="addingWarningButton">
                 Your iternary is full! You can add 5 activities per day. Consider deleting something from your plan if you want to add something else.
@@ -103,6 +106,9 @@ class WorkingArea extends React.Component {
 
                 {/*DISPLAYING FOUR CATEGORIES TO CHOOSE FROM*/}
                 <Categories/>
+
+                {/*LOADING WHEEL SHOWN WHEN CATEGORY RESULTS ARE LOADING OR WHEN BACKGORUND IMAGE IS NOT YET LOADED*/}
+                {((this.props.category && !this.props.categoryResults) || (!this.props.backgroundUrl)) && <Loader/>}
 
                 {/*WHEN THE RESULTS HAVE COME BACK FROM THE API I AM DISPLAYING THEM*/}
                 {this.props.categoryResults && <CategoryResults/>}

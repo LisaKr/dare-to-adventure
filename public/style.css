@@ -313,6 +313,7 @@ select {
 
 /*includes category boxes and the subcategory list*/
 .category-container {
+    height: 20%;
     z-index: 99;
     position: relative;
     margin-top: 1em;
