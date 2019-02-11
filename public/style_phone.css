@@ -247,6 +247,7 @@
     .user-activities {
         display: flex;
         flex-direction: column;
+        margin: 0.2em;
     }
 
     .user-activities .deleteButton {
@@ -254,12 +255,21 @@
     margin-top: 1em;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     }
 
     .grouped-day {
     width: 70%;
     margin-top: 1em;
+    margin: 0.5em;
     font-size: 0.9em;
+    }
+
+    .plan-details {
+        width: 100%;
+        padding: 0.2em;
     }
 
     .plan-buttons-container {
