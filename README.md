@@ -3,7 +3,9 @@
 
 Website
 --------
-Coming soon.
+[https://dare-to-adventure.herokuapp.com](https://dare-to-adventure.herokuapp.com
+)
+
 
 Tech stack
 -------- 
@@ -73,7 +75,6 @@ If an existing user logs in their working area will be loaded (including city, a
 Future Features
 --------
 ####Immediated fixes:
-- Add a "loading"-wheel after starting an API request
 - clean the code up a bit
 
 ####Later nice-to-haves:
