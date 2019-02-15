@@ -74,10 +74,10 @@ If an existing user logs in their working area will be loaded (including city, a
 
 Future Features
 --------
-####Immediated fixes:
+#### Immediate fixes:
 - clean the code up a bit
 
-####Later nice-to-haves:
+#### Later nice-to-haves:
 - Add caroussel view when viewing details of a venue (next/prev)
 - Add PDF export 📖
 - Add event integration from eventbrite API (find events for that city for specific dates) 📅
